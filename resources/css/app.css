@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md font-medium transition px-4 py-2 leading-tight;
+  }
+  
+  .btn-primary {
+    @apply bg-indigo-600 text-white hover:bg-indigo-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+  }
+  
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+
+  .card {
+    @apply bg-white border border-slate-300 rounded-xl p-6 shadow-md relative overflow-hidden;
+  }
+  
+  .card-title {
+    @apply text-lg font-semibold text-gray-900 mb-2;
+  }
+  
+  .card-muted {
+    @apply text-sm text-slate-700;
+  }
+
+  .stat-grid {
+    @apply grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-4;
+  }
+  
+  .stat-card {
+    @apply bg-white border border-slate-300 rounded-xl px-5 py-4 flex flex-col gap-1 shadow-md;
+  }
+  
+  .stat-value {
+    @apply text-3xl font-bold text-indigo-600;
+  }
+  
+  .stat-label {
+    @apply text-xs uppercase tracking-wide text-slate-700 font-semibold;
+  }
+
+  .alert {
+    @apply rounded-lg px-4 py-3 text-sm font-medium flex gap-3 items-start mb-4 border;
+  }
+  
+  .alert-success {
+    @apply bg-emerald-50 text-emerald-700 border-emerald-200;
+  }
+  
+  .alert-error {
+    @apply bg-red-50 text-red-700 border-red-200;
+  }
+
+  .alert-danger {
+    @apply bg-red-50 text-red-700 border-red-200;
+  }
+  
+  .alert-info {
+    @apply bg-blue-50 text-blue-700 border-blue-200;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-slate-700 mb-1;
+  }
+
+  .form-input {
+    @apply w-full px-3 py-2 border border-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white;
+  }
+
+  .bg-gradient-purple {
+    @apply bg-gradient-to-br from-purple-600 to-indigo-600;
+  }
+
+  .login-gradient {
+    @apply absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500;
+  }
+  
+  .login-overlay {
+    @apply absolute inset-0 bg-black/40;
+  }
+
+  .fade-in {
+    animation: fade-in 0.4s ease both;
+  }
+
+  /* Avatar fixed sizes */
+  .avatar-sm {
+    @apply w-8 h-8 rounded-full object-cover flex-shrink-0;
+  }
+
+  .avatar-md {
+    @apply w-10 h-10 rounded-full object-cover flex-shrink-0;
+  }
+
+  .avatar-lg {
+    @apply w-16 h-16 rounded-full object-cover flex-shrink-0;
+  }
+
+  .avatar-xl {
+    @apply w-20 h-20 rounded-full object-cover flex-shrink-0;
+  }
+
+  .avatar-2xl {
+    @apply w-24 h-24 rounded-full object-cover flex-shrink-0;
+  }
+}
+
+/* Mejoras específicas para modo claro */
+@layer components {
+  /* Contenedores principales con mejor definición */
+  .main-container {
+    @apply bg-slate-50 min-h-screen;
+  }
+  
+  .content-wrapper {
+    @apply bg-white border border-gray-300 shadow-lg rounded-xl;
+  }
+  
+  /* Separadores más visibles */
+  .border-light {
+    @apply border-slate-300;
+  }
+  
+  .border-separator {
+    @apply border-slate-400;
+  }
+  
+  /* Fondos con mejor contraste */
+  .bg-light-surface {
+    @apply bg-slate-50 border border-slate-300;
+  }
+  
+  .bg-light-elevated {
+    @apply bg-white border border-slate-300 shadow-md;
+  }
+  
+  /* Textos con mejor contraste */
+  .text-light-primary {
+    @apply text-slate-900;
+  }
+  
+  .text-light-secondary {
+    @apply text-slate-700;
+  }
+  
+  .text-light-muted {
+    @apply text-slate-600;
+  }
+  
+  /* Botones con mejores bordes */
+  .btn-outline {
+    @apply border-2 border-slate-400 text-slate-800 hover:bg-slate-100 hover:border-slate-500;
+  }
+  
+  /* Navegación con mejor separación */
+  .nav-item {
+    @apply border border-transparent hover:border-slate-300 hover:bg-slate-100;
+  }
+  
+  .nav-item-active {
+    @apply border border-indigo-300 bg-indigo-50;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
