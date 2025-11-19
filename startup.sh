@@ -22,6 +22,14 @@ for i in {1..5}; do
     fi
 done
 
+# Poblar base de datos si está vacía
+echo "🌱 Poblando base de datos..."
+if php artisan db:seed --force; then
+    echo "✅ Datos de prueba creados exitosamente"
+else
+    echo "⚠️ Los datos ya existen o falló el seeding (normal en redeploys)"
+fi
+
 # Limpiar y cachear configuración
 echo "💾 Cacheando configuración..."
 php artisan config:cache
