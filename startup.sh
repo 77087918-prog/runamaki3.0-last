@@ -7,6 +7,12 @@ echo "🚀 Iniciando Runa Maki..."
 echo "⏳ Esperando MySQL... (30s)"
 sleep 30
 
+# Limpiar cualquier cache problemático
+echo "🧹 Limpiando cache..."
+php artisan config:clear || true
+php artisan cache:clear || true
+php artisan view:clear || true
+
 # Configurar aplicación con variables reales
 echo "🔧 Configurando aplicación..."
 
@@ -30,7 +36,7 @@ else
     echo "⚠️ Los datos ya existen o falló el seeding (normal en redeploys)"
 fi
 
-# Limpiar y cachear configuración
+# Cachear configuración después de todo
 echo "💾 Cacheando configuración..."
 php artisan config:cache
 
