@@ -5,6 +5,12 @@ echo "Iniciando aplicación Runa Maki..."
 # Esperar un poco para MySQL
 sleep 10
 
+# Limpiar cache antes de las migraciones
+echo "Limpiando cache..."
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+
 # Ejecutar migraciones con reintentos
 for i in {1..5}; do
     echo "Intento $i: Ejecutando migraciones..."
@@ -16,6 +22,9 @@ for i in {1..5}; do
         sleep 5
     fi
 done
+
+# Re-descubrir paquetes para producción
+php artisan package:discover --ansi
 
 # Cachear configuración
 php artisan config:cache
