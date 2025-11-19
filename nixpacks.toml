@@ -11,9 +11,8 @@ cmds = [
   'npm ci --production=false',
   'npm run build',
   'php artisan package:discover --ansi',
-  'rm .env',
-  'chmod +x startup.sh'
+  'rm .env'
 ]
 
 [phases.start]
-cmd = './startup.sh'
+cmd = 'bash startup.sh'
