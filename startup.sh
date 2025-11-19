@@ -3,26 +3,32 @@ set -e
 
 echo "🚀 Iniciando Runa Maki..."
 
-# Esperar MySQL
-echo "⏳ Esperando MySQL..."
-sleep 15
+# Esperar MySQL (más tiempo)
+echo "⏳ Esperando MySQL... (30s)"
+sleep 30
 
-# Limpiar configuraciones
-echo "🧹 Limpiando configuraciones..."
-php artisan config:clear || true
-php artisan cache:clear || true
+# Configurar aplicación con variables reales
+echo "🔧 Configurando aplicación..."
 
-# Ejecutar migraciones
+# Ejecutar migraciones con reintentos
 echo "🗄️ Ejecutando migraciones..."
-php artisan migrate --force
+for i in {1..5}; do
+    if php artisan migrate --force; then
+        echo "✅ Migraciones exitosas"
+        break
+    else
+        echo "❌ Intento $i fallido, reintentando en 10s..."
+        sleep 10
+    fi
+done
 
-# Cachear configuración
+# Limpiar y cachear configuración
 echo "💾 Cacheando configuración..."
 php artisan config:cache
 
 # Storage link
 echo "🔗 Creando storage link..."
-php artisan storage:link || true
+php artisan storage:link || echo "⚠️ Storage link ya existe o falló"
 
 # Iniciar servidor
 echo "🌐 Iniciando servidor en puerto $PORT..."
