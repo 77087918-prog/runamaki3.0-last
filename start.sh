@@ -1,15 +1,28 @@
 #!/bin/bash
 
-# Ejecutar migraciones
-php artisan migrate --force
+echo "Iniciando aplicación Runa Maki..."
 
-# Limpiar y cachear configuraciones
+# Esperar un poco para MySQL
+sleep 10
+
+# Ejecutar migraciones con reintentos
+for i in {1..5}; do
+    echo "Intento $i: Ejecutando migraciones..."
+    if php artisan migrate --force; then
+        echo "Migraciones ejecutadas exitosamente!"
+        break
+    else
+        echo "Fallo en migraciones, reintentando en 5 segundos..."
+        sleep 5
+    fi
+done
+
+# Cachear configuración
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
 
-# Crear enlace simbólico para storage si no existe
+# Crear enlace de storage
 php artisan storage:link
 
-# Iniciar el servidor
+# Iniciar servidor
+echo "Iniciando servidor en puerto $PORT..."
 php artisan serve --host=0.0.0.0 --port=$PORT
