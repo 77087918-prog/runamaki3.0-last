@@ -66,6 +66,10 @@ else
     echo "⚠️ Los datos ya existen o falló el seeding (normal en redeploys)"
 fi
 
+# Agregar habilidades adicionales
+echo "📚 Agregando habilidades adicionales..."
+php artisan db:seed --class=NuevasHabilidadesSeeder --force || echo "⚠️ Las habilidades adicionales ya existen"
+
 # Cachear configuración después de todo
 echo "💾 Cacheando configuración..."
 php artisan config:cache
