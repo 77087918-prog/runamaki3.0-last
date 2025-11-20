@@ -11,7 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Middleware para desarrollo seguro
+        $middleware->web(append: [
+            \App\Http\Middleware\SecureHeaders::class,
+        ]);
+        
+        // Alias de middleware
+        $middleware->alias([
+            'force.https' => \App\Http\Middleware\ForceHttpsRedirect::class,
+            'secure.headers' => \App\Http\Middleware\SecureHeaders::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -3,6 +3,13 @@ set -e
 
 echo "🚀 Iniciando Runa Maki..."
 
+# Configurar variables de entorno para Railway HTTPS
+echo "🔧 Configurando HTTPS para Railway..."
+export APP_ENV=production
+export APP_DEBUG=false
+export SESSION_SECURE_COOKIE=true
+export SESSION_SAME_SITE=strict
+
 # Esperar MySQL (más tiempo)
 echo "⏳ Esperando MySQL... (30s)"
 sleep 30
