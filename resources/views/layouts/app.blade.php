@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('images/runa-maki-logo.svg') }}" type="image/svg+xml">
     
     <!-- Security headers para development -->
     @if(app()->environment('local'))
@@ -50,8 +51,11 @@
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-slate-300 dark:border-gray-700 transform -translate-x-full lg:translate-x-0 transition-all duration-300 shadow-lg lg:shadow-xl">
             <!-- Logo & Brand -->
             <div class="h-16 flex items-center px-6 border-b border-slate-300 dark:border-gray-700">
-                <a href="{{ route('dashboard') }}" class="text-lg font-semibold tracking-tight text-gray-800 dark:text-white">
-                    <span class="text-indigo-600 dark:text-indigo-400">Runa</span> <span class="text-gray-600 dark:text-gray-300">Maki</span>
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
+                    <img src="{{ asset('images/runa-maki-logo.svg') }}" alt="Runa Maki Logo" class="w-8 h-8 object-contain">
+                    <div class="text-lg font-semibold tracking-tight">
+                        <span class="text-indigo-600 dark:text-indigo-400">Runa</span> <span class="text-gray-800 dark:text-gray-300">Maki</span>
+                    </div>
                 </a>
             </div>
 

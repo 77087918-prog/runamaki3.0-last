@@ -20,17 +20,16 @@ class SetLocale
         // Idiomas soportados
         $supportedLocales = ['es', 'qu'];
         
-        // Obtener idioma de la sesión, URL o fallback
-        $locale = $request->segment(1);
+        // Obtener idioma de la sesión o fallback
+        $locale = Session::get('locale', 'es');
         
+        // Verificar que el idioma sea válido
         if (in_array($locale, $supportedLocales)) {
-            // Si está en la URL, usarlo y guardarlo en sesión
-            Session::put('locale', $locale);
             App::setLocale($locale);
         } else {
-            // Si no está en URL, usar el de sesión o español por defecto
-            $sessionLocale = Session::get('locale', 'es');
-            App::setLocale($sessionLocale);
+            // Fallback a español si el idioma no es válido
+            App::setLocale('es');
+            Session::put('locale', 'es');
         }
 
         return $next($request);
