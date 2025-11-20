@@ -39,8 +39,10 @@ class PerfilController extends Controller
     {
         $usuario = $user;// Se usa otra variable por claridad
         $usuario->load(['habilidades.categoria', 'logros']); // Carga relaciones relacionadas
- // Solo muestra las habilidades aprobadas de ese usuario
-        $habilidades = $usuario->habilidades()->where('estado', 'aprobada')->get();
+        
+        // CORRECCIÓN: Cambiar de 'aprobada' a 'aprobado' (estado correcto en BD)
+        $habilidades = $usuario->habilidades()->where('estado', 'aprobado')->with('categoria')->get();
+        
         // Cuenta la cantidad de trueques completados del usuario
         $truequesCompletados = $usuario->truequesOfrecidos()->where('estado', 'completado')->count() 
             + $usuario->truequesRecibidos()->where('estado', 'completado')->count();
@@ -51,10 +53,17 @@ class PerfilController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
+            
         // Cuenta cuántas valoraciones totales tiene
-
         $totalValoraciones = $usuario->valoracionesRecibidas()->count();
-  // Devuelve la vista con todos los datos del perfil del usuario
+        
+        // CORRECCIÓN: Recalcular reputación en tiempo real para mostrar valor actual
+        $reputacionActual = $usuario->valoracionesRecibidas()->avg('puntuacion');
+        if ($reputacionActual) {
+            $usuario->reputacion = round($reputacionActual, 2);
+        }
+        
+        // Devuelve la vista con todos los datos del perfil del usuario
         return view('perfil.show', compact(
             'usuario',
             'habilidades',

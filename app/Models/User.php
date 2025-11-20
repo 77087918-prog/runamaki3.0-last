@@ -221,6 +221,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Actualizar reputación basada en valoraciones recibidas
+     */
+    public function actualizarReputacion()
+    {
+        $promedio = $this->valoracionesRecibidas()->avg('puntuacion');
+        $nuevaReputacion = $promedio ? round($promedio, 2) : 0;
+        
+        $this->update(['reputacion' => $nuevaReputacion]);
+        
+        return $nuevaReputacion;
+    }
+    
+    /**
+     * Obtener reputación actualizada en tiempo real
+     */
+    public function getReputacionActualAttribute(): float
+    {
+        $promedio = $this->valoracionesRecibidas()->avg('puntuacion');
+        return $promedio ? round($promedio, 2) : 0;
+    }
+
+    /**
      * Obtener URL del avatar con fallback a DiceBear
      */
     public function getAvatarUrlAttribute(): string

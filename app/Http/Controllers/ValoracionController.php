@@ -52,10 +52,20 @@ class ValoracionController extends Controller
                 'comentario' => $validated['comentario'] ?? null
             ]);
 
-            // Actualizar reputación del usuario evaluado
+            // MEJORA: Actualizar reputación del usuario evaluado con más precisión
             $usuario = User::find($evaluado_id);
             $promedioReputacion = $usuario->valoracionesRecibidas()->avg('puntuacion');
-            $usuario->update(['reputacion' => round($promedioReputacion, 2)]);
+            
+            // Aplicar redondeo preciso y actualizar
+            $nuevaReputacion = $promedioReputacion ? round($promedioReputacion, 2) : 0;
+            $usuario->update(['reputacion' => $nuevaReputacion]);
+            
+            // Log para debug (opcional)
+            \Log::info('Reputación actualizada', [
+                'usuario_id' => $evaluado_id,
+                'nueva_reputacion' => $nuevaReputacion,
+                'total_valoraciones' => $usuario->valoracionesRecibidas()->count()
+            ]);
         });
 
         return back()->with('success', '¡Gracias por tu valoración!');

@@ -132,7 +132,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Apoyo en álgebra, geometría y trigonometría. Método simple y efectivo.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -141,7 +141,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Preparación para exámenes universitarios y refuerzo escolar.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $ana->id,
@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Técnicas para mejorar la lectura y comprensión en niños de 6-12 años.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 30,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Tecnología
@@ -161,7 +161,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Diagnóstico y solución de problemas de hardware y software.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 50,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -170,7 +170,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'HTML, CSS y JavaScript para principiantes. Crea tu primera web.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 60,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $absalon->id,
@@ -179,7 +179,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Instalación y optimización de redes inalámbricas en casa.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $carlos->id,
@@ -188,7 +188,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Servicios de recuperación de archivos de discos duros y memorias.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 70,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Manualidades
@@ -199,7 +199,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Enseñanza de técnicas ancestrales de tejido cusqueño.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $ana->id,
@@ -208,7 +208,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Arte japonés del doblado de papel. Desde básico hasta avanzado.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 25,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $maria->id,
@@ -217,7 +217,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Diseño y elaboración de collares, pulseras y aretes únicos.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $ana->id,
@@ -226,7 +226,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Crea hermosos arreglos y terrarios con plantas resistentes.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 20,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Idiomas
@@ -237,7 +237,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Aprende el idioma ancestral de los Andes. Clases didácticas y culturales.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 30,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $carlos->id,
@@ -246,7 +246,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Práctica de inglés para turismo y trabajo. Enfoque en conversación.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -255,7 +255,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Frases y expresiones útiles para viajar a países francófonos.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Cocina
@@ -266,7 +266,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Aprende a preparar ceviche, lomo saltado y otros platos típicos.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 50,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $maria->id,
@@ -275,7 +275,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Técnicas básicas para hornear pasteles, galletas y postres.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $absalon->id,
@@ -284,7 +284,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Recetas saludables y nutritivas sin carne. Incluye proteínas vegetales.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $carlos->id,
@@ -293,7 +293,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Elaboración de panes caseros, masa madre y técnicas de fermentación.',
                 'horas_ofrecidas' => 4,
                 'puntos_sugeridos' => 55,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Reparaciones
@@ -304,7 +304,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Reparación de grifos, desatoros y instalaciones menores.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 60,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $absalon->id,
@@ -313,7 +313,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Instalación de enchufes, interruptores y reparaciones eléctricas menores.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 65,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $carlos->id,
@@ -322,7 +322,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Diagnóstico y arreglo de lavadoras, refrigeradoras y hornos microondas.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 70,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Arte
@@ -333,7 +333,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Técnicas básicas de pintura, mezcla de colores y composición.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $maria->id,
@@ -342,7 +342,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Desarrollo de habilidades de dibujo realista y técnicas de sombreado.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -351,7 +351,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Fundamentos de fotografía, uso de cámara y edición básica.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 50,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Música
@@ -362,7 +362,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Aprende a tocar guitarra desde cero con métodos prácticos.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $maria->id,
@@ -371,7 +371,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Desarrollo de la voz, respiración y técnicas de canto popular.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $carlos->id,
@@ -380,7 +380,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Fundamentos del piano, lectura musical y primeras melodías.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $ana->id,
@@ -389,7 +389,7 @@ class DatabaseSeeder extends Seeder
                 'descripcion' => 'Aprende a tocar el charango y ritmos tradicionales de los Andes.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
         ];
 

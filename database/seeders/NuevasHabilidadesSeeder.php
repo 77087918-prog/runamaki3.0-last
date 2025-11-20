@@ -39,7 +39,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Apoyo en álgebra, geometría y trigonometría. Método simple y efectivo.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -48,7 +48,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Preparación para exámenes universitarios y refuerzo escolar.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Tecnología adicionales
@@ -59,7 +59,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'HTML, CSS y JavaScript para principiantes. Crea tu primera web.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 60,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $absalon->id,
@@ -68,7 +68,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Instalación y optimización de redes inalámbricas en casa.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Manualidades adicionales
@@ -79,7 +79,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Arte japonés del doblado de papel. Desde básico hasta avanzado.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 25,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $maria->id,
@@ -88,7 +88,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Diseño y elaboración de collares, pulseras y aretes únicos.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Idiomas adicionales
@@ -99,7 +99,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Práctica de inglés para turismo y trabajo. Enfoque en conversación.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -108,7 +108,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Frases y expresiones útiles para viajar a países francófonos.',
                 'horas_ofrecidas' => 1,
                 'puntos_sugeridos' => 35,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Cocina
@@ -119,7 +119,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Aprende a preparar ceviche, lomo saltado y otros platos típicos.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 50,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $maria->id,
@@ -128,7 +128,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Técnicas básicas para hornear pasteles, galletas y postres.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Reparaciones
@@ -139,7 +139,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Reparación de grifos, desatoros y instalaciones menores.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 60,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $absalon->id,
@@ -148,7 +148,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Instalación de enchufes, interruptores y reparaciones eléctricas menores.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 65,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Arte
@@ -159,7 +159,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Técnicas básicas de pintura, mezcla de colores y composición.',
                 'horas_ofrecidas' => 3,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $admin->id,
@@ -168,7 +168,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Fundamentos de fotografía, uso de cámara y edición básica.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 50,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
 
             // Música adicionales
@@ -179,7 +179,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Desarrollo de la voz, respiración y técnicas de canto popular.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 40,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
             [
                 'usuario_id' => $carlos->id,
@@ -188,7 +188,7 @@ class NuevasHabilidadesSeeder extends Seeder
                 'descripcion' => 'Fundamentos del piano, lectura musical y primeras melodías.',
                 'horas_ofrecidas' => 2,
                 'puntos_sugeridos' => 45,
-                'estado' => 'aprobada',
+                'estado' => 'aprobado',
             ],
         ];
 
