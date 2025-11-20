@@ -46,68 +46,136 @@
         <!-- Lista de Habilidades -->
         <div class="space-y-4">
             @forelse($habilidades as $habilidad)
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <h3 class="text-xl font-bold text-gray-800">{{ $habilidad->titulo }}</h3>
-                                <span class="px-3 py-1 rounded-full text-sm font-medium
-                                    @if($habilidad->estado === 'pendiente') bg-orange-100 text-orange-800
-                                    @elseif($habilidad->estado === 'aprobado') bg-green-100 text-green-800
-                                    @elseif($habilidad->estado === 'rechazado') bg-red-100 text-red-800
-                                    @endif">
-                                    {{ ucfirst($habilidad->estado) }}
-                                </span>
-                            </div>
-                            
-                            <p class="text-gray-600 mb-4">{{ $habilidad->descripcion }}</p>
-                            
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                                <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                    <div class="text-lg font-bold text-gray-800">{{ $habilidad->usuario->name }}</div>
-                                    <div class="text-sm text-gray-500">Usuario</div>
-                                </div>
-                                <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                    <div class="text-lg font-bold text-indigo-600">{{ $habilidad->categoria->nombre }}</div>
-                                    <div class="text-sm text-gray-500">Categoría</div>
-                                </div>
-                                <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                    <div class="text-lg font-bold text-green-600">{{ $habilidad->puntos_sugeridos }} 🪙</div>
-                                    <div class="text-sm text-gray-500">Puntos</div>
-                                </div>
-                                <div class="text-center p-3 bg-gray-50 rounded-lg">
-                                    <div class="text-lg font-bold text-blue-600">{{ $habilidad->horas_ofrecidas }}h</div>
-                                    <div class="text-sm text-gray-500">Horas</div>
-                                </div>
-                            </div>
-                            
-                            <div class="text-sm text-gray-500">
-                                Enviado {{ $habilidad->created_at->diffForHumans() }}
-                            </div>
-                            
-                            @if($habilidad->motivo_rechazo)
-                                <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                                    <p class="text-sm text-red-800"><strong>Motivo de rechazo:</strong> {{ $habilidad->motivo_rechazo }}</p>
-                                </div>
-                            @endif
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                    <!-- Vista Mobile -->
+                    <div class="block lg:hidden">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-bold text-gray-800 truncate pr-2">{{ $habilidad->titulo }}</h3>
+                            <span class="px-2 py-1 rounded-full text-xs font-medium shrink-0
+                                @if($habilidad->estado === 'pendiente') bg-orange-100 text-orange-800
+                                @elseif($habilidad->estado === 'aprobado') bg-green-100 text-green-800
+                                @elseif($habilidad->estado === 'rechazado') bg-red-100 text-red-800
+                                @endif">
+                                {{ ucfirst($habilidad->estado) }}
+                            </span>
                         </div>
                         
+                        <!-- Descripción -->
+                        <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ $habilidad->descripcion }}</p>
+                        
+                        <!-- Información en Grid -->
+                        <div class="grid grid-cols-2 gap-2 mb-3">
+                            <div class="bg-gray-50 p-2 rounded text-center">
+                                <div class="text-sm font-bold text-gray-800">{{ $habilidad->usuario->name }}</div>
+                                <div class="text-xs text-gray-500">Usuario</div>
+                            </div>
+                            <div class="bg-gray-50 p-2 rounded text-center">
+                                <div class="text-sm font-bold text-indigo-600">{{ $habilidad->categoria->nombre }}</div>
+                                <div class="text-xs text-gray-500">Categoría</div>
+                            </div>
+                            <div class="bg-gray-50 p-2 rounded text-center">
+                                <div class="text-sm font-bold text-green-600">{{ $habilidad->puntos_sugeridos }} 🪙</div>
+                                <div class="text-xs text-gray-500">Puntos</div>
+                            </div>
+                            <div class="bg-gray-50 p-2 rounded text-center">
+                                <div class="text-sm font-bold text-blue-600">{{ $habilidad->horas_ofrecidas }}h</div>
+                                <div class="text-xs text-gray-500">Horas</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-xs text-gray-500 mb-3">
+                            Enviado {{ $habilidad->created_at->diffForHumans() }}
+                        </div>
+                        
+                        @if($habilidad->motivo_rechazo)
+                            <div class="mb-3 p-2 bg-red-50 border border-red-200 rounded">
+                                <p class="text-xs text-red-800"><strong>Motivo:</strong> {{ $habilidad->motivo_rechazo }}</p>
+                            </div>
+                        @endif
+                        
                         @if($habilidad->estado === 'pendiente')
-                            <div class="flex flex-col gap-2 ml-6">
-                                <form method="POST" action="{{ route('admin.habilidades.aprobar', $habilidad) }}" class="inline">
+                            <div class="flex gap-2 pt-3 border-t border-gray-100">
+                                <form method="POST" action="{{ route('admin.habilidades.aprobar', $habilidad) }}" class="flex-1">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" 
-                                            class="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                            class="w-full px-3 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition">
                                         ✅ Aprobar
                                     </button>
                                 </form>
                                 <button onclick="mostrarModalRechazo({{ $habilidad->id }})" 
-                                        class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                                        class="flex-1 px-3 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition">
                                     ❌ Rechazar
                                 </button>
                             </div>
                         @endif
+                    </div>
+                    
+                    <!-- Vista Desktop -->
+                    <div class="hidden lg:block">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <h3 class="text-xl font-bold text-gray-800">{{ $habilidad->titulo }}</h3>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium
+                                        @if($habilidad->estado === 'pendiente') bg-orange-100 text-orange-800
+                                        @elseif($habilidad->estado === 'aprobado') bg-green-100 text-green-800
+                                        @elseif($habilidad->estado === 'rechazado') bg-red-100 text-red-800
+                                        @endif">
+                                        {{ ucfirst($habilidad->estado) }}
+                                    </span>
+                                </div>
+                                
+                                <p class="text-gray-600 mb-4">{{ $habilidad->descripcion }}</p>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                                    <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                        <div class="text-lg font-bold text-gray-800">{{ $habilidad->usuario->name }}</div>
+                                        <div class="text-sm text-gray-500">Usuario</div>
+                                    </div>
+                                    <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                        <div class="text-lg font-bold text-indigo-600">{{ $habilidad->categoria->nombre }}</div>
+                                        <div class="text-sm text-gray-500">Categoría</div>
+                                    </div>
+                                    <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                        <div class="text-lg font-bold text-green-600">{{ $habilidad->puntos_sugeridos }} 🪙</div>
+                                        <div class="text-sm text-gray-500">Puntos</div>
+                                    </div>
+                                    <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                        <div class="text-lg font-bold text-blue-600">{{ $habilidad->horas_ofrecidas }}h</div>
+                                        <div class="text-sm text-gray-500">Horas</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-sm text-gray-500">
+                                    Enviado {{ $habilidad->created_at->diffForHumans() }}
+                                </div>
+                                
+                                @if($habilidad->motivo_rechazo)
+                                    <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                        <p class="text-sm text-red-800"><strong>Motivo de rechazo:</strong> {{ $habilidad->motivo_rechazo }}</p>
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            @if($habilidad->estado === 'pendiente')
+                                <div class="flex flex-col gap-2 ml-6">
+                                    <form method="POST" action="{{ route('admin.habilidades.aprobar', $habilidad) }}" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" 
+                                                class="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                            ✅ Aprobar
+                                        </button>
+                                    </form>
+                                    <button onclick="mostrarModalRechazo({{ $habilidad->id }})" 
+                                            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                                        ❌ Rechazar
+                                    </button>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             @empty

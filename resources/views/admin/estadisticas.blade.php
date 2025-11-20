@@ -22,65 +22,65 @@
         </div>
 
         <!-- Estadísticas Generales -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-purple-100 text-sm">Total Usuarios</p>
-                        <p class="text-3xl font-bold">{{ $totalUsuarios }}</p>
+                        <p class="text-purple-100 text-xs sm:text-sm">Total Usuarios</p>
+                        <p class="text-2xl sm:text-3xl font-bold">{{ $totalUsuarios }}</p>
                     </div>
-                    <div class="text-4xl">👥</div>
+                    <div class="text-3xl sm:text-4xl">👥</div>
                 </div>
-                <div class="mt-2 text-purple-100 text-sm">
+                <div class="mt-2 text-purple-100 text-xs sm:text-sm">
                     +{{ $nuevosUsuarios }} este mes
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-green-100 text-sm">Habilidades</p>
-                        <p class="text-3xl font-bold">{{ $totalHabilidades }}</p>
+                        <p class="text-green-100 text-xs sm:text-sm">Habilidades</p>
+                        <p class="text-2xl sm:text-3xl font-bold">{{ $totalHabilidades }}</p>
                     </div>
-                    <div class="text-4xl">🎯</div>
+                    <div class="text-3xl sm:text-4xl">🎯</div>
                 </div>
-                <div class="mt-2 text-green-100 text-sm">
+                <div class="mt-2 text-green-100 text-xs sm:text-sm">
                     {{ $habilidadesPendientes }} pendientes
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-blue-100 text-sm">Trueques</p>
-                        <p class="text-3xl font-bold">{{ $totalTrueques }}</p>
+                        <p class="text-blue-100 text-xs sm:text-sm">Trueques</p>
+                        <p class="text-2xl sm:text-3xl font-bold">{{ $totalTrueques }}</p>
                     </div>
-                    <div class="text-4xl">🤝</div>
+                    <div class="text-3xl sm:text-4xl">🤝</div>
                 </div>
-                <div class="mt-2 text-blue-100 text-sm">
+                <div class="mt-2 text-blue-100 text-xs sm:text-sm">
                     {{ $truequesCompletados }} completados
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl p-6">
+            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl p-4 sm:p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-yellow-100 text-sm">Puntos Totales</p>
-                        <p class="text-3xl font-bold">{{ $puntosCirculacion }}</p>
+                        <p class="text-yellow-100 text-xs sm:text-sm">Puntos Totales</p>
+                        <p class="text-2xl sm:text-3xl font-bold">{{ $puntosCirculacion }}</p>
                     </div>
-                    <div class="text-4xl">🪙</div>
+                    <div class="text-3xl sm:text-4xl">🪙</div>
                 </div>
-                <div class="mt-2 text-yellow-100 text-sm">
+                <div class="mt-2 text-yellow-100 text-xs sm:text-sm">
                     En circulación
                 </div>
             </div>
         </div>
 
         <!-- Gráficos de Actividad -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8">
             <!-- Registros por Mes -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">📈 Registros Mensuales</h3>
+            <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-4">📈 Registros Mensuales</h3>
                 <div class="space-y-3">
                     @foreach($registrosPorMes as $mes => $cantidad)
                         <div class="flex items-center justify-between">
@@ -118,7 +118,7 @@
         </div>
 
         <!-- Estados de Trueques -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mb-8">
             <!-- Estado de Trueques -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">🤝 Estado de Trueques</h3>
@@ -196,7 +196,7 @@
         </div>
 
         <!-- Denuncias y Seguridad -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
             <!-- Estado de Denuncias -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">🚨 Estado de Denuncias</h3>

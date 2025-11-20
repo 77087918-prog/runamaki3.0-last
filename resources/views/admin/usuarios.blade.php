@@ -27,32 +27,171 @@
                 <h2 class="text-xl font-bold text-gray-800">Lista de Usuarios</h2>
             </div>
             
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Usuario</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Habilidades</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Puntos</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Registro</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($usuarios as $usuario)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <img src="{{ $usuario->avatar_url }}" 
-                                             alt="{{ $usuario->name }}" 
-                                             class="w-8 h-8 rounded-full mr-3">
-                                        <div>
-                                            <div class="text-sm font-medium text-gray-900">{{ $usuario->name }}</div>
-                                            @if($usuario->isAdmin())
-                                                <span class="text-xs text-red-600 font-semibold">ADMIN</span>
+            <!-- Vista Desktop - Tabla -->
+            <div class="hidden lg:block">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Usuario</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Habilidades</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Puntos</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Registro</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @forelse($usuarios as $usuario)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img src="{{ $usuario->avatar_url }}" 
+                                                 alt="{{ $usuario->name }}" 
+                                                 class="w-8 h-8 rounded-full mr-3">
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">{{ $usuario->name }}</div>
+                                                @if($usuario->isAdmin())
+                                                    <span class="text-xs text-red-600 font-semibold">ADMIN</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $usuario->email }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full font-semibold
+                                            @if($usuario->estado === 'activo') bg-green-100 text-green-800
+                                            @elseif($usuario->estado === 'suspendido') bg-red-100 text-red-800
+                                            @else bg-gray-100 text-gray-800
+                                            @endif">
+                                            {{ ucfirst($usuario->estado) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $usuario->habilidades_count }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $usuario->puntos_runa }} 🪙
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $usuario->created_at->diffForHumans() }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        @if(!$usuario->isAdmin())
+                                            @if($usuario->estado === 'activo')
+                                                <button onclick="suspenderUsuario({{ $usuario->id }}, '{{ $usuario->name }}')" 
+                                                        class="text-red-600 hover:text-red-900 mr-3">
+                                                    Suspender
+                                                </button>
+                                            @else
+                                                <form method="POST" action="{{ route('admin.usuarios.reactivar', $usuario) }}" class="inline">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="text-green-600 hover:text-green-900 mr-3">
+                                                        Reactivar
+                                                    </button>
+                                                </form>
                                             @endif
+                                        @else
+                                            <span class="text-gray-400">Admin protegido</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                        No hay usuarios registrados
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Vista Mobile/Tablet - Cards -->
+            <div class="block lg:hidden">
+                <div class="space-y-4 p-4">
+                    @forelse($usuarios as $usuario)
+                        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <!-- Header del Usuario -->
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <img src="{{ $usuario->avatar_url }}" 
+                                         alt="{{ $usuario->name }}" 
+                                         class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900 text-sm">{{ $usuario->name }}</h3>
+                                        @if($usuario->isAdmin())
+                                            <span class="text-xs text-red-600 font-semibold">ADMIN</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs rounded-full font-semibold
+                                    @if($usuario->estado === 'activo') bg-green-100 text-green-800
+                                    @elseif($usuario->estado === 'suspendido') bg-red-100 text-red-800
+                                    @else bg-gray-100 text-gray-800
+                                    @endif">
+                                    {{ ucfirst($usuario->estado) }}
+                                </span>
+                            </div>
+
+                            <!-- Información del Usuario -->
+                            <div class="grid grid-cols-2 gap-3 mb-3 text-xs">
+                                <div>
+                                    <p class="text-gray-500 uppercase font-medium">Email</p>
+                                    <p class="text-gray-900 truncate">{{ $usuario->email }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 uppercase font-medium">Registro</p>
+                                    <p class="text-gray-900">{{ $usuario->created_at->format('d/m/Y') }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 uppercase font-medium">Habilidades</p>
+                                    <p class="text-gray-900">{{ $usuario->habilidades_count }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 uppercase font-medium">Puntos</p>
+                                    <p class="text-gray-900">{{ $usuario->puntos_runa }} 🪙</p>
+                                </div>
+                            </div>
+
+                            <!-- Acciones -->
+                            @if(!$usuario->isAdmin())
+                                <div class="pt-3 border-t border-gray-100">
+                                    @if($usuario->estado === 'activo')
+                                        <button onclick="suspenderUsuario({{ $usuario->id }}, '{{ $usuario->name }}')" 
+                                                class="w-full bg-red-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-red-600 transition">
+                                            🚫 Suspender Usuario
+                                        </button>
+                                    @else
+                                        <form method="POST" action="{{ route('admin.usuarios.reactivar', $usuario) }}" class="w-full">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" 
+                                                    class="w-full bg-green-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-green-600 transition">
+                                                ✅ Reactivar Usuario
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            @else
+                                <div class="pt-3 border-t border-gray-100">
+                                    <p class="text-center text-gray-400 text-sm">Usuario Admin - Protegido</p>
+                                </div>
+                            @endif
+                        </div>
+                    @empty
+                        <div class="text-center py-8">
+                            <div class="text-gray-400 text-4xl mb-2">👥</div>
+                            <p class="text-gray-500">No hay usuarios registrados</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
                                         </div>
                                     </div>
                                 </td>

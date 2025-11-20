@@ -46,54 +46,155 @@
         <!-- Lista de Denuncias -->
         <div class="space-y-6">
             @forelse($denuncias as $denuncia)
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <h3 class="text-xl font-bold text-gray-800">{{ $denuncia->tipo }}</h3>
-                                <span class="px-3 py-1 rounded-full text-sm font-medium
-                                    @if($denuncia->estado === 'pendiente') bg-orange-100 text-orange-800
-                                    @elseif($denuncia->estado === 'revisado') bg-blue-100 text-blue-800
-                                    @elseif($denuncia->estado === 'resuelto') bg-green-100 text-green-800
-                                    @endif">
-                                    {{ ucfirst($denuncia->estado) }}
-                                </span>
-                            </div>
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                    <!-- Vista Mobile -->
+                    <div class="block lg:hidden">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-bold text-gray-800">{{ $denuncia->tipo }}</h3>
+                            <span class="px-2 py-1 rounded-full text-xs font-medium
+                                @if($denuncia->estado === 'pendiente') bg-orange-100 text-orange-800
+                                @elseif($denuncia->estado === 'revisado') bg-blue-100 text-blue-800
+                                @elseif($denuncia->estado === 'resuelto') bg-green-100 text-green-800
+                                @endif">
+                                {{ ucfirst($denuncia->estado) }}
+                            </span>
                         </div>
-                        <div class="text-sm text-gray-500">
+                        
+                        <div class="text-xs text-gray-500 mb-3">
                             {{ $denuncia->created_at->format('d/m/Y H:i') }}
                         </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <!-- Información del Denunciante -->
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-blue-800 mb-2">👤 Denunciante</h4>
-                            <div class="flex items-center gap-3">
-                                <img src="{{ $denuncia->denunciante->avatar ?? '/images/avatar-default.png' }}" 
-                                     alt="Avatar" 
-                                     class="w-10 h-10 rounded-full">
-                                <div>
-                                    <p class="font-medium">{{ $denuncia->denunciante->name }}</p>
-                                    <p class="text-sm text-gray-600">{{ $denuncia->denunciante->email }}</p>
+                        
+                        <!-- Usuarios Compactos -->
+                        <div class="space-y-3 mb-4">
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-bold text-blue-800 text-sm">👤 Denunciante</h4>
+                                </div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <img src="{{ $denuncia->denunciante->avatar ?? '/images/avatar-default.png' }}" 
+                                         alt="Avatar" 
+                                         class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="font-medium text-sm">{{ $denuncia->denunciante->name }}</p>
+                                        <p class="text-xs text-gray-600 truncate">{{ $denuncia->denunciante->email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 p-3 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-bold text-red-800 text-sm">⚠️ Denunciado</h4>
+                                </div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <img src="{{ $denuncia->denunciado->avatar ?? '/images/avatar-default.png' }}" 
+                                         alt="Avatar" 
+                                         class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="font-medium text-sm">{{ $denuncia->denunciado->name }}</p>
+                                        <p class="text-xs text-gray-600 truncate">{{ $denuncia->denunciado->email }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Información del Denunciado -->
-                        <div class="bg-red-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-red-800 mb-2">⚠️ Denunciado</h4>
-                            <div class="flex items-center gap-3">
-                                <img src="{{ $denuncia->denunciado->avatar ?? '/images/avatar-default.png' }}" 
-                                     alt="Avatar" 
-                                     class="w-10 h-10 rounded-full">
-                                <div>
-                                    <p class="font-medium">{{ $denuncia->denunciado->name }}</p>
-                                    <p class="text-sm text-gray-600">{{ $denuncia->denunciado->email }}</p>
+                        <!-- Descripción -->
+                        <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                            <h4 class="font-bold text-gray-800 text-sm mb-2">📝 Descripción</h4>
+                            <p class="text-gray-700 text-sm">{{ $denuncia->descripcion }}</p>
+                        </div>
+                        
+                        @if($denuncia->trueque)
+                            <div class="bg-yellow-50 p-3 rounded-lg mb-4">
+                                <h4 class="font-bold text-yellow-800 text-sm mb-2">🤝 Trueque</h4>
+                                <div class="text-xs text-gray-700">
+                                    <div><strong>Habilidad:</strong> {{ $denuncia->trueque->habilidad_ofrecida->titulo ?? 'N/A' }}</div>
+                                    <div><strong>Estado:</strong> {{ $denuncia->trueque->estado }}</div>
+                                    <div><strong>Fecha:</strong> {{ $denuncia->trueque->created_at->format('d/m/Y') }}</div>
+                                </div>
+                            </div>
+                        @endif
+                        
+                        @if($denuncia->resolucion)
+                            <div class="bg-green-50 p-3 rounded-lg mb-4">
+                                <h4 class="font-bold text-green-800 text-sm mb-2">✅ Resolución</h4>
+                                <p class="text-gray-700 text-sm">{{ $denuncia->resolucion }}</p>
+                            </div>
+                        @endif
+                        
+                        @if($denuncia->estado !== 'resuelto')
+                            <div class="space-y-2 pt-3 border-t border-gray-200">
+                                @if($denuncia->estado === 'pendiente')
+                                    <form method="POST" action="{{ route('admin.denuncias.marcar-revisado', $denuncia) }}">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" 
+                                                class="w-full px-3 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition">
+                                            👁️ Marcar Revisado
+                                        </button>
+                                    </form>
+                                @endif
+                                <button onclick="mostrarModalResolucion({{ $denuncia->id }})" 
+                                        class="w-full px-3 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition">
+                                    ✅ Resolver
+                                </button>
+                                <button onclick="mostrarModalSuspension({{ $denuncia->denunciado->id }}, '{{ $denuncia->denunciado->name }}')" 
+                                        class="w-full px-3 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition">
+                                    🚫 Suspender Usuario
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+                    
+                    <!-- Vista Desktop -->
+                    <div class="hidden lg:block">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <h3 class="text-xl font-bold text-gray-800">{{ $denuncia->tipo }}</h3>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium
+                                        @if($denuncia->estado === 'pendiente') bg-orange-100 text-orange-800
+                                        @elseif($denuncia->estado === 'revisado') bg-blue-100 text-blue-800
+                                        @elseif($denuncia->estado === 'resuelto') bg-green-100 text-green-800
+                                        @endif">
+                                        {{ ucfirst($denuncia->estado) }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                {{ $denuncia->created_at->format('d/m/Y H:i') }}
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- Información del Denunciante -->
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2">👤 Denunciante</h4>
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ $denuncia->denunciante->avatar ?? '/images/avatar-default.png' }}" 
+                                         alt="Avatar" 
+                                         class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="font-medium">{{ $denuncia->denunciante->name }}</p>
+                                        <p class="text-sm text-gray-600">{{ $denuncia->denunciante->email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Información del Denunciado -->
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-red-800 mb-2">⚠️ Denunciado</h4>
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ $denuncia->denunciado->avatar ?? '/images/avatar-default.png' }}" 
+                                         alt="Avatar" 
+                                         class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <p class="font-medium">{{ $denuncia->denunciado->name }}</p>
+                                        <p class="text-sm text-gray-600">{{ $denuncia->denunciado->email }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     
                     <!-- Descripción de la Denuncia -->
                     <div class="bg-gray-50 p-4 rounded-lg mb-6">
