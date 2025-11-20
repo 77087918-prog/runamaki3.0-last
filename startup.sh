@@ -17,10 +17,21 @@ php artisan view:clear || true
 echo "📦 Verificando assets compilados..."
 if [ -f "public/build/manifest.json" ]; then
     echo "✅ Manifest de Vite encontrado"
+    cat public/build/manifest.json
     ls -la public/build/assets/ || echo "⚠️ Directorio assets vacío"
 else
-    echo "❌ Manifest de Vite no encontrado, ejecutando build..."
+    echo "❌ Manifest de Vite no encontrado en public/build/manifest.json"
+    echo "📂 Contenido de public/:"
+    ls -la public/ || echo "⚠️ Public directory error"
+    echo "📂 Buscando manifest en todo el proyecto:"
+    find . -name "manifest.json" -type f || echo "⚠️ No manifest found anywhere"
+    echo "🔧 Ejecutando build de emergencia..."
     npm run build || echo "⚠️ Build falló"
+    if [ -f "public/build/manifest.json" ]; then
+        echo "✅ Manifest creado exitosamente después del build"
+    else
+        echo "❌ Manifest aún no existe después del build"
+    fi
 fi
 
 # Configurar aplicación con variables reales
