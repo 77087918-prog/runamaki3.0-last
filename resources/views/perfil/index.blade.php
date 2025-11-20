@@ -4,11 +4,11 @@
 <div class="max-w-6xl mx-auto space-y-6">
     <!-- Header con Avatar y Stats Principales -->
     <div class="card fade-in">
-        <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
             <!-- Avatar y Info Básica -->
-            <div class="flex items-center gap-4 flex-1">
-                <div class="relative">
-                    <div class="w-24 h-24 bg-gradient-purple rounded-full flex items-center justify-center text-white text-4xl font-bold flex-shrink-0 overflow-hidden ring-4 ring-indigo-100 shadow-lg">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 flex-1 w-full">
+                <div class="relative flex-shrink-0">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-purple rounded-full flex items-center justify-center text-white text-2xl sm:text-4xl font-bold overflow-hidden ring-4 ring-indigo-100 shadow-lg">
                         @if($user->avatar)
                             <img src="{{ Storage::url($user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                         @else
@@ -16,16 +16,16 @@
                         @endif
                     </div>
                     <!-- Badge de nivel -->
-                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-white rounded-full shadow-md border-2 border-indigo-100">
+                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-white rounded-full shadow-md border-2 border-indigo-100">
                         <span class="text-xs font-bold text-indigo-600">{{ $user->nivel }}</span>
                     </div>
                 </div>
-                <div class="flex-1">
-                    <h1 class="text-3xl font-extrabold text-gray-900 mb-1">{{ $user->name }}</h1>
+                <div class="flex-1 text-center sm:text-left w-full">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1">{{ $user->name }}</h1>
                     <p class="text-sm text-gray-600 mb-3">{{ $user->email }}</p>
                     
                     <!-- Reputación y Runas -->
-                    <div class="flex items-center gap-4">
+                    <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4">
                         <div class="flex items-center gap-1.5 bg-gradient-to-r from-yellow-50 to-orange-50 px-3 py-1.5 rounded-lg border border-yellow-100">
                             @for($i = 1; $i <= 5; $i++)
                                 <svg class="w-4 h-4 {{ $i <= floor($user->reputacion) ? 'text-yellow-500' : 'text-gray-300' }}" fill="currentColor" viewBox="0 0 20 20">
@@ -46,12 +46,14 @@
             </div>
 
             <!-- Botón Editar -->
-            <a href="{{ route('perfil.editar') }}" class="btn btn-primary">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                Editar perfil
-            </a>
+            <div class="w-full lg:w-auto">
+                <a href="{{ route('perfil.editar') }}" class="btn btn-primary w-full lg:w-auto justify-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Editar perfil
+                </a>
+            </div>
         </div>
 
         <!-- Biografía -->

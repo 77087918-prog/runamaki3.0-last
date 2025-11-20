@@ -3,13 +3,13 @@
 @section('content')
 <div class="max-w-4xl mx-auto">
     <!-- Header -->
-    <div class="mb-8">
-        <div class="flex items-center justify-between">
+    <div class="mb-6 sm:mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold text-gray-900">Editar Perfil</h1>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Editar Perfil</h1>
                 <p class="text-sm text-gray-600 mt-1">Actualiza tu información personal y preferencias</p>
             </div>
-            <a href="{{ route('perfil.index') }}" class="btn btn-secondary">
+            <a href="{{ route('perfil.index') }}" class="btn btn-secondary w-full sm:w-auto justify-center">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -62,22 +62,22 @@
             @method('PUT')
 
             <!-- Avatar -->
-            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border border-indigo-100">
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4 sm:p-6 border border-indigo-100">
                 <label class="form-label text-indigo-900">Avatar</label>
-                <div class="flex flex-col sm:flex-row items-center gap-6">
-                    <div class="relative">
-                        <div class="w-24 h-24 rounded-full overflow-hidden ring-4 ring-white shadow-lg flex-shrink-0">
+                <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
+                    <div class="relative flex-shrink-0">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
                             @if(Auth::user()->avatar)
                                 <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
                             @else
-                                <div class="w-full h-full bg-gradient-purple flex items-center justify-center text-white text-3xl font-bold">
+                                <div class="w-full h-full bg-gradient-purple flex items-center justify-center text-white text-xl sm:text-3xl font-bold">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
                             @endif
                         </div>
                         @if(Auth::user()->avatar)
-                            <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center ring-2 ring-white">
-                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <div class="absolute -bottom-1 -right-1 w-6 h-6 sm:w-8 sm:h-8 bg-emerald-500 rounded-full flex items-center justify-center ring-2 ring-white">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                 </svg>
                             </div>
@@ -122,14 +122,14 @@
                 <p class="text-xs text-gray-500 mt-1">Máximo 500 caracteres</p>
             </div>
 
-            <div class="flex gap-3 pt-4">
-                <button type="submit" class="btn btn-primary">
+            <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                <button type="submit" class="btn btn-primary w-full sm:w-auto justify-center">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                     Guardar cambios
                 </button>
-                <a href="{{ route('perfil.index') }}" class="btn btn-secondary">Cancelar</a>
+                <a href="{{ route('perfil.index') }}" class="btn btn-secondary w-full sm:w-auto justify-center">Cancelar</a>
             </div>
         </form>
     </div>
@@ -169,7 +169,7 @@
             </div>
 
             <div class="pt-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary w-full sm:w-auto justify-center">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
