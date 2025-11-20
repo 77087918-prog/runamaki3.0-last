@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="py-8">
-    <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+<div class="py-4 sm:py-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="card fade-in">
-            <div class="flex items-center justify-between mb-6">
-                <h1 class="text-2xl font-bold">Publicar nueva habilidad</h1>
-                <a href="{{ route('habilidades.index') }}" class="btn btn-secondary">← Cancelar</a>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+                <h1 class="text-xl sm:text-2xl font-bold">Publicar nueva habilidad</h1>
+                <a href="{{ route('habilidades.index') }}" class="btn btn-secondary w-full sm:w-auto justify-center">← Cancelar</a>
             </div>
 
             @if($errors->any())
@@ -33,7 +33,7 @@
                     <p class="text-xs text-gray-500 mt-1">Máximo 500 caracteres</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
                         <label for="categoria_id" class="form-label">Categoría <span class="text-red-500">*</span></label>
                         <select name="categoria_id" id="categoria_id" required class="form-input">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
                         <label for="horas_ofrecidas" class="form-label">Horas que ofreces <span class="text-red-500">*</span></label>
                         <input type="number" name="horas_ofrecidas" id="horas_ofrecidas" value="{{ old('horas_ofrecidas', 1) }}" required min="1" max="100" class="form-input">
@@ -87,9 +87,9 @@
                     </ul>
                 </div>
 
-                <div class="flex gap-3">
-                    <button type="submit" class="btn btn-primary">Publicar habilidad</button>
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancelar</a>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="submit" class="btn btn-primary w-full sm:w-auto justify-center">Publicar habilidad</button>
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary w-full sm:w-auto justify-center">Cancelar</a>
                 </div>
             </form>
         </div>
