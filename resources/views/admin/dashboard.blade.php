@@ -10,9 +10,9 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold flex items-center">
-                        🛡️ Panel Administrativo
+                        🛡️ {{ __('app.admin.dashboard.title') }}
                     </h1>
-                    <p class="text-red-50 mt-2 font-medium">Control total del sistema Runa Maki</p>
+                    <p class="text-red-50 mt-2 font-medium">{{ __('app.admin.dashboard.description') }}</p>
                 </div>
                 <div class="text-right">
                     <p class="text-lg font-semibold">{{ auth()->user()->name }}</p>
@@ -28,10 +28,10 @@
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Usuarios Total</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('app.admin.statistics.total_users') }}</p>
                         <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{{ $stats['usuarios_total'] }}</p>
                         <p class="text-xs text-green-500 dark:text-green-400">
-                            +{{ $stats['usuarios_nuevos_mes'] }} este mes
+                            +{{ $stats['usuarios_nuevos_mes'] }} {{ __('app.admin.statistics.new_this_month') }}
                         </p>
                     </div>
                     <div class="text-4xl text-blue-500">👥</div>

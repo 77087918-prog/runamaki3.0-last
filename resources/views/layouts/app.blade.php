@@ -81,13 +81,13 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
-                    Dashboard
+                    {{ __('app.nav.dashboard') }}
                 </a>
                 <a href="{{ route('habilidades.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition {{ request()->routeIs('habilidades.*') ? 'bg-indigo-600 text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
-                    Habilidades
+                    {{ __('app.nav.skills') }}
                 </a>
                 
                 <!-- Submenú de Habilidades -->
@@ -158,7 +158,7 @@
                 </div>
                 
                 <a href="{{ route('habilidades.create') }}" class="block w-full px-4 py-2 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition text-center">
-                    + Nueva Habilidad
+                    + {{ __('app.skills.add_new') }}
                 </a>
                 @if(Auth::user()->isAdmin())
                     <span class="block text-center text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 py-1 rounded">Admin</span>
@@ -166,7 +166,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="block w-full px-4 py-2 text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition text-center">
-                        Cerrar Sesión
+                        {{ __('app.nav.logout') }}
                     </button>
                 </form>
             </div>
