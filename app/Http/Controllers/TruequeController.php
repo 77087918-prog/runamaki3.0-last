@@ -124,8 +124,21 @@ class TruequeController extends Controller
             return back()->with('error', 'No puedes hacer trueque con tu propia habilidad');
         }
 
-        // Calcular puntos del intercambio (promedio).
-        $puntos = round(($habilidadOfrece->puntos_sugeridos + $habilidadRecibe->puntos_sugeridos) / 2);
+        // Calcular puntos del intercambio de manera más justa
+        // Se basa en el promedio de ambas habilidades, pero considera las horas ofrecidas
+        $puntosBase = round(($habilidadOfrece->puntos_sugeridos + $habilidadRecibe->puntos_sugeridos) / 2);
+        
+        // Factor de ajuste basado en las horas (más horas = más puntos)
+        $horasPromedio = ($habilidadOfrece->horas_ofrecidas + $habilidadRecibe->horas_ofrecidas) / 2;
+        $factorHoras = 1;
+        
+        if ($horasPromedio > 5) {
+            $factorHoras = 1.2; // 20% más puntos para intercambios largos
+        } elseif ($horasPromedio > 10) {
+            $factorHoras = 1.5; // 50% más puntos para intercambios muy largos
+        }
+        
+        $puntos = round($puntosBase * $factorHoras);
 
         $trueque = Trueque::create([
             'usuario_ofrece_id' => Auth::id(),
@@ -200,20 +213,32 @@ class TruequeController extends Controller
                 'fecha_completado' => now()
             ]);
 
-            // Registrar transacción de puntos para el que ofreció
+            // CORRECCIÓN: Ambos usuarios ganan puntos por enseñar sus habilidades
+            
+            // Registrar transacción para el usuario que OFRECE (enseña su habilidad)
             TransaccionPunto::create([
                 'usuario_id' => $trueque->usuario_ofrece_id,
                 'tipo' => 'ganado',
                 'cantidad' => $trueque->puntos_intercambio,
-                'concepto' => 'Trueque completado',
+                'concepto' => 'Trueque completado - Enseñaste: ' . $trueque->habilidadOfrece->titulo,
                 'trueque_id' => $trueque->id
             ]);
 
-            // Actualizar puntos del usuario que ofreció
+            // Registrar transacción para el usuario que RECIBE (también enseña su habilidad)
+            TransaccionPunto::create([
+                'usuario_id' => $trueque->usuario_recibe_id,
+                'tipo' => 'ganado',
+                'cantidad' => $trueque->puntos_intercambio,
+                'concepto' => 'Trueque completado - Enseñaste: ' . $trueque->habilidadRecibe->titulo,
+                'trueque_id' => $trueque->id
+            ]);
+
+            // Actualizar puntos de ambos usuarios
             $trueque->usuarioOfrece->increment('puntos_runa', $trueque->puntos_intercambio);
+            $trueque->usuarioRecibe->increment('puntos_runa', $trueque->puntos_intercambio);
         });
 
-        return back()->with('success', '¡Trueque completado! Los puntos Runa han sido acreditados.');
+        return back()->with('success', '¡Trueque completado! Ambos usuarios han ganado ' . $trueque->puntos_intercambio . ' Runas.');
     }    
 
     public function cancelar(Trueque $trueque)
