@@ -13,10 +13,6 @@ php artisan config:clear || true
 php artisan cache:clear || true
 php artisan view:clear || true
 
-# Debug variables de base de datos
-echo "🔍 Debug de variables de base de datos..."
-php debug_db.php
-
 # Configurar aplicación con variables reales
 echo "🔧 Configurando aplicación..."
 
