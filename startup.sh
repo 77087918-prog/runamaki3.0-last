@@ -19,16 +19,25 @@ if [ -f "public/build/manifest.json" ]; then
     echo "✅ Manifest de Vite encontrado"
     cat public/build/manifest.json
     ls -la public/build/assets/ || echo "⚠️ Directorio assets vacío"
+elif [ -f "public/build/.vite/manifest.json" ]; then
+    echo "🔧 Manifest encontrado en .vite/, moviéndolo..."
+    cp public/build/.vite/manifest.json public/build/manifest.json
+    echo "✅ Manifest movido a la ubicación correcta"
+    cat public/build/manifest.json
 else
-    echo "❌ Manifest de Vite no encontrado en public/build/manifest.json"
+    echo "❌ Manifest de Vite no encontrado"
     echo "📂 Contenido de public/:"
     ls -la public/ || echo "⚠️ Public directory error"
     echo "📂 Buscando manifest en todo el proyecto:"
     find . -name "manifest.json" -type f || echo "⚠️ No manifest found anywhere"
     echo "🔧 Ejecutando build de emergencia..."
     npm run build || echo "⚠️ Build falló"
-    if [ -f "public/build/manifest.json" ]; then
-        echo "✅ Manifest creado exitosamente después del build"
+    if [ -f "public/build/.vite/manifest.json" ]; then
+        echo "🔧 Moviendo manifest desde .vite/"
+        cp public/build/.vite/manifest.json public/build/manifest.json
+        echo "✅ Manifest creado y movido exitosamente"
+    elif [ -f "public/build/manifest.json" ]; then
+        echo "✅ Manifest creado exitosamente"
     else
         echo "❌ Manifest aún no existe después del build"
     fi
