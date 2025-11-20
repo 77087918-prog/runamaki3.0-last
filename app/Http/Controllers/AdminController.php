@@ -14,15 +14,20 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
-    public function __construct()
+    /**
+     * Verificar permisos de administrador
+     */
+    private function checkAdminPermissions()
     {
-        $this->middleware('auth');
-        $this->middleware(function ($request, $next) {
-            if (!auth()->user()->isAdmin()) {
-                abort(403, 'Acceso denegado. Solo administradores.');
-            }
-            return $next($request);
-        });
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+        
+        if (!auth()->user()->isAdmin()) {
+            abort(403, 'Acceso denegado. Solo administradores.');
+        }
+        
+        return null; // No hay problema de permisos
     }
 
     /**
@@ -30,6 +35,8 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $stats = [
             'usuarios_total' => User::count(),
             'usuarios_activos' => User::where('estado', 'activo')->count(),
@@ -65,6 +72,8 @@ class AdminController extends Controller
      */
     public function usuarios()
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $usuarios = User::with(['habilidades', 'valoracionesRecibidas'])
             ->withCount(['habilidades', 'truequesOfrecidos', 'truequesRecibidos', 'valoracionesRecibidas'])
             ->orderBy('created_at', 'desc')
@@ -78,6 +87,8 @@ class AdminController extends Controller
      */
     public function habilidades()
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $habilidades = Habilidad::with(['usuario', 'categoria'])
             ->latest()
             ->paginate(20);
@@ -92,6 +103,8 @@ class AdminController extends Controller
      */
     public function aprobarHabilidad(Habilidad $habilidad)
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $habilidad->update(['estado' => 'aprobado']);
         
         // Dar puntos por habilidad aprobada
@@ -105,6 +118,8 @@ class AdminController extends Controller
      */
     public function rechazarHabilidad(Habilidad $habilidad, Request $request)
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $request->validate([
             'motivo' => 'required|string|max:500'
         ]);
@@ -122,6 +137,8 @@ class AdminController extends Controller
      */
     public function suspenderUsuario(User $usuario, Request $request)
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $request->validate([
             'motivo' => 'required|string|max:500',
             'dias' => 'required|integer|min:1|max:365'
@@ -142,6 +159,8 @@ class AdminController extends Controller
      */
     public function reactivarUsuario(User $usuario)
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $usuario->update([
             'estado' => 'activo',
             'fecha_suspension' => null,
@@ -157,6 +176,8 @@ class AdminController extends Controller
      */
     public function denuncias()
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $denuncias = Denuncia::with(['denunciante', 'denunciado'])
             ->latest()
             ->paginate(20);
@@ -169,6 +190,8 @@ class AdminController extends Controller
      */
     public function resolverDenuncia(Denuncia $denuncia, Request $request)
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $request->validate([
             'accion' => 'required|in:aprobar,rechazar',
             'comentario_admin' => 'nullable|string|max:1000'
@@ -207,6 +230,8 @@ class AdminController extends Controller
      */
     public function estadisticas()
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         // Estadísticas por mes (últimos 12 meses)
         $estadisticasMeses = [];
         for ($i = 11; $i >= 0; $i--) {
@@ -244,6 +269,8 @@ class AdminController extends Controller
      */
     public function configuracion()
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $config = DB::table('configuracion')->pluck('valor', 'clave');
         
         return view('admin.configuracion', compact('config'));
@@ -254,6 +281,8 @@ class AdminController extends Controller
      */
     public function actualizarConfiguracion(Request $request)
     {
+        if ($redirect = $this->checkAdminPermissions()) return $redirect;
+
         $configuraciones = $request->except('_token', '_method');
         
         foreach ($configuraciones as $clave => $valor) {
