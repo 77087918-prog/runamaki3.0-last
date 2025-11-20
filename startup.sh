@@ -13,6 +13,16 @@ php artisan config:clear || true
 php artisan cache:clear || true
 php artisan view:clear || true
 
+# Verificar que los assets de Vite existen
+echo "📦 Verificando assets compilados..."
+if [ -f "public/build/manifest.json" ]; then
+    echo "✅ Manifest de Vite encontrado"
+    ls -la public/build/assets/ || echo "⚠️ Directorio assets vacío"
+else
+    echo "❌ Manifest de Vite no encontrado, ejecutando build..."
+    npm run build || echo "⚠️ Build falló"
+fi
+
 # Configurar aplicación con variables reales
 echo "🔧 Configurando aplicación..."
 
