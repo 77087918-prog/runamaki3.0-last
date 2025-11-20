@@ -81,7 +81,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/denuncias', [App\Http\Controllers\AdminController::class, 'denuncias'])->name('denuncias');
         Route::get('/estadisticas', [App\Http\Controllers\AdminController::class, 'estadisticas'])->name('estadisticas');
         Route::get('/configuracion', [App\Http\Controllers\AdminController::class, 'configuracion'])->name('configuracion');
-        Route::get('/acciones-rapidas', [App\Http\Controllers\AdminController::class, 'accionesRapidas'])->name('acciones-rapidas');
         
         // Acciones de administración
         Route::patch('/habilidades/{habilidad}/aprobar', [App\Http\Controllers\AdminController::class, 'aprobarHabilidad'])->name('habilidades.aprobar');
@@ -91,16 +90,6 @@ Route::middleware('auth')->group(function () {
         Route::patch('/denuncias/{denuncia}/resolver', [App\Http\Controllers\AdminController::class, 'resolverDenuncia'])->name('denuncias.resolver');
         Route::patch('/denuncias/{denuncia}/marcar-revisado', [App\Http\Controllers\AdminController::class, 'marcarRevisado'])->name('denuncias.marcar-revisado');
         Route::put('/configuracion', [App\Http\Controllers\AdminController::class, 'actualizarConfiguracion'])->name('configuracion.actualizar');
-        
-        // Acciones rápidas
-        Route::post('/acciones-rapidas/suspender-usuario', [App\Http\Controllers\AdminController::class, 'suspenderUsuarioRapido'])->name('acciones-rapidas.suspender-usuario');
-        Route::post('/acciones-rapidas/reactivar-usuario', [App\Http\Controllers\AdminController::class, 'reactivarUsuarioRapido'])->name('acciones-rapidas.reactivar-usuario');
-        Route::post('/acciones-rapidas/otorgar-puntos', [App\Http\Controllers\AdminController::class, 'otorgarPuntos'])->name('acciones-rapidas.otorgar-puntos');
-        Route::post('/acciones-rapidas/descontar-puntos', [App\Http\Controllers\AdminController::class, 'descontarPuntos'])->name('acciones-rapidas.descontar-puntos');
-        Route::post('/acciones-rapidas/aprobar-todas-habilidades', [App\Http\Controllers\AdminController::class, 'aprobarTodasHabilidades'])->name('acciones-rapidas.aprobar-todas-habilidades');
-        Route::post('/acciones-rapidas/limpiar-notificaciones', [App\Http\Controllers\AdminController::class, 'limpiarNotificaciones'])->name('acciones-rapidas.limpiar-notificaciones');
-        Route::post('/acciones-rapidas/limpiar-logs', [App\Http\Controllers\AdminController::class, 'limpiarLogs'])->name('acciones-rapidas.limpiar-logs');
-        Route::post('/acciones-rapidas/optimizar-bd', [App\Http\Controllers\AdminController::class, 'optimizarBaseDatos'])->name('acciones-rapidas.optimizar-bd');
     });
 });
 

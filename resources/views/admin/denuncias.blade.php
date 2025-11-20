@@ -3,41 +3,41 @@
 @section('title', 'Gestión de Denuncias')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
     <div class="container mx-auto px-4 py-8">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-red-600 to-rose-600 rounded-xl p-6 mb-8 text-white">
+        <div class="bg-gradient-to-r from-red-600 to-rose-600 rounded-xl p-6 mb-8 text-white shadow-lg">
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold flex items-center">
                         🚨 Gestión de Denuncias
                     </h1>
-                    <p class="text-red-100 mt-2">Resolver reportes y denuncias de usuarios</p>
+                    <p class="text-red-50 mt-2 font-medium">Resolver reportes y denuncias de usuarios</p>
                 </div>
                 <a href="{{ route('admin.dashboard') }}" 
-                   class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition">
+                   class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition font-medium">
                     ← Volver al Dashboard
                 </a>
             </div>
         </div>
 
         <!-- Filtros -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6 border border-gray-200 dark:border-gray-700">
             <div class="flex flex-wrap gap-4">
                 <a href="{{ route('admin.denuncias') }}" 
-                   class="px-4 py-2 rounded-lg {{ !request('estado') ? 'bg-indigo-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                   class="px-4 py-2 rounded-lg font-medium transition {{ !request('estado') ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600' }}">
                     Todas
                 </a>
                 <a href="{{ route('admin.denuncias', ['estado' => 'pendiente']) }}" 
-                   class="px-4 py-2 rounded-lg {{ request('estado') === 'pendiente' ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                   class="px-4 py-2 rounded-lg font-medium transition {{ request('estado') === 'pendiente' ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600' }}">
                     Pendientes
                 </a>
                 <a href="{{ route('admin.denuncias', ['estado' => 'revisado']) }}" 
-                   class="px-4 py-2 rounded-lg {{ request('estado') === 'revisado' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                   class="px-4 py-2 rounded-lg font-medium transition {{ request('estado') === 'revisado' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600' }}">
                     Revisadas
                 </a>
                 <a href="{{ route('admin.denuncias', ['estado' => 'resuelto']) }}" 
-                   class="px-4 py-2 rounded-lg {{ request('estado') === 'resuelto' ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                   class="px-4 py-2 rounded-lg font-medium transition {{ request('estado') === 'resuelto' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600' }}">
                     Resueltas
                 </a>
             </div>
@@ -46,7 +46,7 @@
         <!-- Lista de Denuncias -->
         <div class="space-y-6">
             @forelse($denuncias as $denuncia)
-                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
                     <!-- Vista Mobile -->
                     <div class="block lg:hidden">
                         <!-- Header -->

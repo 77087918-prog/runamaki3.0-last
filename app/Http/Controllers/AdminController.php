@@ -232,36 +232,83 @@ class AdminController extends Controller
     {
         if ($redirect = $this->checkAdminPermissions()) return $redirect;
 
-        // Estadísticas por mes (últimos 12 meses)
-        $estadisticasMeses = [];
-        for ($i = 11; $i >= 0; $i--) {
+        // Estadísticas generales
+        $totalUsuarios = User::count();
+        $nuevosUsuarios = User::whereMonth('created_at', now()->month)->count();
+        $totalHabilidades = Habilidad::count();
+        $habilidadesPendientes = Habilidad::where('estado', 'pendiente')->count();
+        $totalTrueques = Trueque::count();
+        $truequesCompletados = Trueque::where('estado', 'completado')->count();
+        $puntosCirculacion = User::sum('puntos_runa');
+
+        // Registros por mes (últimos 6 meses)
+        $registrosPorMes = collect();
+        for ($i = 5; $i >= 0; $i--) {
             $fecha = Carbon::now()->subMonths($i);
             $mes = $fecha->format('M Y');
-            
-            $estadisticasMeses[] = [
-                'mes' => $mes,
-                'usuarios' => User::whereMonth('created_at', $fecha->month)
-                    ->whereYear('created_at', $fecha->year)->count(),
-                'habilidades' => Habilidad::whereMonth('created_at', $fecha->month)
-                    ->whereYear('created_at', $fecha->year)->count(),
-                'trueques' => Trueque::whereMonth('created_at', $fecha->month)
-                    ->whereYear('created_at', $fecha->year)->count(),
-            ];
+            $cantidad = User::whereMonth('created_at', $fecha->month)
+                ->whereYear('created_at', $fecha->year)->count();
+            $registrosPorMes->put($mes, $cantidad);
         }
 
-        // Top categorías
-        $topCategorias = Categoria::withCount('habilidades')
-            ->orderBy('habilidades_count', 'desc')
+        // Habilidades por categoría
+        $habilidadesPorCategoria = DB::table('habilidades')
+            ->join('categorias', 'habilidades.categoria_id', '=', 'categorias.id')
+            ->select('categorias.nombre as categoria_nombre', DB::raw('count(*) as total'))
+            ->groupBy('categorias.id', 'categorias.nombre')
+            ->orderBy('total', 'desc')
             ->take(10)
+            ->get();
+
+        // Estado de trueques
+        $estadoTrueques = DB::table('trueques')
+            ->select('estado', DB::raw('count(*) as total'))
+            ->groupBy('estado')
             ->get();
 
         // Usuarios más activos
-        $usuariosActivos = User::withCount(['habilidades', 'truequesOfrecidos', 'truequesRecibidos'])
-            ->orderByRaw('(habilidades_count + trueques_ofrecidos_count + trueques_recibidos_count) DESC')
+        $usuariosMasActivos = User::withCount('habilidades')
+            ->orderBy('puntos_runa', 'desc')
+            ->take(5)
+            ->get();
+
+        // Tipos de trueque
+        $tiposTrueque = DB::table('trueques')
+            ->select('tipo_trueque', DB::raw('count(*) as total'))
+            ->whereNotNull('tipo_trueque')
+            ->groupBy('tipo_trueque')
+            ->get();
+
+        // Estado de denuncias
+        $estadoDenuncias = DB::table('denuncias')
+            ->select('estado', DB::raw('count(*) as total'))
+            ->groupBy('estado')
+            ->get();
+
+        // Transacciones recientes
+        $transaccionesRecientes = DB::table('transacciones_puntos')
+            ->join('users', 'transacciones_puntos.usuario_id', '=', 'users.id')
+            ->select('transacciones_puntos.*', 'users.name')
+            ->orderBy('transacciones_puntos.created_at', 'desc')
             ->take(10)
             ->get();
 
-        return view('admin.estadisticas', compact('estadisticasMeses', 'topCategorias', 'usuariosActivos'));
+        return view('admin.estadisticas', compact(
+            'totalUsuarios', 
+            'nuevosUsuarios', 
+            'totalHabilidades', 
+            'habilidadesPendientes',
+            'totalTrueques', 
+            'truequesCompletados', 
+            'puntosCirculacion',
+            'registrosPorMes',
+            'habilidadesPorCategoria',
+            'estadoTrueques',
+            'usuariosMasActivos',
+            'tiposTrueque',
+            'estadoDenuncias',
+            'transaccionesRecientes'
+        ));
     }
 
     /**
