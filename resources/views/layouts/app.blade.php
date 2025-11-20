@@ -118,6 +118,14 @@
                     </svg>
                     Mi Perfil
                 </a>
+                @if(Auth::user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition {{ request()->routeIs('admin.*') ? 'bg-red-600 text-white' : 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20' }}">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        🛡️ Panel Admin
+                    </a>
+                @endif
             </nav>
 
             <!-- Actions -->
@@ -132,6 +140,22 @@
                     </svg>
                     <span id="dark-mode-text">Modo Oscuro</span>
                 </button>
+                
+                <!-- Language Toggle -->
+                <div class="flex gap-1">
+                    <a href="{{ route('locale.change', 'es') }}" 
+                       class="flex-1 flex items-center justify-center gap-2 px-3 py-2 border text-sm font-medium rounded-md transition
+                              {{ app()->getLocale() === 'es' ? 'border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400' : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
+                        <span class="text-base">🇪🇸</span>
+                        <span class="text-xs">ES</span>
+                    </a>
+                    <a href="{{ route('locale.change', 'qu') }}" 
+                       class="flex-1 flex items-center justify-center gap-2 px-3 py-2 border text-sm font-medium rounded-md transition
+                              {{ app()->getLocale() === 'qu' ? 'border-red-500 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
+                        <span class="text-base">🏔️</span>
+                        <span class="text-xs">QU</span>
+                    </a>
+                </div>
                 
                 <a href="{{ route('habilidades.create') }}" class="block w-full px-4 py-2 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition text-center">
                     + Nueva Habilidad

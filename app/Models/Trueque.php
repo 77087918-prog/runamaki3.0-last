@@ -16,6 +16,7 @@ class Trueque extends Model
         'usuario_recibe_id',
         'habilidad_ofrece_id',
         'habilidad_recibe_id',
+        'tipo_trueque',
         'puntos_intercambio',
         'estado',
         'fecha_aceptacion',
@@ -44,7 +45,7 @@ class Trueque extends Model
     }
 
     /**
-     * Habilidad que se ofrece
+     * Habilidad que se ofrece (opcional para trueques por puntos)
      */
     public function habilidadOfrece(): BelongsTo
     {
@@ -52,11 +53,48 @@ class Trueque extends Model
     }
 
     /**
-     * Habilidad que se recibe
+     * Habilidad que se recibe (opcional para trueques por puntos)
      */
     public function habilidadRecibe(): BelongsTo
     {
         return $this->belongsTo(Habilidad::class, 'habilidad_recibe_id');
+    }
+
+    /**
+     * Verificar si es trueque habilidad por habilidad
+     */
+    public function esHabilidadPorHabilidad(): bool
+    {
+        return $this->tipo_trueque === 'habilidad_por_habilidad';
+    }
+
+    /**
+     * Verificar si es trueque habilidad por puntos
+     */
+    public function esHabilidadPorPuntos(): bool
+    {
+        return $this->tipo_trueque === 'habilidad_por_puntos';
+    }
+
+    /**
+     * Verificar si es trueque puntos por habilidad
+     */
+    public function esPuntosPorHabilidad(): bool
+    {
+        return $this->tipo_trueque === 'puntos_por_habilidad';
+    }
+
+    /**
+     * Obtener descripción del tipo de trueque
+     */
+    public function getTipoTruequeDescripcion(): string
+    {
+        return match($this->tipo_trueque) {
+            'habilidad_por_habilidad' => 'Intercambio de Habilidades',
+            'habilidad_por_puntos' => 'Habilidad por Runas',
+            'puntos_por_habilidad' => 'Runas por Habilidad',
+            default => 'Tipo desconocido'
+        };
     }
 
     /**

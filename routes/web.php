@@ -24,6 +24,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
+// Cambio de idioma
+Route::get('/locale/{locale}', [App\Http\Controllers\LocaleController::class, 'change'])->name('locale.change');
+
 // Rutas públicas de habilidades (index y buscar)
 Route::get('/habilidades', [HabilidadController::class, 'index'])->name('habilidades.index');
 Route::get('/habilidades/buscar', [HabilidadController::class, 'buscar'])->name('habilidades.buscar');
@@ -67,7 +70,25 @@ Route::middleware('auth')->group(function () {
         Route::put('/actualizar', [PerfilController::class, 'actualizar'])->name('actualizar');
         Route::put('/cambiar-password', [PerfilController::class, 'cambiarPassword'])->name('cambiar-password');
         Route::get('/transacciones', [PerfilController::class, 'transacciones'])->name('transacciones');
-        Route::get('/{user}', [PerfilController::class, 'show'])->name('show');
+        Route::get('/{user}', [PerfilController::class, 'show'])->name('perfil.show');
+    });
+    
+    // Rutas de administración
+    Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/usuarios', [App\Http\Controllers\AdminController::class, 'usuarios'])->name('usuarios');
+        Route::get('/habilidades', [App\Http\Controllers\AdminController::class, 'habilidades'])->name('habilidades');
+        Route::get('/denuncias', [App\Http\Controllers\AdminController::class, 'denuncias'])->name('denuncias');
+        Route::get('/estadisticas', [App\Http\Controllers\AdminController::class, 'estadisticas'])->name('estadisticas');
+        Route::get('/configuracion', [App\Http\Controllers\AdminController::class, 'configuracion'])->name('configuracion');
+        
+        // Acciones de administración
+        Route::patch('/habilidades/{habilidad}/aprobar', [App\Http\Controllers\AdminController::class, 'aprobarHabilidad'])->name('habilidades.aprobar');
+        Route::patch('/habilidades/{habilidad}/rechazar', [App\Http\Controllers\AdminController::class, 'rechazarHabilidad'])->name('habilidades.rechazar');
+        Route::patch('/usuarios/{usuario}/suspender', [App\Http\Controllers\AdminController::class, 'suspenderUsuario'])->name('usuarios.suspender');
+        Route::patch('/usuarios/{usuario}/reactivar', [App\Http\Controllers\AdminController::class, 'reactivarUsuario'])->name('usuarios.reactivar');
+        Route::patch('/denuncias/{denuncia}/resolver', [App\Http\Controllers\AdminController::class, 'resolverDenuncia'])->name('denuncias.resolver');
+        Route::put('/configuracion', [App\Http\Controllers\AdminController::class, 'actualizarConfiguracion'])->name('configuracion.actualizar');
     });
 });
 
