@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/actualizar', [PerfilController::class, 'actualizar'])->name('actualizar');
         Route::put('/cambiar-password', [PerfilController::class, 'cambiarPassword'])->name('cambiar-password');
         Route::get('/transacciones', [PerfilController::class, 'transacciones'])->name('transacciones');
-        Route::get('/{user}', [PerfilController::class, 'show'])->name('perfil.show');
+        Route::get('/{user}', [PerfilController::class, 'show'])->name('show');
     });
     
     // Rutas de administración
