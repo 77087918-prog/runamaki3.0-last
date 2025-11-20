@@ -1,7 +1,7 @@
 <?php
 
 return [
-    // Navegación
+    // Navegacion
     'nav' => [
         'home' => 'Inicio',
         'marketplace' => 'Marketplace',
@@ -9,18 +9,18 @@ return [
         'messages' => 'Mensajes',
         'profile' => 'Perfil',
         'dashboard' => 'Dashboard',
-        'logout' => 'Cerrar Sesión',
-        'login' => 'Iniciar Sesión',
+        'logout' => 'Cerrar Sesion',
+        'login' => 'Iniciar Sesion',
         'register' => 'Registrarse',
-        'admin' => 'Administración',
+        'admin' => 'Administracion',
     ],
 
-    // Páginas principales
+    // Paginas principales
     'welcome' => [
         'title' => 'Bienvenido a Runa Maki',
         'subtitle' => 'La plataforma de intercambio de habilidades de tu comunidad',
-        'description' => 'Conecta con tu comunidad, comparte tus talentos y aprende nuevas habilidades través del intercambio colaborativo.',
-        'cta_login' => 'Iniciar Sesión',
+        'description' => 'Conecta con tu comunidad, comparte tus talentos y aprende nuevas habilidades a traves del intercambio colaborativo.',
+        'cta_login' => 'Iniciar Sesion',
         'cta_register' => 'Registrarse Ahora',
         'features' => [
             'exchange' => 'Intercambia Habilidades',
@@ -28,7 +28,7 @@ return [
             'community' => 'Comunidad Local',
             'community_desc' => 'Conecta con personas de tu zona',
             'points' => 'Sistema de Puntos',
-            'points_desc' => 'Gana puntos por ayudar y úsalos para aprender',
+            'points_desc' => 'Gana puntos por ayudar y usalos para aprender',
         ],
     ],
 
@@ -44,7 +44,7 @@ return [
         ],
         'recent_activity' => 'Actividad Reciente',
         'no_activity' => 'No hay actividad reciente',
-        'quick_actions' => 'Acciones Rápidas',
+        'quick_actions' => 'Acciones Rapidas',
         'add_skill' => 'Agregar Habilidad',
         'browse_marketplace' => 'Explorar Marketplace',
         'view_messages' => 'Ver Mensajes',
@@ -62,9 +62,9 @@ return [
             'rejected' => 'Rechazado',
         ],
         'form' => [
-            'title' => 'Título',
-            'description' => 'Descripción',
-            'category' => 'Categoría',
+            'title' => 'Titulo',
+            'description' => 'Descripcion',
+            'category' => 'Categoria',
             'points' => 'Puntos Sugeridos',
             'availability' => 'Disponibilidad',
             'save' => 'Guardar Habilidad',
@@ -72,8 +72,8 @@ return [
         'marketplace' => [
             'title' => 'Marketplace de Habilidades',
             'search' => 'Buscar habilidades...',
-            'filter_category' => 'Filtrar por categoría',
-            'all_categories' => 'Todas las categorías',
+            'filter_category' => 'Filtrar por categoria',
+            'all_categories' => 'Todas las categorias',
             'points_range' => 'Rango de puntos',
             'view_details' => 'Ver Detalles',
             'request_exchange' => 'Solicitar Intercambio',
@@ -87,41 +87,41 @@ return [
         'send' => 'Enviar',
         'reply' => 'Responder',
         'no_messages' => 'No tienes mensajes',
-        'unread' => 'No leído',
-        'read' => 'Leído',
+        'unread' => 'No leido',
+        'read' => 'Leido',
     ],
 
     // Perfil
     'profile' => [
         'title' => 'Mi Perfil',
         'edit' => 'Editar Perfil',
-        'personal_info' => 'Información Personal',
+        'personal_info' => 'Informacion Personal',
         'name' => 'Nombre',
-        'email' => 'Correo Electrónico',
-        'bio' => 'Biografía',
-        'location' => 'Ubicación',
+        'email' => 'Correo Electronico',
+        'bio' => 'Biografia',
+        'location' => 'Ubicacion',
         'save' => 'Guardar Cambios',
         'achievements' => 'Logros',
-        'stats' => 'Estadísticas',
+        'stats' => 'Estadisticas',
     ],
 
     // Admin
     'admin' => [
         'dashboard' => [
-            'title' => 'Panel de Administración',
+            'title' => 'Panel de Administracion',
             'description' => 'Gestiona la plataforma Runa Maki',
-            'users_management' => 'Gestión de Usuarios',
+            'users_management' => 'Gestion de Usuarios',
             'users_management_desc' => 'Administrar cuentas de usuario y permisos',
-            'skills_management' => 'Gestión de Habilidades',
+            'skills_management' => 'Gestion de Habilidades',
             'skills_management_desc' => 'Aprobar o rechazar habilidades',
-            'reports_management' => 'Gestión de Reportes',
+            'reports_management' => 'Gestion de Reportes',
             'reports_management_desc' => 'Resolver denuncias y reportes',
-            'statistics' => 'Estadísticas',
-            'statistics_desc' => 'Ver análisis y métricas de la plataforma',
-            'motivation' => 'Construyendo una comunidad más fuerte juntos',
+            'statistics' => 'Estadisticas',
+            'statistics_desc' => 'Ver analisis y metricas de la plataforma',
+            'motivation' => 'Construyendo una comunidad mas fuerte juntos',
         ],
         'users' => [
-            'title' => 'Gestión de Usuarios',
+            'title' => 'Gestion de Usuarios',
             'description' => 'Administrar cuentas de usuario y permisos',
             'back_dashboard' => '← Volver al Dashboard',
             'list_title' => 'Lista de Usuarios',
@@ -141,7 +141,7 @@ return [
             'status_inactive' => 'Inactivo',
         ],
         'skills' => [
-            'title' => 'Gestión de Habilidades',
+            'title' => 'Gestion de Habilidades',
             'description' => 'Aprobar o rechazar habilidades enviadas por usuarios',
             'back_dashboard' => '← Volver al Dashboard',
             'all' => 'Todas',
@@ -149,14 +149,14 @@ return [
             'approved' => 'Aprobadas',
             'rejected' => 'Rechazadas',
             'user' => 'Usuario',
-            'category' => 'Categoría',
+            'category' => 'Categoria',
             'points' => 'Puntos',
             'submitted' => 'Enviado',
             'approve' => 'Aprobar',
             'reject' => 'Rechazar',
         ],
         'reports' => [
-            'title' => 'Gestión de Denuncias',
+            'title' => 'Gestion de Denuncias',
             'description' => 'Resolver reportes y denuncias de usuarios',
             'back_dashboard' => '← Volver al Dashboard',
             'all' => 'Todas',
@@ -171,8 +171,8 @@ return [
             'resolve' => 'Resolver',
         ],
         'statistics' => [
-            'title' => 'Estadísticas Avanzadas',
-            'description' => 'Análisis detallado de la plataforma Runa Maki',
+            'title' => 'Estadisticas Avanzadas',
+            'description' => 'Analisis detallado de la plataforma Runa Maki',
             'back_dashboard' => '← Volver al Dashboard',
             'total_users' => 'Total Usuarios',
             'new_this_month' => 'nuevos este mes',
@@ -181,7 +181,7 @@ return [
             'total_exchanges' => 'Trueques',
             'completed' => 'completados',
             'total_points' => 'Puntos Totales',
-            'in_circulation' => 'En circulación',
+            'in_circulation' => 'En circulacion',
         ],
     ],
 
@@ -213,10 +213,10 @@ return [
     ],
 
     'messages_system' => [
-        'success' => 'Operación realizada exitosamente',
+        'success' => 'Operacion realizada exitosamente',
         'error' => 'Ha ocurrido un error',
         'warning' => 'Advertencia',
-        'info' => 'Información',
+        'info' => 'Informacion',
         'saved' => 'Guardado correctamente',
         'deleted' => 'Eliminado correctamente',
         'updated' => 'Actualizado correctamente',
@@ -229,8 +229,8 @@ return [
         'minutes_ago' => 'hace :count minutos',
         'hour_ago' => 'hace una hora',
         'hours_ago' => 'hace :count horas',
-        'day_ago' => 'hace un día',
-        'days_ago' => 'hace :count días',
+        'day_ago' => 'hace un dia',
+        'days_ago' => 'hace :count dias',
         'week_ago' => 'hace una semana',
         'weeks_ago' => 'hace :count semanas',
         'month_ago' => 'hace un mes',

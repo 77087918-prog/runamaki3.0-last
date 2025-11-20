@@ -27,6 +27,11 @@ Route::post('/logout', [AuthController::class, 'logout'])
 // Cambio de idioma
 Route::get('/locale/{locale}', [App\Http\Controllers\LocaleController::class, 'change'])->name('locale.change');
 
+// Ruta de prueba para traducciones
+Route::get('/test-translations', function () {
+    return view('test-translations');
+})->name('test.translations');
+
 // Rutas públicas de habilidades (index y buscar)
 Route::get('/habilidades', [HabilidadController::class, 'index'])->name('habilidades.index');
 Route::get('/habilidades/buscar', [HabilidadController::class, 'buscar'])->name('habilidades.buscar');
