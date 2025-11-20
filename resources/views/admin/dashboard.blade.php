@@ -106,40 +106,52 @@
         </div>
 
         <!-- Navegación Admin -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             <a href="{{ route('admin.usuarios') }}" 
-               class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+               class="group bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50">
                 <div class="text-center">
-                    <div class="text-4xl mb-4">👥</div>
-                    <h3 class="text-xl font-bold text-gray-800">Gestionar Usuarios</h3>
-                    <p class="text-gray-600 text-sm mt-2">Administrar cuentas de usuario</p>
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">👥</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-blue-700 transition-colors">Gestionar Usuarios</h3>
+                    <p class="text-gray-600 text-xs sm:text-sm mt-2 group-hover:text-blue-600">Administrar cuentas de usuario</p>
+                    <div class="mt-3 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium inline-block">
+                        {{ $stats['usuarios_total'] }} usuarios
+                    </div>
                 </div>
             </a>
 
             <a href="{{ route('admin.habilidades') }}" 
-               class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+               class="group bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50">
                 <div class="text-center">
-                    <div class="text-4xl mb-4">🎯</div>
-                    <h3 class="text-xl font-bold text-gray-800">Revisar Habilidades</h3>
-                    <p class="text-gray-600 text-sm mt-2">Aprobar o rechazar habilidades</p>
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-purple-700 transition-colors">Revisar Habilidades</h3>
+                    <p class="text-gray-600 text-xs sm:text-sm mt-2 group-hover:text-purple-600">Aprobar o rechazar habilidades</p>
+                    <div class="mt-3 px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium inline-block">
+                        {{ $stats['habilidades_pendientes'] }} pendientes
+                    </div>
                 </div>
             </a>
 
             <a href="{{ route('admin.denuncias') }}" 
-               class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+               class="group bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:bg-gradient-to-br hover:from-red-50 hover:to-rose-50">
                 <div class="text-center">
-                    <div class="text-4xl mb-4">⚠️</div>
-                    <h3 class="text-xl font-bold text-gray-800">Resolver Denuncias</h3>
-                    <p class="text-gray-600 text-sm mt-2">Revisar reportes de usuarios</p>
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">⚠️</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-red-700 transition-colors">Resolver Denuncias</h3>
+                    <p class="text-gray-600 text-xs sm:text-sm mt-2 group-hover:text-red-600">Revisar reportes de usuarios</p>
+                    <div class="mt-3 px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium inline-block">
+                        {{ $stats['denuncias_pendientes'] }} pendientes
+                    </div>
                 </div>
             </a>
 
             <a href="{{ route('admin.estadisticas') }}" 
-               class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+               class="group bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:bg-gradient-to-br hover:from-green-50 hover:to-emerald-50">
                 <div class="text-center">
-                    <div class="text-4xl mb-4">📊</div>
-                    <h3 class="text-xl font-bold text-gray-800">Ver Estadísticas</h3>
-                    <p class="text-gray-600 text-sm mt-2">Analytics y métricas</p>
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">📊</div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-green-700 transition-colors">Ver Estadísticas</h3>
+                    <p class="text-gray-600 text-xs sm:text-sm mt-2 group-hover:text-green-600">Analytics y métricas</p>
+                    <div class="mt-3 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium inline-block">
+                        Análisis completo
+                    </div>
                 </div>
             </a>
         </div>
