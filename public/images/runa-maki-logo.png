@@ -1,0 +1,19 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Montañas -->
+  <g transform="translate(32,20)">
+    <path d="M -15,12 L -8,0 L 0,5 L 8,0 L 15,12 Z" fill="#2c3e50"/>
+    <path d="M -10,2 L -8,0 L -6,2 Z" fill="white"/>
+    <path d="M 6,2 L 8,0 L 10,2 Z" fill="white"/>
+  </g>
+  
+  <!-- Sol -->
+  <circle cx="32" cy="12" r="4" fill="#f39c12"/>
+  
+  <!-- Manos -->
+  <g transform="translate(32,45)">
+    <path d="M -10,-3 C -12,-5 -15,-3 -16,0 C -15,3 -12,5 -10,3 L -8,1 L -7,0 L -8,-1 Z" fill="#e67e22"/>
+    <path d="M 10,-3 C 12,-5 15,-3 16,0 C 15,3 12,5 10,3 L 8,1 L 7,0 L 8,-1 Z" fill="#e67e22"/>
+    <circle cx="0" cy="0" r="2" fill="#f39c12"/>
+  </g>
+</svg>

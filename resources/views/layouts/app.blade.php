@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('images/runa-maki-logo.svg') }}" type="image/svg+xml">
     
     <!-- Security headers para development -->
     @if(app()->environment('local'))
@@ -50,8 +51,11 @@
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-slate-300 dark:border-gray-700 transform -translate-x-full lg:translate-x-0 transition-all duration-300 shadow-lg lg:shadow-xl">
             <!-- Logo & Brand -->
             <div class="h-16 flex items-center px-6 border-b border-slate-300 dark:border-gray-700">
-                <a href="{{ route('dashboard') }}" class="text-lg font-semibold tracking-tight text-gray-800 dark:text-white">
-                    <span class="text-indigo-600 dark:text-indigo-400">Runa</span> <span class="text-gray-600 dark:text-gray-300">Maki</span>
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
+                    <img src="{{ asset('images/runa-maki-logo.svg') }}" alt="Runa Maki Logo" class="w-8 h-8 object-contain">
+                    <div class="text-lg font-semibold tracking-tight">
+                        <span class="text-indigo-600 dark:text-indigo-400">Runa</span> <span class="text-gray-800 dark:text-gray-300">Maki</span>
+                    </div>
                 </a>
             </div>
 
@@ -81,13 +85,13 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
-                    Dashboard
+                    {{ __('app.nav.dashboard') }}
                 </a>
                 <a href="{{ route('habilidades.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition {{ request()->routeIs('habilidades.*') ? 'bg-indigo-600 text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
-                    Habilidades
+                    {{ __('app.nav.skills') }}
                 </a>
                 
                 <!-- Submenú de Habilidades -->
@@ -118,6 +122,14 @@
                     </svg>
                     Mi Perfil
                 </a>
+                @if(Auth::user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition {{ request()->routeIs('admin.*') ? 'bg-red-600 text-white' : 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20' }}">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        🛡️ Panel Admin
+                    </a>
+                @endif
             </nav>
 
             <!-- Actions -->
@@ -133,8 +145,24 @@
                     <span id="dark-mode-text">Modo Oscuro</span>
                 </button>
                 
+                <!-- Language Toggle -->
+                <div class="flex gap-1">
+                    <a href="{{ route('locale.change', 'es') }}" 
+                       class="flex-1 flex items-center justify-center gap-2 px-3 py-2 border text-sm font-medium rounded-md transition
+                              {{ app()->getLocale() === 'es' ? 'border-orange-500 bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400' : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
+                        <span class="text-base">🇪🇸</span>
+                        <span class="text-xs">ES</span>
+                    </a>
+                    <a href="{{ route('locale.change', 'qu') }}" 
+                       class="flex-1 flex items-center justify-center gap-2 px-3 py-2 border text-sm font-medium rounded-md transition
+                              {{ app()->getLocale() === 'qu' ? 'border-red-500 bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700' }}">
+                        <span class="text-base">🏔️</span>
+                        <span class="text-xs">QU</span>
+                    </a>
+                </div>
+                
                 <a href="{{ route('habilidades.create') }}" class="block w-full px-4 py-2 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition text-center">
-                    + Nueva Habilidad
+                    + {{ __('app.skills.add_new') }}
                 </a>
                 @if(Auth::user()->isAdmin())
                     <span class="block text-center text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 py-1 rounded">Admin</span>
@@ -142,7 +170,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="block w-full px-4 py-2 text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition text-center">
-                        Cerrar Sesión
+                        {{ __('app.nav.logout') }}
                     </button>
                 </form>
             </div>

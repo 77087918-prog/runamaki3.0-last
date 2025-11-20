@@ -19,12 +19,46 @@
             </div>
         </div>
 
-        <form action="{{ route('trueques.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('trueques.store') }}" method="POST" class="space-y-6" id="truequeForm">
             @csrf
             <input type="hidden" name="habilidad_recibe_id" value="{{ $habilidad_recibir->id }}">
 
-            <!-- Seleccionar habilidad a ofrecer -->
+            <!-- Tipo de Trueque -->
             <div>
+                <label class="block text-sm font-medium text-gray-700 mb-3">
+                    ¿Qué tipo de intercambio quieres proponer?
+                </label>
+                
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition border-indigo-500 bg-indigo-50">
+                        <input type="radio" 
+                               name="tipo_trueque" 
+                               value="habilidad_por_habilidad"
+                               class="mt-1"
+                               checked
+                               onchange="toggleTipoTrueque()">
+                        <div class="flex-1">
+                            <h5 class="font-medium text-gray-900">🔄 Intercambio de Habilidades</h5>
+                            <p class="text-sm text-gray-600 mt-1">Ofrezco una de mis habilidades a cambio de la tuya</p>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition border-gray-200">
+                        <input type="radio" 
+                               name="tipo_trueque" 
+                               value="puntos_por_habilidad"
+                               class="mt-1"
+                               onchange="toggleTipoTrueque()">
+                        <div class="flex-1">
+                            <h5 class="font-medium text-gray-900">💰 Runas por Habilidad</h5>
+                            <p class="text-sm text-gray-600 mt-1">Pago con puntos Runa para aprender tu habilidad</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Seleccionar habilidad a ofrecer (Solo para intercambio de habilidades) -->
+            <div id="seccionHabilidad">
                 <label for="habilidad_ofrece_id" class="block text-sm font-medium text-gray-700 mb-2">
                     ¿Qué habilidad quieres ofrecer a cambio?
                 </label>
@@ -46,7 +80,6 @@
                                        name="habilidad_ofrece_id" 
                                        value="{{ $habilidad->id }}"
                                        class="mt-1"
-                                       required
                                        {{ old('habilidad_ofrece_id') == $habilidad->id ? 'checked' : '' }}>
                                 <div class="flex-1">
                                     <h5 class="font-medium text-gray-900">{{ $habilidad->titulo }}</h5>
@@ -66,6 +99,31 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 @endif
+            </div>
+
+            <!-- Puntos a ofrecer (Solo para pago con puntos) -->
+            <div id="seccionPuntos" style="display: none;">
+                <label for="puntos_ofrecidos" class="block text-sm font-medium text-gray-700 mb-2">
+                    ¿Cuántas Runas quieres ofrecer?
+                </label>
+                <div class="max-w-xs">
+                    <input type="number" 
+                           id="puntos_ofrecidos"
+                           name="puntos_ofrecidos" 
+                           min="1"
+                           max="{{ auth()->user()->puntos_runa }}"
+                           class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                           placeholder="{{ $habilidad_recibir->puntos_sugeridos }}">
+                    <p class="text-xs text-gray-500 mt-1">
+                        Tienes {{ auth()->user()->puntos_runa }} Runas disponibles
+                    </p>
+                </div>
+                <div class="mt-3 text-sm text-gray-600">
+                    <p>💡 <strong>Sugerencia:</strong> {{ $habilidad_recibir->puntos_sugeridos }} Runas (basado en la habilidad)</p>
+                </div>
+                @error('puntos_ofrecidos')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Mensaje inicial opcional -->
@@ -95,4 +153,30 @@
         </form>
     </div>
 </div>
+
+<script>
+function toggleTipoTrueque() {
+    const tipoSeleccionado = document.querySelector('input[name="tipo_trueque"]:checked').value;
+    const seccionHabilidad = document.getElementById('seccionHabilidad');
+    const seccionPuntos = document.getElementById('seccionPuntos');
+    
+    if (tipoSeleccionado === 'habilidad_por_habilidad') {
+        seccionHabilidad.style.display = 'block';
+        seccionPuntos.style.display = 'none';
+        // Hacer obligatorio el campo habilidad
+        document.querySelectorAll('input[name="habilidad_ofrece_id"]').forEach(input => {
+            input.setAttribute('required', 'required');
+        });
+        document.getElementById('puntos_ofrecidos').removeAttribute('required');
+    } else if (tipoSeleccionado === 'puntos_por_habilidad') {
+        seccionHabilidad.style.display = 'none';
+        seccionPuntos.style.display = 'block';
+        // Hacer obligatorio el campo puntos
+        document.getElementById('puntos_ofrecidos').setAttribute('required', 'required');
+        document.querySelectorAll('input[name="habilidad_ofrece_id"]').forEach(input => {
+            input.removeAttribute('required');
+        });
+    }
+}
+</script>
 @endsection

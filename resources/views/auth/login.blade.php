@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('images/runa-maki-logo.svg') }}" type="image/svg+xml">
 
     <title>{{ config('app.name', 'Runa Maki') }}</title>
 
@@ -20,48 +21,54 @@
         <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div class="mx-auto w-full max-w-sm lg:w-96">
                 <div>
-                    <h1 class="text-4xl font-bold text-gray-900">Runa Maki</h1>
-                    <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Bienvenido de vuelta</h2>
-                    <p class="mt-2 text-sm text-gray-600">
-                        ¿No tienes una cuenta?
-                        <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                            Regístrate aquí
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="{{ asset('images/runa-maki-logo.svg') }}" alt="Runa Maki Logo" class="w-16 h-16 object-contain">
+                        <div>
+                            <h1 class="text-4xl font-bold text-gray-900">Runa Maki</h1>
+                            <p class="text-sm text-gray-600">Tecnologia y Reciprocidad</p>
+                        </div>
+                    </div>
+                    <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">{{ __('auth.welcome_title') }}</h2>
+                    <p class="mt-2 text-sm text-gray-700">
+                        {{ __('auth.no_account') }}
+                        <a href="{{ route('register') }}" class="font-medium text-indigo-700 hover:text-indigo-800 underline">
+                            {{ __('auth.register_here') }}
                         </a>
                     </p>
                 </div>
 
                 <div class="mt-8">
                     <!-- Credenciales de Prueba -->
-                    <div class="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg">
+                    <div class="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg shadow-md">
                         <div class="flex items-center gap-2 mb-3">
-                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <h3 class="text-sm font-semibold text-gray-700">Credenciales de Prueba</h3>
+                            <h3 class="text-sm font-bold text-gray-900">Credenciales de Prueba</h3>
                         </div>
                         <div class="space-y-2 text-xs">
-                            <div class="flex justify-between items-center p-2 bg-white rounded hover:bg-indigo-50 transition cursor-pointer" onclick="fillLogin('admin@runamaki.com', 'admin123')">
+                            <div class="flex justify-between items-center p-3 bg-white rounded-md hover:bg-indigo-50 transition cursor-pointer border-2 border-gray-200 shadow-sm" onclick="fillLogin('admin@runamaki.com', 'admin123')">
                                 <div>
-                                    <p class="font-medium text-gray-800">👑 Administrador</p>
-                                    <p class="text-gray-600">admin@runamaki.com</p>
+                                    <p class="font-bold text-gray-900">👑 Administrador</p>
+                                    <p class="text-gray-800 font-medium">admin@runamaki.com</p>
                                 </div>
-                                <span class="text-indigo-600 text-xs">Clic para usar</span>
+                                <span class="text-indigo-800 text-xs font-bold bg-indigo-100 px-2 py-1 rounded">Usar</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 bg-white rounded hover:bg-indigo-50 transition cursor-pointer" onclick="fillLogin('maria@example.com', 'admin123')">
+                            <div class="flex justify-between items-center p-3 bg-white rounded-md hover:bg-indigo-50 transition cursor-pointer border-2 border-gray-200 shadow-sm" onclick="fillLogin('maria@example.com', 'admin123')">
                                 <div>
-                                    <p class="font-medium text-gray-800">👩 María Quispe</p>
-                                    <p class="text-gray-600">maria@example.com</p>
+                                    <p class="font-bold text-gray-900">👩 Maria Quispe</p>
+                                    <p class="text-gray-800 font-medium">maria@example.com</p>
                                 </div>
-                                <span class="text-indigo-600 text-xs">Clic para usar</span>
+                                <span class="text-indigo-800 text-xs font-bold bg-indigo-100 px-2 py-1 rounded">Usar</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 bg-white rounded hover:bg-indigo-50 transition cursor-pointer" onclick="fillLogin('carlos@example.com', 'admin123')">
+                            <div class="flex justify-between items-center p-3 bg-white rounded-md hover:bg-indigo-50 transition cursor-pointer border-2 border-gray-200 shadow-sm" onclick="fillLogin('carlos@example.com', 'admin123')">
                                 <div>
-                                    <p class="font-medium text-gray-800">👨 Carlos Mendoza</p>
-                                    <p class="text-gray-600">carlos@example.com</p>
+                                    <p class="font-bold text-gray-900">👨 Carlos Mendoza</p>
+                                    <p class="text-gray-800 font-medium">carlos@example.com</p>
                                 </div>
-                                <span class="text-indigo-600 text-xs">Clic para usar</span>
+                                <span class="text-indigo-800 text-xs font-bold bg-indigo-100 px-2 py-1 rounded">Usar</span>
                             </div>
-                            <p class="text-gray-500 italic mt-2 pt-2 border-t border-indigo-200">Contraseña para todos: <span class="font-mono font-semibold text-gray-700">admin123</span></p>
+                            <p class="text-gray-800 font-medium mt-2 pt-2 border-t-2 border-indigo-200">Contrasena para todos: <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1 rounded">admin123</span></p>
                         </div>
                     </div>
 
@@ -91,7 +98,7 @@
                         @csrf
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">
-                                Correo electrónico
+                                {{ __('auth.email') }}
                             </label>
                             <div class="mt-1">
                                 <input id="email" name="email" type="email" autocomplete="email" required
@@ -102,7 +109,7 @@
 
                         <div>
                             <label for="password" class="block text-sm font-medium text-gray-700">
-                                Contraseña
+                                {{ __('auth.password_label') }}
                             </label>
                             <div class="mt-1">
                                 <input id="password" name="password" type="password" autocomplete="current-password" required
@@ -115,7 +122,7 @@
                                 <input id="remember_me" name="remember" type="checkbox"
                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                 <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                                    Recordarme
+                                    {{ __('auth.remember_me') }}
                                 </label>
                             </div>
                         </div>
@@ -123,7 +130,7 @@
                         <div>
                             <button type="submit"
                                 class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                Iniciar Sesión
+                                {{ __('auth.login_button') }}
                             </button>
                         </div>
                     </form>

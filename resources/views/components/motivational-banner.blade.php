@@ -2,7 +2,7 @@
 <div style="display: none;" class="desktop-banner md:block bg-gradient-to-r {{ $dailyMessage['color'] }} text-slate-900 dark:text-white py-6 shadow-lg border-b border-gray-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p class="text-center text-2xl md:text-3xl font-extrabold tracking-tight leading-tight drop-shadow-sm">{{ $dailyMessage['text'] }}</p>
-        <p class="text-center text-sm md:text-base text-slate-800 dark:text-white/90 mt-2 font-medium drop-shadow-sm">Consejo: revisa las habilidades populares o completa un trueque para ganar más Runas.</p>
+        <p class="text-center text-sm md:text-base text-slate-900 dark:text-white mt-2 font-semibold drop-shadow-sm">Consejo: revisa las habilidades populares o completa un trueque para ganar más Runas.</p>
     </div>
 </div>
 
@@ -22,7 +22,7 @@
     <div class="flex items-start justify-between gap-3">
         <div class="flex-1">
             <p class="text-base font-bold drop-shadow-sm">{{ $dailyMessage['text'] }}</p>
-            <p class="text-xs text-slate-800 dark:text-white/90 mt-1 font-medium drop-shadow-sm">Consejo: revisa las habilidades populares o completa un trueque para ganar más Runas.</p>
+            <p class="text-xs text-slate-900 dark:text-white mt-1 font-semibold drop-shadow-sm">Consejo: revisa las habilidades populares o completa un trueque para ganar más Runas.</p>
         </div>
         <button id="mobile-banner-close" type="button" class="flex-shrink-0 p-1.5 rounded-md bg-white/25 hover:bg-white/35 text-slate-900 dark:text-white transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -20,15 +20,15 @@
   }
 
   .card {
-    @apply bg-white border border-slate-300 rounded-xl p-6 shadow-md relative overflow-hidden;
+    @apply bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-700 rounded-xl p-6 shadow-md relative overflow-hidden;
   }
   
   .card-title {
-    @apply text-lg font-semibold text-gray-900 mb-2;
+    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2;
   }
   
   .card-muted {
-    @apply text-sm text-slate-700;
+    @apply text-sm text-slate-700 dark:text-slate-300;
   }
 
   .stat-grid {
@@ -36,15 +36,15 @@
   }
   
   .stat-card {
-    @apply bg-white border border-slate-300 rounded-xl px-5 py-4 flex flex-col gap-1 shadow-md;
+    @apply bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-700 rounded-xl px-5 py-4 flex flex-col gap-1 shadow-md;
   }
   
   .stat-value {
-    @apply text-3xl font-bold text-indigo-600;
+    @apply text-3xl font-bold text-indigo-600 dark:text-indigo-400;
   }
   
   .stat-label {
-    @apply text-xs uppercase tracking-wide text-slate-700 font-semibold;
+    @apply text-xs uppercase tracking-wide text-slate-700 dark:text-slate-300 font-semibold;
   }
 
   .alert {
@@ -72,7 +72,7 @@
   }
 
   .form-input {
-    @apply w-full px-3 py-2 border border-slate-400 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white;
+    @apply w-full px-3 py-2 border border-slate-400 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100;
   }
 
   .bg-gradient-purple {
@@ -181,10 +181,24 @@
   }
 }
 
-.line-clamp-2 {
+  .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-clamp: 2;
+}
+
+/* Sobrescribir text-white para mejor contraste en modo claro */
+@layer utilities {
+  .text-white {
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81 / var(--tw-text-opacity, 1)); /* text-gray-700 en modo claro */
+  }
+  
+  /* Mantener blanco solo en modo oscuro */
+  .dark .text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  }
 }
