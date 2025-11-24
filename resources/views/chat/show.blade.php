@@ -163,9 +163,9 @@ const conversacionId = document.getElementById('conversacionId').value;
 // Suscribirse al canal privado de la conversación
 window.Echo.private(`chat.${conversacionId}`)
     .listen('.message.sent', (e) => {
-        console.log('Nuevo mensaje recibido:', e);
+        console.log('Mensaje recibido:', e);
         addMessageToChat(e, false);
-        scrollToBottom();
+        setTimeout(() => scrollToBottom(), 100); // Pequeño delay para asegurar el scroll
     })
     .error((error) => {
         console.error('Error en WebSocket:', error);
@@ -219,7 +219,7 @@ async function sendMessage(event) {
             messageInput.value = '';
             addMessageToChat(data.message, true);
             lastMessageId = data.message.id;
-            scrollToBottom();
+            setTimeout(() => scrollToBottom(), 100); // Pequeño delay para asegurar el scroll
         } else {
             throw new Error('Error al enviar mensaje');
         }
@@ -235,6 +235,7 @@ async function sendMessage(event) {
 
 // Función para agregar mensaje al chat
 function addMessageToChat(message, isOwn = false) {
+    console.log('Agregando mensaje:', message, 'isOwn:', isOwn);
     const messagesContainer = document.getElementById('messagesContainer');
     
     const messageDiv = document.createElement('div');
@@ -281,7 +282,9 @@ function addMessageToChat(message, isOwn = false) {
 // Función para hacer scroll hacia abajo
 function scrollToBottom() {
     const messagesContainer = document.getElementById('messagesContainer');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 }
 
 // Inicializar cuando la página carga
