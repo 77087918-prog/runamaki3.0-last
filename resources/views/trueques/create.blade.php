@@ -69,15 +69,21 @@
             </div>
 
             <!-- Mensaje inicial opcional -->
-            <div>
-                <label for="mensaje_inicial" class="block text-sm font-medium text-gray-700 mb-2">
-                    Mensaje inicial (opcional)
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4">
+                <label for="mensaje_inicial" class="block text-sm font-medium text-gray-700 mb-2 flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
+                    </svg>
+                    <span>💬 Mensaje inicial (opcional)</span>
                 </label>
+                <p class="text-sm text-gray-600 mb-3">
+                    Se creará automáticamente un <strong>chat en tiempo real</strong> con el usuario. Puedes agregar un mensaje personalizado.
+                </p>
                 <textarea id="mensaje_inicial" 
                           name="mensaje_inicial" 
                           rows="4" 
                           class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                          placeholder="Ej: Hola, me interesa tu habilidad. ¿Cuándo podríamos coordinar?">{{ old('mensaje_inicial') }}</textarea>
+                          placeholder="Ej: ¡Hola! Me interesa mucho tu habilidad. ¿Podríamos coordinar horarios? ✨">{{ old('mensaje_inicial') }}</textarea>
                 @error('mensaje_inicial')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror

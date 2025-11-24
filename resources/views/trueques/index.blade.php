@@ -98,9 +98,18 @@
                                 {{ ucfirst($trueque->estado) }}
                             </span>
                             
-                            <a href="{{ route('trueques.show', $trueque) }}" class="btn btn-secondary btn-sm">
-                                Ver Detalles
-                            </a>
+                            <div class="flex space-x-2">
+                                <a href="{{ route('trueques.chat', $trueque) }}" 
+                                   class="btn bg-purple-600 hover:bg-purple-700 text-white btn-sm flex items-center space-x-1 transition-all duration-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
+                                    </svg>
+                                    <span>Chat</span>
+                                </a>
+                                <a href="{{ route('trueques.show', $trueque) }}" class="btn btn-secondary btn-sm">
+                                    Detalles
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

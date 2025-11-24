@@ -8,6 +8,7 @@ use App\Http\Controllers\TruequeController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\ValoracionController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ChatController;
 
 // Rutas de autenticación
 Route::middleware('guest')->group(function () {
@@ -51,6 +52,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{trueque}/rechazar', [TruequeController::class, 'rechazar'])->name('rechazar');
         Route::post('/{trueque}/completar', [TruequeController::class, 'completar'])->name('completar');
         Route::post('/{trueque}/cancelar', [TruequeController::class, 'cancelar'])->name('cancelar');
+        Route::get('/{trueque}/chat', [TruequeController::class, 'getChat'])->name('chat');
     });
     
     // Rutas de mensajes
@@ -68,6 +70,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/cambiar-password', [PerfilController::class, 'cambiarPassword'])->name('cambiar-password');
         Route::get('/transacciones', [PerfilController::class, 'transacciones'])->name('transacciones');
         Route::get('/{user}', [PerfilController::class, 'show'])->name('show');
+    });
+    
+    // Rutas de chat en tiempo real
+    Route::prefix('chat')->name('chat.')->group(function () {
+        Route::get('/', [ChatController::class, 'index'])->name('index');
+        Route::get('/buscar-usuarios', [ChatController::class, 'buscarUsuarios'])->name('buscar-usuarios');
+        Route::post('/crear-conversacion', [ChatController::class, 'crearConversacion'])->name('crear-conversacion');
+        Route::get('/{conversacionId}', [ChatController::class, 'show'])->name('show');
+        Route::post('/enviar', [ChatController::class, 'store'])->name('store');
     });
 });
 

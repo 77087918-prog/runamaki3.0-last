@@ -6,6 +6,8 @@ use App\Models\Trueque;
 use App\Models\User;
 use App\Models\Habilidad;
 use App\Models\TransaccionPunto;
+use App\Models\ChatMensaje;
+use App\Events\MessageSent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -149,16 +151,55 @@ class TruequeController extends Controller
             'estado' => 'pendiente',
         ]);
 
-        // Mensaje inicial opcional
+        // Crear conversación de chat automáticamente
+        $conversacionId = ChatMensaje::generarConversacionId(Auth::id(), $habilidadRecibe->usuario_id);
+        
+        // Mensaje automático del sistema informando sobre el trueque
+        $mensajeSistema = "🔄 **Propuesta de Trueque #" . $trueque->id . "**\n\n";
+        $mensajeSistema .= "**Ofrece:** " . $habilidadOfrece->titulo . " (" . $habilidadOfrece->horas_ofrecidas . " horas)\n";
+        $mensajeSistema .= "**Solicita:** " . $habilidadRecibe->titulo . " (" . $habilidadRecibe->horas_ofrecidas . " horas)\n";
+        $mensajeSistema .= "**Puntos del intercambio:** " . $puntos . " runas\n\n";
+        $mensajeSistema .= "¡Revisa los detalles y coordinemos el intercambio! 🎯";
+
+        $mensajeAutomatico = ChatMensaje::create([
+            'conversacion_id' => $conversacionId,
+            'emisor_id' => Auth::id(),
+            'receptor_id' => $habilidadRecibe->usuario_id,
+            'mensaje' => $mensajeSistema,
+        ]);
+
+        // Broadcasting del mensaje del sistema
+        broadcast(new MessageSent($mensajeAutomatico))->toOthers();
+
+        // Mensaje inicial opcional del usuario
         if ($request->filled('mensaje_inicial')) {
+            $mensajeInicial = ChatMensaje::create([
+                'conversacion_id' => $conversacionId,
+                'emisor_id' => Auth::id(),
+                'receptor_id' => $habilidadRecibe->usuario_id,
+                'mensaje' => $validated['mensaje_inicial'],
+            ]);
+
+            // Broadcasting del mensaje inicial
+            broadcast(new MessageSent($mensajeInicial))->toOthers();
+            
+            // También crear en el sistema de mensajes del trueque (para compatibilidad)
             $trueque->mensajes()->create([
                 'remitente_id' => Auth::id(),
                 'mensaje' => $validated['mensaje_inicial']
             ]);
         }
 
+        // Agregar referencia al chat en la respuesta
+        $chatUrl = route('chat.show', $conversacionId);
+
+        // Agregar referencia al chat en la respuesta
+        $chatUrl = route('chat.show', $conversacionId);
+
         return redirect()->route('trueques.show', $trueque)
-            ->with('success', '¡Propuesta de trueque enviada correctamente!');
+            ->with('success', '¡Propuesta de trueque enviada correctamente!')
+            ->with('chat_url', $chatUrl)
+            ->with('chat_created', true);
     }
 
     public function aceptar(Trueque $trueque)
@@ -255,5 +296,23 @@ class TruequeController extends Controller
         $trueque->update(['estado' => 'cancelado']);
 
         return back()->with('success', 'Trueque cancelado');
+    }
+
+    /**
+     * Obtener la conversación de chat asociada al trueque
+     */
+    public function getChat(Trueque $trueque)
+    {
+        // Verificar que el usuario sea parte del trueque
+        if ($trueque->usuario_ofrece_id !== Auth::id() && $trueque->usuario_recibe_id !== Auth::id()) {
+            abort(403, 'No tienes acceso a este trueque');
+        }
+
+        $conversacionId = ChatMensaje::generarConversacionId(
+            $trueque->usuario_ofrece_id, 
+            $trueque->usuario_recibe_id
+        );
+
+        return redirect()->route('chat.show', $conversacionId);
     }
 }

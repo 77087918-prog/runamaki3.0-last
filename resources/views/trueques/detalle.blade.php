@@ -78,6 +78,15 @@
 
             <!-- Acciones según estado -->
             <div class="mt-6 space-y-2">
+                <!-- Botón de Chat - Siempre visible -->
+                <a href="{{ route('trueques.chat', $trueque) }}" 
+                   class="btn bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white w-full flex items-center justify-center space-x-2 transition-all duration-200 transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
+                    </svg>
+                    <span>💬 Abrir Chat</span>
+                </a>
+                
                 @if($trueque->estado === 'pendiente' && $es_receptor)
                     <form action="{{ route('trueques.aceptar', $trueque) }}" method="POST">
                         @csrf
@@ -217,5 +226,42 @@
     if (container) {
         container.scrollTop = container.scrollHeight;
     }
+
+    // Notificación de chat creado
+    @if(session('chat_created'))
+        setTimeout(function() {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 max-w-sm transition-all duration-500 transform translate-x-full';
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
+                    </svg>
+                    <div>
+                        <p class="font-semibold">💬 ¡Chat Creado!</p>
+                        <p class="text-sm opacity-90">Conversación iniciada automáticamente</p>
+                        @if(session('chat_url'))
+                            <a href="{{ session('chat_url') }}" class="text-sm underline hover:no-underline">Ir al chat →</a>
+                        @endif
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animar entrada
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Auto-ocultar después de 5 segundos
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 5000);
+        }, 1000);
+    @endif
 </script>
 @endsection

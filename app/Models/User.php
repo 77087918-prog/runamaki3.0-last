@@ -158,6 +158,41 @@ class User extends Authenticatable
         return $this->hasMany(ChatMensaje::class);
     }
 
+    /**
+     * Mensajes de chat enviados por el usuario
+     */
+    public function mensajesEnviados(): HasMany
+    {
+        return $this->hasMany(ChatMensaje::class, 'emisor_id');
+    }
+
+    /**
+     * Mensajes de chat recibidos por el usuario
+     */
+    public function mensajesRecibidos(): HasMany
+    {
+        return $this->hasMany(ChatMensaje::class, 'receptor_id');
+    }
+
+    /**
+     * Obtener conversaciones del usuario con último mensaje
+     */
+    public function getConversacionesAttribute()
+    {
+        // Obtener mensajes donde el usuario es emisor o receptor
+        $mensajes = ChatMensaje::where('emisor_id', $this->id)
+            ->orWhere('receptor_id', $this->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Agrupar por conversación y obtener el último mensaje de cada una
+        $conversaciones = $mensajes->groupBy('conversacion_id')->map(function ($mensajesConversacion) {
+            return $mensajesConversacion->first(); // El más reciente por el orderBy
+        });
+
+        return $conversaciones;
+    }
+
     public function isAdmin(): bool
     {
         return ($this->rol ?? 'usuario') === 'admin';

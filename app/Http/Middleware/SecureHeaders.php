@@ -54,6 +54,9 @@ class SecureHeaders
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         
+        // Asegurar UTF-8 encoding
+        $response->headers->set('Content-Type', 'text/html; charset=UTF-8');
+        
         return $response;
     }
 }
