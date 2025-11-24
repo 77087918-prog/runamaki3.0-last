@@ -12,8 +12,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Convertir la base de datos completa a utf8mb4
-        DB::statement('ALTER DATABASE `' . config('database.connections.mysql.database') . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+        // Solo ejecutar en entornos que no sean de build/CI
+        if (app()->runningInConsole() && env('APP_ENV') === 'local') {
+            return; // Skip en comandos de consola locales
+        }
+        
+        try {
+            // Convertir la base de datos completa a utf8mb4 (solo en Railway/production)
+            if (config('database.connections.mysql.database') && !str_contains(config('database.connections.mysql.host'), 'railway.internal')) {
+                DB::statement('ALTER DATABASE `' . config('database.connections.mysql.database') . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+            }
+        } catch (\Exception $e) {
+            // Ignorar errores de permisos en Railway
+        }
         
         // Lista de tablas que necesitan conversión
         $tables = [
