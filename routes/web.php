@@ -96,6 +96,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/habilidades', [AdminController::class, 'habilidades'])->name('habilidades');
     Route::post('/habilidades/{id}/aprobar', [AdminController::class, 'aprobarHabilidad'])->name('habilidades.aprobar');
     Route::post('/habilidades/{id}/rechazar', [AdminController::class, 'rechazarHabilidad'])->name('habilidades.rechazar');
+    Route::delete('/habilidades/{id}/eliminar', [AdminController::class, 'eliminarHabilidad'])->name('habilidades.eliminar');
     
     // Gestión de denuncias
     Route::get('/denuncias', [AdminController::class, 'denuncias'])->name('denuncias');

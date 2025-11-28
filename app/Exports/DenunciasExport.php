@@ -4,13 +4,9 @@ namespace App\Exports;
 
 use App\Models\Denuncia;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\Exportable;
 
-class DenunciasExport implements FromView
+class DenunciasExport
 {
-    use Exportable;
-
     protected $filtros;
 
     public function __construct($filtros = [])

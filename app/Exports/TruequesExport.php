@@ -4,13 +4,9 @@ namespace App\Exports;
 
 use App\Models\Trueque;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\Exportable;
 
-class TruequesExport implements FromView
+class TruequesExport
 {
-    use Exportable;
-
     protected $filtros;
 
     public function __construct($filtros = [])

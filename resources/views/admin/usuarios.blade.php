@@ -97,65 +97,66 @@
             </div>
         </div>
 
-        <!-- Tabla de usuarios -->
-        <div class="card overflow-hidden">
-            <div class="overflow-x-auto">
+        <!-- Lista de usuarios -->
+        <div class="card">
+            <!-- Tabla para desktop -->
+            <div class="hidden lg:block overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-gray-50 dark:bg-gray-800">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stats</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registro</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Usuario</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Rol</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Stats</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Registro</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                         @forelse($usuarios as $usuario)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold">
                                             {{ substr($usuario->name, 0, 1) }}
                                         </div>
                                         <div class="ml-3">
-                                            <div class="text-sm font-medium text-gray-900">{{ $usuario->name }}</div>
-                                            <div class="text-xs text-gray-500">{{ $usuario->nivel_emoji }} {{ $usuario->nivel }}</div>
+                                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $usuario->name }}</div>
+                                            <div class="text-xs text-gray-500 dark:text-gray-400">{{ $usuario->nivel_emoji }} {{ $usuario->nivel }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $usuario->email }}</div>
-                                    <div class="text-xs text-gray-500">{{ $usuario->puntos_runa }} Runas</div>
+                                    <div class="text-sm text-gray-900 dark:text-gray-100">{{ $usuario->email }}</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">{{ $usuario->puntos_runa }} Runas</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($usuario->estado === 'activo')
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Activo</span>
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Activo</span>
                                     @elseif($usuario->estado === 'suspendido')
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Suspendido</span>
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Suspendido</span>
                                     @else
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Baneado</span>
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Baneado</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($usuario->rol === 'admin')
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">Admin</span>
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Admin</span>
                                     @else
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Usuario</span>
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">Usuario</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     <div>{{ $usuario->habilidades_count }} habilidades</div>
                                     <div>{{ $usuario->trueques_ofrecidos_count + $usuario->trueques_recibidos_count }} trueques</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     {{ $usuario->created_at->format('d/m/Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('perfil.show', $usuario) }}" class="text-indigo-600 hover:text-indigo-900" title="Ver perfil">
+                                        <a href="{{ route('perfil.show', $usuario) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300" title="Ver perfil">
                                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
                                                 <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
@@ -213,13 +214,107 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                                <td colspan="7" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                                     No se encontraron usuarios
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Cards para móvil -->
+            <div class="lg:hidden space-y-4 p-4">
+                @forelse($usuarios as $usuario)
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800">
+                        <!-- Header con avatar y nombre -->
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                                    {{ substr($usuario->name, 0, 1) }}
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-900 dark:text-gray-100">{{ $usuario->name }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ $usuario->nivel_emoji }} {{ $usuario->nivel }}</div>
+                                </div>
+                            </div>
+                            @if($usuario->rol === 'admin')
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Admin</span>
+                            @endif
+                        </div>
+
+                        <!-- Info -->
+                        <div class="space-y-2 text-sm mb-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Email:</span>
+                                <span class="text-gray-900 dark:text-gray-100">{{ Str::limit($usuario->email, 25) }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Runas:</span>
+                                <span class="text-gray-900 dark:text-gray-100">{{ $usuario->puntos_runa }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Estadísticas:</span>
+                                <span class="text-gray-900 dark:text-gray-100">{{ $usuario->habilidades_count }} hab. / {{ $usuario->trueques_ofrecidos_count + $usuario->trueques_recibidos_count }} trueques</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600 dark:text-gray-400">Registro:</span>
+                                <span class="text-gray-900 dark:text-gray-100">{{ $usuario->created_at->format('d/m/Y') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-400">Estado:</span>
+                                @if($usuario->estado === 'activo')
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Activo</span>
+                                @elseif($usuario->estado === 'suspendido')
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Suspendido</span>
+                                @else
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Baneado</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Acciones -->
+                        <div class="flex gap-2 pt-3 border-t border-gray-200 dark:border-gray-700">
+                            <a href="{{ route('perfil.show', $usuario) }}" class="btn btn-secondary btn-sm flex-1 text-xs">
+                                Ver Perfil
+                            </a>
+                            
+                            <div class="relative" x-data="{ open: false }">
+                                <button @click="open = !open" class="btn btn-secondary btn-sm">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                    </svg>
+                                </button>
+                                <div x-show="open" @click.away="open = false" 
+                                     class="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 border border-gray-200 dark:border-gray-700">
+                                    <!-- Estado -->
+                                    <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST" class="block">
+                                        @csrf
+                                        <select name="estado" onchange="this.form.submit()" class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
+                                            <option value="activo" {{ $usuario->estado === 'activo' ? 'selected' : '' }}>✓ Activo</option>
+                                            <option value="suspendido" {{ $usuario->estado === 'suspendido' ? 'selected' : '' }}>⏸ Suspendido</option>
+                                            <option value="baneado" {{ $usuario->estado === 'baneado' ? 'selected' : '' }}>🚫 Baneado</option>
+                                        </select>
+                                    </form>
+                                    <!-- Rol -->
+                                    @if($usuario->id !== auth()->id())
+                                        <form action="{{ route('admin.usuarios.cambiar-rol', $usuario->id) }}" method="POST" class="block">
+                                            @csrf
+                                            <input type="hidden" name="rol" value="{{ $usuario->rol === 'admin' ? 'usuario' : 'admin' }}">
+                                            <button type="submit" class="block w-full px-4 py-2 text-sm text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                {{ $usuario->rol === 'admin' ? '👤 Quitar Admin' : '⭐ Hacer Admin' }}
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-12 text-gray-500 dark:text-gray-400">
+                        No se encontraron usuarios
+                    </div>
+                @endforelse
             </div>
 
             <!-- Paginación -->

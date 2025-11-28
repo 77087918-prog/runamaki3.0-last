@@ -5,13 +5,13 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <svg class="w-10 h-10 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
+                <svg class="w-10 h-10 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
                 </svg>
                 Panel de Administración
             </h1>
-            <p class="text-gray-600 mt-1">Vista general del sistema Runamaki</p>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Vista general del sistema Runamaki</p>
         </div>
 
         <!-- Estadísticas principales -->
@@ -84,21 +84,27 @@
         <!-- Gráficas de Estadísticas -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <!-- Gráfica de Usuarios -->
-            <div class="card">
-                <h2 class="text-lg font-bold mb-4">Registro de Usuarios (Últimos 6 meses)</h2>
-                <canvas id="usuariosChart"></canvas>
+            <div class="card bg-white dark:bg-gray-800">
+                <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Registro de Usuarios (Últimos 6 meses)</h2>
+                <div class="bg-white p-4 rounded">
+                    <canvas id="usuariosChart"></canvas>
+                </div>
             </div>
 
             <!-- Gráfica de Trueques -->
-            <div class="card">
-                <h2 class="text-lg font-bold mb-4">Trueques Realizados (Últimos 6 meses)</h2>
-                <canvas id="truequesChart"></canvas>
+            <div class="card bg-white dark:bg-gray-800">
+                <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Trueques Realizados (Últimos 6 meses)</h2>
+                <div class="bg-white p-4 rounded">
+                    <canvas id="truequesChart"></canvas>
+                </div>
             </div>
 
             <!-- Gráfica de Distribución -->
-            <div class="card">
-                <h2 class="text-lg font-bold mb-4">Estado de Usuarios</h2>
-                <canvas id="distribucionChart"></canvas>
+            <div class="card bg-white dark:bg-gray-800">
+                <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Estado de Usuarios</h2>
+                <div class="bg-white p-4 rounded">
+                    <canvas id="distribucionChart"></canvas>
+                </div>
             </div>
         </div>
 
