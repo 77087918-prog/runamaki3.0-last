@@ -379,15 +379,32 @@
 }
 </style>
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Marker para cargar Chart.js -->
+<div data-admin-charts style="display: none;"></div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📊 Iniciando carga de gráficos...');
     
-    // Verificar que Chart.js esté cargado
-    if (typeof Chart === 'undefined') {
-        console.error('❌ Chart.js no está cargado');
+    // Esperar a que Chart.js esté disponible
+    const waitForChart = setInterval(() => {
+        if (typeof Chart !== 'undefined') {
+            clearInterval(waitForChart);
+            console.log('✅ Chart.js disponible, iniciando gráficos...');
+            initCharts();
+        }
+    }, 100);
+    
+    // Timeout de 5 segundos
+    setTimeout(() => {
+        if (typeof Chart === 'undefined') {
+            clearInterval(waitForChart);
+            console.error('❌ Chart.js no se cargó después de 5 segundos');
+        }
+    }, 5000);
+});
+
+function initCharts() {
         return;
     }
     console.log('✅ Chart.js cargado correctamente');
@@ -583,6 +600,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     console.log('🎉 Proceso de carga de gráficos completado');
-});
+}
 </script>
 @endsection
