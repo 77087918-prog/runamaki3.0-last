@@ -383,25 +383,47 @@
 <div data-admin-charts style="display: none;"></div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('📊 Iniciando carga de gráficos...');
+let chartInitialized = false;
+
+// Función para inicializar gráficos
+function tryInitCharts() {
+    if (chartInitialized) return;
     
-    // Esperar a que Chart.js esté disponible
+    if (typeof Chart !== 'undefined') {
+        console.log('✅ Chart.js disponible, iniciando gráficos...');
+        chartInitialized = true;
+        initCharts();
+    } else {
+        console.log('⏳ Esperando Chart.js...');
+    }
+}
+
+// Escuchar evento personalizado
+window.addEventListener('chartjs-loaded', tryInitCharts);
+
+// También intentar con DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📊 Dashboard cargado, verificando Chart.js...');
+    
+    // Intentar inmediatamente
+    tryInitCharts();
+    
+    // Fallback: polling por si el evento no llega
+    let attempts = 0;
+    const maxAttempts = 50; // 5 segundos máximo
+    
     const waitForChart = setInterval(() => {
+        attempts++;
+        
         if (typeof Chart !== 'undefined') {
             clearInterval(waitForChart);
-            console.log('✅ Chart.js disponible, iniciando gráficos...');
-            initCharts();
-        }
-    }, 100);
-    
-    // Timeout de 5 segundos
-    setTimeout(() => {
-        if (typeof Chart === 'undefined') {
+            tryInitCharts();
+        } else if (attempts >= maxAttempts) {
             clearInterval(waitForChart);
             console.error('❌ Chart.js no se cargó después de 5 segundos');
+            console.error('Verifica que npm run build se haya ejecutado correctamente');
         }
-    }, 5000);
+    }, 100);
 });
 
 function initCharts() {
