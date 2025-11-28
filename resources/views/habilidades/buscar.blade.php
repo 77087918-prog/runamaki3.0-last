@@ -5,8 +5,8 @@
         <!-- Búsqueda mejorada con autocompletado -->
         <div class="p-6 border-b border-gray-200">
             <div class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-800 mb-2">🔍 Búsqueda Inteligente</h2>
-                <p class="text-sm text-gray-600">Busca por palabras clave, sinónimos o términos relacionados</p>
+                <h2 class="text-lg font-semibold text-gray-800 mb-2">🔍 {{ __('app.smart_search') }}</h2>
+                <p class="text-sm text-gray-600">{{ __('app.search_by_keywords') }}</p>
             </div>
             
             <form action="{{ route('habilidades.buscar') }}" method="GET" class="space-y-4">
@@ -14,13 +14,13 @@
                     <!-- Búsqueda principal con autocompletado -->
                     <div class="md:col-span-2 relative">
                         <label class="block text-xs font-medium text-gray-600 mb-1">
-                            🔍 Buscar habilidades
+                            🔍 {{ __('app.search_skills') }}
                         </label>
                         <input type="text" 
                                id="search-input"
                                name="q" 
                                value="{{ $query }}"
-                               placeholder="Ej: programación, inglés, cocina, guitarra..." 
+                               placeholder="{{ __('app.search_example') }}" 
                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                autocomplete="off">
                         
@@ -31,10 +31,10 @@
                     
                     <!-- Filtro por categoría -->
                     <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">📂 Categoría</label>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">📂 {{ __('app.category') }}</label>
                         <select name="categoria" 
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="">Todas las categorías</option>
+                            <option value="">{{ __('app.all_categories') }}</option>
                             @foreach($categorias as $cat)
                                 <option value="{{ $cat->id }}" @selected($categoria == $cat->id)>
                                     {{ $cat->nombre }}
@@ -45,7 +45,7 @@
                     
                     <!-- Ordenamiento -->
                     <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">📊 Ordenar por</label>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">📊 {{ __('app.sort_by') }}</label>
                         <select name="orden" 
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="relevancia" @selected($ordenPor === 'relevancia')>Relevancia</option>
