@@ -124,6 +124,18 @@
                     </svg>
                     Mi Perfil
                 </a>
+
+                @if(Auth::user()->isAdmin())
+                    <!-- Separador para Admin -->
+                    <div class="border-t border-gray-300 dark:border-gray-600 my-2"></div>
+                    
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition {{ request()->routeIs('admin.*') ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20' }}">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
+                        </svg>
+                        Panel Admin
+                    </a>
+                @endif
             </nav>
 
             <!-- Actions -->
@@ -142,9 +154,6 @@
                 <a href="{{ route('habilidades.create') }}" class="block w-full px-4 py-2 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition text-center">
                     + Nueva Habilidad
                 </a>
-                @if(Auth::user()->isAdmin())
-                    <span class="block text-center text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 py-1 rounded">Admin</span>
-                @endif
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="block w-full px-4 py-2 text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition text-center">

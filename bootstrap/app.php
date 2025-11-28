@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'force.https' => \App\Http\Middleware\ForceHttpsRedirect::class,
             'secure.headers' => \App\Http\Middleware\SecureHeaders::class,
+            'admin' => \App\Http\Middleware\IsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

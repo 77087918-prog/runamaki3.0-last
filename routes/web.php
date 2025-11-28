@@ -9,6 +9,7 @@ use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\ValoracionController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\Admin\AdminController;
 
 // Rutas de autenticación
 Route::middleware('guest')->group(function () {
@@ -80,6 +81,25 @@ Route::middleware('auth')->group(function () {
         Route::get('/{conversacionId}', [ChatController::class, 'show'])->name('show');
         Route::post('/enviar', [ChatController::class, 'store'])->name('store');
     });
+});
+
+// Rutas de administración
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    
+    // Gestión de usuarios
+    Route::get('/usuarios', [AdminController::class, 'usuarios'])->name('usuarios');
+    Route::post('/usuarios/{id}/cambiar-estado', [AdminController::class, 'cambiarEstadoUsuario'])->name('usuarios.cambiar-estado');
+    Route::post('/usuarios/{id}/cambiar-rol', [AdminController::class, 'cambiarRolUsuario'])->name('usuarios.cambiar-rol');
+    
+    // Gestión de habilidades
+    Route::get('/habilidades', [AdminController::class, 'habilidades'])->name('habilidades');
+    Route::post('/habilidades/{id}/aprobar', [AdminController::class, 'aprobarHabilidad'])->name('habilidades.aprobar');
+    Route::post('/habilidades/{id}/rechazar', [AdminController::class, 'rechazarHabilidad'])->name('habilidades.rechazar');
+    
+    // Gestión de denuncias
+    Route::get('/denuncias', [AdminController::class, 'denuncias'])->name('denuncias');
+    Route::post('/denuncias/{id}/procesar', [AdminController::class, 'procesarDenuncia'])->name('denuncias.procesar');
 });
 
 // Ruta pública de show habilidad (DEBE IR AL FINAL para no interferir con /create)
