@@ -101,7 +101,7 @@
 
                 @if($habilidad->usuario_id !== auth()->id() && $habilidad->estado === 'aprobado')
                     <a href="{{ route('trueques.create', $habilidad) }}" class="btn btn-primary w-full sm:w-auto text-sm sm:text-base">
-                        🔄 Proponer Trueque
+                        🔄 {{ __('app.propose_trade') }}
                     </a>
                 @endif
             </div>
@@ -120,7 +120,7 @@
     <!-- Volver -->
     <div class="mt-6">
         <a href="{{ route('habilidades.index') }}" class="text-indigo-600 hover:text-indigo-700 font-medium">
-            ← Volver a habilidades
+            ← {{ __('app.back') }}
         </a>
     </div>
 </div>
