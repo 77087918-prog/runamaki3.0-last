@@ -1,4 +1,9 @@
 import './bootstrap';
+import Alpine from 'alpinejs';
+
+// Inicializar Alpine.js
+window.Alpine = Alpine;
+Alpine.start();
 
 // Importar Chart.js si estamos en una página de admin
 if (document.querySelector('[data-admin-charts]')) {

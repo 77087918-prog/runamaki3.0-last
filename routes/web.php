@@ -30,6 +30,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 // Rutas de cambio de idioma
 Route::post('/language/change', [LanguageController::class, 'change'])->name('language.change');
 Route::get('/language/current', [LanguageController::class, 'current'])->name('language.current');
+Route::post('/language/translate', [LanguageController::class, 'translate'])->name('language.translate');
 
 // Rutas públicas de habilidades (index y buscar)
 Route::get('/habilidades', [HabilidadController::class, 'index'])->name('habilidades.index');

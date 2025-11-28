@@ -50,4 +50,34 @@ class LanguageController extends Controller
             'available' => ['es', 'qu']
         ]);
     }
+
+    /**
+     * Traduce un texto usando el TranslationService
+     */
+    public function translate(Request $request)
+    {
+        $request->validate([
+            'text' => 'required|string|max:1000',
+            'to' => 'required|in:es,qu'
+        ]);
+
+        $text = $request->input('text');
+        $targetLocale = $request->input('to');
+
+        // Si el idioma destino es Quechua, usar el servicio de traducción
+        if ($targetLocale === 'qu') {
+            $translationService = app(\App\Services\TranslationService::class);
+            $translated = $translationService->translate($text);
+        } else {
+            // Si es a español, devolver el original (ya que los mensajes están en español)
+            $translated = $text;
+        }
+
+        return response()->json([
+            'success' => true,
+            'original' => $text,
+            'translated' => $translated,
+            'locale' => $targetLocale
+        ]);
+    }
 }

@@ -61,7 +61,41 @@
                 </div>
             @else
                 @foreach($messages as $message)
-                    <div class="flex {{ $message->emisor_id === Auth::id() ? 'justify-end' : 'justify-start' }}">
+                    <div class="flex {{ $message->emisor_id === Auth::id() ? 'justify-end' : 'justify-start' }}" 
+                         x-data="{ 
+                            showTranslation: false, 
+                            translated: '', 
+                            translating: false,
+                            async translateMessage() {
+                                if (this.translated) {
+                                    this.showTranslation = !this.showTranslation;
+                                    return;
+                                }
+                                this.translating = true;
+                                try {
+                                    const response = await fetch('{{ route('language.translate') }}', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        },
+                                        body: JSON.stringify({
+                                            text: '{{ addslashes($message->mensaje) }}',
+                                            to: 'qu'
+                                        })
+                                    });
+                                    const data = await response.json();
+                                    if (data.success) {
+                                        this.translated = data.translated;
+                                        this.showTranslation = true;
+                                    }
+                                } catch (error) {
+                                    console.error('Error al traducir:', error);
+                                } finally {
+                                    this.translating = false;
+                                }
+                            }
+                         }">
                         <div class="max-w-xs lg:max-w-md">
                             @if($message->emisor_id !== Auth::id())
                                 <!-- Mensaje recibido -->
@@ -69,11 +103,27 @@
                                     <div class="w-6 h-6 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                                         {{ strtoupper(substr($message->emisor->name, 0, 1)) }}
                                     </div>
-                                    <div class="bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-3 rounded-2xl rounded-bl-md shadow-md">
-                                        <p class="text-sm">{{ $message->mensaje }}</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                            {{ $message->created_at->format('H:i') }}
-                                        </p>
+                                    <div>
+                                        <div class="bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-3 rounded-2xl rounded-bl-md shadow-md">
+                                            <p class="text-sm" x-show="!showTranslation">{{ $message->mensaje }}</p>
+                                            <p class="text-sm text-purple-600 dark:text-purple-400" x-show="showTranslation" x-text="translated" style="display: none;"></p>
+                                            <div class="flex items-center justify-between mt-2">
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                    {{ $message->created_at->format('H:i') }}
+                                                </p>
+                                                <button 
+                                                    @click="translateMessage()"
+                                                    type="button"
+                                                    class="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 flex items-center gap-1 ml-3"
+                                                    :disabled="translating">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!translating">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                                                    </svg>
+                                                    <span class="animate-spin" x-show="translating">⏳</span>
+                                                    <span x-text="showTranslation ? '{{ __('app.original') }}' : '{{ __('app.translate') }}'"></span>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @else
