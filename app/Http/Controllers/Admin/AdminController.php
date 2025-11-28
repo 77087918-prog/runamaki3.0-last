@@ -10,6 +10,12 @@ use App\Models\Denuncia;
 use App\Models\TransaccionPunto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\UsuariosExport;
+use App\Exports\HabilidadesExport;
+use App\Exports\TruequesExport;
+use App\Exports\DenunciasExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -263,6 +269,169 @@ class AdminController extends Controller
         $usuario->update(['rol' => $request->rol]);
 
         return redirect()->back()->with('success', 'Rol del usuario actualizado');
+    }
+
+    /**
+     * Exportar usuarios a Excel (CSV)
+     */
+    public function exportarUsuariosCSV(Request $request)
+    {
+        $filtros = $request->only(['buscar', 'estado', 'rol']);
+        
+        return Excel::download(
+            new UsuariosExport($filtros), 
+            'usuarios_' . now()->format('Y-m-d_His') . '.xlsx'
+        );
+    }
+
+    /**
+     * Exportar usuarios a PDF
+     */
+    public function exportarUsuariosPDF(Request $request)
+    {
+        $filtros = $request->only(['buscar', 'estado', 'rol']);
+        
+        $query = User::query()->with(['habilidadesOfrecidas', 'valoracionesRecibidas']);
+
+        if (!empty($filtros['buscar'])) {
+            $query->where(function($q) use ($filtros) {
+                $q->where('name', 'like', '%' . $filtros['buscar'] . '%')
+                  ->orWhere('email', 'like', '%' . $filtros['buscar'] . '%');
+            });
+        }
+
+        if (!empty($filtros['estado'])) {
+            $query->where('estado', $filtros['estado']);
+        }
+
+        if (!empty($filtros['rol'])) {
+            $query->where('rol', $filtros['rol']);
+        }
+
+        $usuarios = $query->orderBy('created_at', 'desc')->get();
+
+        $pdf = Pdf::loadView('admin.exports.usuarios_pdf', compact('usuarios'))
+                  ->setPaper('a4', 'landscape');
+        
+        return $pdf->download('usuarios_' . now()->format('Y-m-d_His') . '.pdf');
+    }
+
+    /**
+     * Exportar habilidades a Excel (CSV)
+     */
+    public function exportarHabilidadesCSV(Request $request)
+    {
+        $filtros = $request->only(['estado', 'categoria']);
+        
+        return Excel::download(
+            new HabilidadesExport($filtros), 
+            'habilidades_' . now()->format('Y-m-d_His') . '.xlsx'
+        );
+    }
+
+    /**
+     * Exportar habilidades a PDF
+     */
+    public function exportarHabilidadesPDF(Request $request)
+    {
+        $filtros = $request->only(['estado', 'categoria']);
+        
+        $query = Habilidad::query()->with(['usuario', 'categoria']);
+
+        if (!empty($filtros['estado'])) {
+            $query->where('estado', $filtros['estado']);
+        }
+
+        if (!empty($filtros['categoria'])) {
+            $query->where('categoria_id', $filtros['categoria']);
+        }
+
+        $habilidades = $query->orderBy('created_at', 'desc')->get();
+
+        $pdf = Pdf::loadView('admin.exports.habilidades_pdf', compact('habilidades'))
+                  ->setPaper('a4', 'landscape');
+        
+        return $pdf->download('habilidades_' . now()->format('Y-m-d_His') . '.pdf');
+    }
+
+    /**
+     * Exportar trueques a Excel (CSV)
+     */
+    public function exportarTruequesCSV(Request $request)
+    {
+        $filtros = $request->only(['estado', 'desde', 'hasta']);
+        
+        return Excel::download(
+            new TruequesExport($filtros), 
+            'trueques_' . now()->format('Y-m-d_His') . '.xlsx'
+        );
+    }
+
+    /**
+     * Exportar trueques a PDF
+     */
+    public function exportarTruequesPDF(Request $request)
+    {
+        $filtros = $request->only(['estado', 'desde', 'hasta']);
+        
+        $query = Trueque::query()->with(['solicitante', 'proveedor', 'habilidadSolicitada', 'habilidadOfrecida']);
+
+        if (!empty($filtros['estado'])) {
+            $query->where('estado', $filtros['estado']);
+        }
+
+        if (!empty($filtros['desde'])) {
+            $query->whereDate('created_at', '>=', $filtros['desde']);
+        }
+
+        if (!empty($filtros['hasta'])) {
+            $query->whereDate('created_at', '<=', $filtros['hasta']);
+        }
+
+        $trueques = $query->orderBy('created_at', 'desc')->get();
+
+        $pdf = Pdf::loadView('admin.exports.trueques_pdf', compact('trueques'))
+                  ->setPaper('a4', 'landscape');
+        
+        return $pdf->download('trueques_' . now()->format('Y-m-d_His') . '.pdf');
+    }
+
+    /**
+     * Exportar denuncias a Excel (CSV)
+     */
+    public function exportarDenunciasCSV(Request $request)
+    {
+        $filtros = $request->only(['estado', 'tipo']);
+        
+        return Excel::download(
+            new DenunciasExport($filtros), 
+            'denuncias_' . now()->format('Y-m-d_His') . '.xlsx'
+        );
+    }
+
+    /**
+     * Exportar denuncias a PDF
+     */
+    public function exportarDenunciasPDF(Request $request)
+    {
+        $filtros = $request->only(['estado', 'tipo']);
+        
+        $query = Denuncia::query()->with(['denunciante', 'denunciado', 'procesadoPor']);
+
+        if (!empty($filtros['estado'])) {
+            $query->where('estado', $filtros['estado']);
+        }
+
+        if (!empty($filtros['tipo'])) {
+            $query->where('tipo', $filtros['tipo']);
+        }
+
+        $denuncias = $query->orderBy('created_at', 'desc')->get();
+
+        $pdf = Pdf::loadView('admin.exports.denuncias_pdf', compact('denuncias'))
+                  ->setPaper('a4', 'landscape');
+        
+        return $pdf->download('denuncias_' . now()->format('Y-m-d_His') . '.pdf');
     }
 }
 

@@ -102,6 +102,77 @@
             </div>
         </div>
 
+        <!-- Sección de Exportaciones -->
+        <div class="card mb-6">
+            <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                Exportar Reportes
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Exportar Usuarios -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 transition">
+                    <h3 class="font-semibold text-gray-900 mb-3">Usuarios</h3>
+                    <div class="flex gap-2">
+                        <a href="{{ route('admin.usuarios.exportar.csv') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📊 Excel
+                        </a>
+                        <a href="{{ route('admin.usuarios.exportar.pdf') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📄 PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Exportar Habilidades -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 transition">
+                    <h3 class="font-semibold text-gray-900 mb-3">Habilidades</h3>
+                    <div class="flex gap-2">
+                        <a href="{{ route('admin.habilidades.exportar.csv') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📊 Excel
+                        </a>
+                        <a href="{{ route('admin.habilidades.exportar.pdf') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📄 PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Exportar Trueques -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 transition">
+                    <h3 class="font-semibold text-gray-900 mb-3">Trueques</h3>
+                    <div class="flex gap-2">
+                        <a href="{{ route('admin.trueques.exportar.csv') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📊 Excel
+                        </a>
+                        <a href="{{ route('admin.trueques.exportar.pdf') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📄 PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Exportar Denuncias -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 transition">
+                    <h3 class="font-semibold text-gray-900 mb-3">Denuncias</h3>
+                    <div class="flex gap-2">
+                        <a href="{{ route('admin.denuncias.exportar.csv') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📊 Excel
+                        </a>
+                        <a href="{{ route('admin.denuncias.exportar.pdf') }}" 
+                           class="flex-1 btn btn-sm btn-secondary text-xs">
+                            📄 PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Contenido principal en dos columnas -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Columna principal (2/3) -->

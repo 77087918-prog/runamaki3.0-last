@@ -100,6 +100,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Gestión de denuncias
     Route::get('/denuncias', [AdminController::class, 'denuncias'])->name('denuncias');
     Route::post('/denuncias/{id}/procesar', [AdminController::class, 'procesarDenuncia'])->name('denuncias.procesar');
+    
+    // Exportaciones
+    Route::get('/usuarios/exportar/csv', [AdminController::class, 'exportarUsuariosCSV'])->name('usuarios.exportar.csv');
+    Route::get('/usuarios/exportar/pdf', [AdminController::class, 'exportarUsuariosPDF'])->name('usuarios.exportar.pdf');
+    Route::get('/habilidades/exportar/csv', [AdminController::class, 'exportarHabilidadesCSV'])->name('habilidades.exportar.csv');
+    Route::get('/habilidades/exportar/pdf', [AdminController::class, 'exportarHabilidadesPDF'])->name('habilidades.exportar.pdf');
+    Route::get('/trueques/exportar/csv', [AdminController::class, 'exportarTruequesCSV'])->name('trueques.exportar.csv');
+    Route::get('/trueques/exportar/pdf', [AdminController::class, 'exportarTruequesPDF'])->name('trueques.exportar.pdf');
+    Route::get('/denuncias/exportar/csv', [AdminController::class, 'exportarDenunciasCSV'])->name('denuncias.exportar.csv');
+    Route::get('/denuncias/exportar/pdf', [AdminController::class, 'exportarDenunciasPDF'])->name('denuncias.exportar.pdf');
 });
 
 // Ruta pública de show habilidad (DEBE IR AL FINAL para no interferir con /create)

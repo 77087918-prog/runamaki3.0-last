@@ -9,9 +9,31 @@
                 <h1 class="text-3xl font-bold text-gray-900">Gestión de Habilidades</h1>
                 <p class="text-gray-600 mt-1">Aprueba o rechaza habilidades publicadas</p>
             </div>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
-                ← Volver al Dashboard
-            </a>
+            <div class="flex gap-2">
+                <!-- Botones de exportación -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" class="btn btn-secondary flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                        Exportar
+                    </button>
+                    <div x-show="open" @click.away="open = false" 
+                         class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                        <a href="{{ route('admin.habilidades.exportar.csv', request()->query()) }}" 
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            📊 Exportar a Excel
+                        </a>
+                        <a href="{{ route('admin.habilidades.exportar.pdf', request()->query()) }}" 
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            📄 Exportar a PDF
+                        </a>
+                    </div>
+                </div>
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
+                    ← Volver al Dashboard
+                </a>
+            </div>
         </div>
 
         <!-- Filtros -->
