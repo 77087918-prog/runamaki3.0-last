@@ -38,6 +38,13 @@ return [
     
     // Habilidades - Yachaykunamanta
     'my_skills' => 'Ñuqap yachaykuna',
+    'new_skill' => 'Musuq Yachay',
+    'smart_search' => 'Yachaysapa maskay',
+    'advanced_search' => 'Avançasqa maskay',
+    'my_trades' => 'Ñuqap khuskachiy',
+    'chat' => 'Rimanakuy',
+    'my_profile' => 'Perfilay',
+    'admin_panel' => 'Kamachiq Panel',
     'create_skill' => 'Musuq yachay ruway',
     'skill_title' => 'Yachaypa sutin',
     'skill_description' => 'Yachaypa willayninpa',

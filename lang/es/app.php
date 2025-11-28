@@ -38,6 +38,13 @@ return [
     
     // Habilidades
     'my_skills' => 'Mis Habilidades',
+    'new_skill' => 'Nueva Habilidad',
+    'smart_search' => 'Búsqueda inteligente',
+    'advanced_search' => 'Búsqueda avanzada',
+    'my_trades' => 'Mis Trueques',
+    'chat' => 'Chat',
+    'my_profile' => 'Mi Perfil',
+    'admin_panel' => 'Panel Admin',
     'create_skill' => 'Crear Habilidad',
     'skill_title' => 'Título de la Habilidad',
     'skill_description' => 'Descripción',
