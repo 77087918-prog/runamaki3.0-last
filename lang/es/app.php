@@ -36,6 +36,24 @@ return [
     'quechua' => 'Runasimi',
     'download' => 'Descargar',
     
+    // Dashboard
+    'hello' => '¡Hola, :name!',
+    'digital_trade_real_community' => 'Trueque digital, comunidad real.',
+    'your_current_level' => 'Tu nivel actual',
+    'runa_points' => 'Puntos Runa',
+    'reputation' => 'Reputación',
+    'level' => 'Nivel',
+    'points_for_next_level' => ':points puntos para :level',
+    'max_level_reached' => '¡Nivel máximo alcanzado!',
+    'my_activity' => 'Mi Actividad',
+    'recent_trades' => 'Trueques Recientes',
+    'recent_skills' => 'Habilidades Recientes',
+    'view_all' => 'Ver todo',
+    'no_activity' => 'No hay actividad reciente',
+    'progress_next_level' => 'Progreso al siguiente nivel',
+    'completed' => 'completado',
+    'active' => 'Activos',
+    
     // Habilidades
     'my_skills' => 'Mis Habilidades',
     'new_skill' => 'Nueva Habilidad',

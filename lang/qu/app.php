@@ -36,6 +36,24 @@ return [
     'quechua' => 'Runasimi',
     'download' => 'Uraykachiy',
     
+    // Dashboard - Panel
+    'hello' => '¡Allin p\'unchay, :name!',
+    'digital_trade_real_community' => 'Digital khuskachiy, cheqaq ayllu.',
+    'your_current_level' => 'Kunan nivelniyki',
+    'runa_points' => 'Runa Puntos',
+    'reputation' => 'Allin sutiyuq',
+    'level' => 'Nivel',
+    'points_for_next_level' => ':points puntos :level-paq',
+    'max_level_reached' => '¡Aswan hatun nivel chayasqa!',
+    'my_activity' => 'Ruwasqaykuna',
+    'recent_trades' => 'Qhipa khuskachiy',
+    'recent_skills' => 'Qhipa yachaykuna',
+    'view_all' => 'Tukuyta qhaway',
+    'no_activity' => 'Manan qhipa ruwasqakuna kanchu',
+    'progress_next_level' => 'Qatiq nivel-man puririsqa',
+    'completed' => 'tukusqa',
+    'active' => 'Llamk\'achkan',
+    
     // Habilidades - Yachaykunamanta
     'my_skills' => 'Ñuqap yachaykuna',
     'new_skill' => 'Musuq Yachay',

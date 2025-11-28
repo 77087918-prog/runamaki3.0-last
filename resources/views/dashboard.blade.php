@@ -7,11 +7,11 @@
         <div class="card fade-in mb-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">¡Hola, {{ $user->name }}!</h1>
-                    <p class="text-gray-600 mt-1">{{ __('Trueque digital, comunidad real.') }}</p>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ __('app.hello', ['name' => $user->name]) }}</h1>
+                    <p class="text-gray-600 mt-1">{{ __('app.digital_trade_real_community') }}</p>
                 </div>
                 <div class="text-right">
-                    <div class="text-sm text-gray-600">Tu nivel actual</div>
+                    <div class="text-sm text-gray-600">{{ __('app.your_current_level') }}</div>
                     <div class="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
                         {{ $user->nivel_emoji }} {{ $user->nivel }}
                     </div>
@@ -23,18 +23,18 @@
         <div class="card fade-in mb-6 bg-gradient-purple text-gray-900">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                    <div class="text-sm opacity-90">Puntos Runa</div>
+                    <div class="text-sm opacity-90">{{ __('app.runa_points') }}</div>
                     <div class="text-4xl font-bold mt-1">{{ $user->puntos_runa }}</div>
                     <div class="text-sm opacity-75 mt-2">
                         @if($user->puntos_para_siguiente_nivel > 0)
-                            {{ $user->puntos_para_siguiente_nivel }} puntos para {{ $user->puntos_runa >= 200 ? 'Platino' : ($user->puntos_runa >= 100 ? 'Oro' : 'Plata') }}
+                            {{ __('app.points_for_next_level', ['points' => $user->puntos_para_siguiente_nivel, 'level' => $user->puntos_runa >= 200 ? 'Platino' : ($user->puntos_runa >= 100 ? 'Oro' : 'Plata')]) }}
                         @else
-                            ¡Nivel máximo alcanzado!
+                            {{ __('app.max_level_reached') }}
                         @endif
                     </div>
                 </div>
                 <div>
-                    <div class="text-sm opacity-90">Reputación</div>
+                    <div class="text-sm opacity-90">{{ __('app.reputation') }}</div>
                     <div class="flex items-center gap-2 mt-1">
                         <div class="text-3xl font-bold">{{ number_format($user->reputacion, 1) }}</div>
                         <div class="flex">
@@ -47,34 +47,34 @@
                     </div>
                 </div>
                 <div>
-                    <div class="text-sm opacity-90">Progreso al siguiente nivel</div>
+                    <div class="text-sm opacity-90">{{ __('app.progress_next_level') }}</div>
                     <div class="mt-2">
                         <div class="w-full bg-white/20 rounded-full h-3">
                             <div class="bg-yellow-300 h-3 rounded-full transition-all" style="width: {{ $user->progreso_nivel }}%"></div>
                         </div>
-                        <div class="text-xs opacity-75 mt-1">{{ number_format($user->progreso_nivel, 0) }}% completado</div>
+                        <div class="text-xs opacity-75 mt-1">{{ number_format($user->progreso_nivel, 0) }}% {{ __('app.completed') }}</div>
                     </div>
                 </div>
             </div>
         </div>
 
             <div class="mt-8">
-                <h2 class="card-title mb-4">Mis Trueques</h2>
+                <h2 class="card-title mb-4">{{ __('app.my_trades') }}</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded">
-                        <div class="text-sm text-yellow-800 font-medium">Pendientes</div>
+                        <div class="text-sm text-yellow-800 font-medium">{{ __('app.pending') }}</div>
                         <div class="text-2xl font-bold text-yellow-900 mt-1">{{ $truequesRecibidos }}</div>
-                        <a href="{{ route('trueques.index', ['estado' => 'pendiente']) }}" class="text-sm text-yellow-700 hover:underline mt-1 inline-block">Ver todas →</a>
+                        <a href="{{ route('trueques.index', ['estado' => 'pendiente']) }}" class="text-sm text-yellow-700 hover:underline mt-1 inline-block">{{ __('app.view_all') }} →</a>
                     </div>
                     <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded">
-                        <div class="text-sm text-blue-800 font-medium">Activos</div>
+                        <div class="text-sm text-blue-800 font-medium">{{ __('app.active') }}</div>
                         <div class="text-2xl font-bold text-blue-900 mt-1">{{ $truequesActivos }}</div>
-                        <a href="{{ route('trueques.index', ['estado' => 'aceptado']) }}" class="text-sm text-blue-700 hover:underline mt-1 inline-block">Ver todas →</a>
+                        <a href="{{ route('trueques.index', ['estado' => 'aceptado']) }}" class="text-sm text-blue-700 hover:underline mt-1 inline-block">{{ __('app.view_all') }} →</a>
                     </div>
                     <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded">
-                        <div class="text-sm text-green-800 font-medium">Completados</div>
+                        <div class="text-sm text-green-800 font-medium">{{ __('app.completed') }}</div>
                         <div class="text-2xl font-bold text-green-900 mt-1">{{ $truequesCompletados }}</div>
-                        <a href="{{ route('trueques.index', ['estado' => 'completado']) }}" class="text-sm text-green-700 hover:underline mt-1 inline-block">Ver todas →</a>
+                        <a href="{{ route('trueques.index', ['estado' => 'completado']) }}" class="text-sm text-green-700 hover:underline mt-1 inline-block">{{ __('app.view_all') }} →</a>
                     </div>
                 </div>
             </div>
