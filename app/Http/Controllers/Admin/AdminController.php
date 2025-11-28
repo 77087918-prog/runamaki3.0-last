@@ -62,13 +62,21 @@ class AdminController extends Controller
         // Estadísticas por mes (últimos 6 meses)
         $statsGraficas = $this->getMonthlyStats();
 
+        // Distribución de estados de usuarios
+        $distribucionUsuarios = [
+            'activos' => User::where('estado', 'activo')->count(),
+            'suspendidos' => User::where('estado', 'suspendido')->count(),
+            'baneados' => User::where('estado', 'baneado')->count(),
+        ];
+
         return view('admin.dashboard', compact(
             'stats',
             'usuariosRecientes',
             'habilidadesPendientes',
             'denunciasPendientes',
             'actividadReciente',
-            'statsGraficas'
+            'statsGraficas',
+            'distribucionUsuarios'
         ));
     }
 

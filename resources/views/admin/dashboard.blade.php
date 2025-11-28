@@ -81,6 +81,27 @@
             </div>
         </div>
 
+        <!-- Gráficas de Estadísticas -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Gráfica de Usuarios -->
+            <div class="card">
+                <h2 class="text-lg font-bold mb-4">Registro de Usuarios (Últimos 6 meses)</h2>
+                <canvas id="usuariosChart"></canvas>
+            </div>
+
+            <!-- Gráfica de Trueques -->
+            <div class="card">
+                <h2 class="text-lg font-bold mb-4">Trueques Realizados (Últimos 6 meses)</h2>
+                <canvas id="truequesChart"></canvas>
+            </div>
+
+            <!-- Gráfica de Distribución -->
+            <div class="card">
+                <h2 class="text-lg font-bold mb-4">Estado de Usuarios</h2>
+                <canvas id="distribucionChart"></canvas>
+            </div>
+        </div>
+
         <!-- Contenido principal en dos columnas -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Columna principal (2/3) -->
@@ -280,4 +301,154 @@
     @apply p-2 rounded-lg transition-colors duration-200;
 }
 </style>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Configuración común
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        }
+    };
+
+    // Datos desde el backend
+    const statsData = @json($statsGraficas);
+    const distribucionData = @json($distribucionUsuarios);
+
+    // Gráfica de Usuarios
+    const usuariosCtx = document.getElementById('usuariosChart').getContext('2d');
+    new Chart(usuariosCtx, {
+        type: 'line',
+        data: {
+            labels: statsData.meses,
+            datasets: [{
+                label: 'Nuevos Usuarios',
+                data: statsData.usuarios,
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: 'rgb(59, 130, 246)',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Usuarios: ' + context.parsed.y;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfica de Trueques
+    const truequesCtx = document.getElementById('truequesChart').getContext('2d');
+    new Chart(truequesCtx, {
+        type: 'bar',
+        data: {
+            labels: statsData.meses,
+            datasets: [{
+                label: 'Trueques',
+                data: statsData.trueques,
+                backgroundColor: 'rgba(147, 51, 234, 0.8)',
+                borderColor: 'rgb(147, 51, 234)',
+                borderWidth: 1,
+                borderRadius: 8,
+                hoverBackgroundColor: 'rgba(147, 51, 234, 1)'
+            }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Trueques: ' + context.parsed.y;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfica de Distribución de Usuarios (Dona)
+    const distribucionCtx = document.getElementById('distribucionChart').getContext('2d');
+    new Chart(distribucionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Activos', 'Suspendidos', 'Baneados'],
+            datasets: [{
+                data: [
+                    distribucionData.activos,
+                    distribucionData.suspendidos,
+                    distribucionData.baneados
+                ],
+                backgroundColor: [
+                    'rgba(34, 197, 94, 0.8)',
+                    'rgba(234, 179, 8, 0.8)',
+                    'rgba(239, 68, 68, 0.8)'
+                ],
+                borderColor: [
+                    'rgb(34, 197, 94)',
+                    'rgb(234, 179, 8)',
+                    'rgb(239, 68, 68)'
+                ],
+                borderWidth: 2,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return label + ': ' + value + ' (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
 @endsection
