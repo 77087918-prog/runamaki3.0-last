@@ -9,13 +9,13 @@
                     <input type="text" 
                            name="q" 
                            value="{{ request('q') }}"
-                           placeholder="Buscar habilidades..." 
+                           placeholder="{{ __('app.search_placeholder') }}" 
                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                 </div>
                 <div class="sm:w-64">
                     <select name="categoria" 
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        <option value="">Todas las categorías</option>
+                        <option value="">{{ __('app.all_categories') }}</option>
                         @foreach($categorias ?? [] as $cat)
                             <option value="{{ $cat->id }}" @selected(request('categoria') == $cat->id)>
                                 {{ $cat->nombre }}
@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <button type="submit" class="w-full sm:w-auto px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
-                        Buscar
+                        {{ __('app.search') }}
                     </button>
                 </div>
             </form>
@@ -35,7 +35,7 @@
         <div class="p-4 sm:p-6">
             @if($habilidades->isEmpty())
                 <div class="text-center py-12">
-                    <p class="text-gray-500">No se encontraron habilidades</p>
+                    <p class="text-gray-500">{{ __('app.no_skills_found') }}</p>
                 </div>
             @else
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -62,11 +62,11 @@
                                             </a>
                                         </h3>
                                         <p class="text-xs sm:text-sm text-gray-600 truncate">
-                                            Por {{ $habilidad->usuario->name }}
+                                            {{ __('app.by_user', ['name' => $habilidad->usuario->name]) }}
                                         </p>
                                     </div>
                                     <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-xs sm:text-sm font-bold whitespace-nowrap ml-2 flex-shrink-0">
-                                        {{ $habilidad->puntos_sugeridos }} PR
+                                        {{ $habilidad->puntos_sugeridos }} {{ __('app.points_runa_short') }}
                                     </span>
                                 </div>
 

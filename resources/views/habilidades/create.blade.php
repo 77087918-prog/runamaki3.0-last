@@ -5,8 +5,8 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="card fade-in">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-                <h1 class="text-xl sm:text-2xl font-bold">Publicar nueva habilidad</h1>
-                <a href="{{ route('habilidades.index') }}" class="btn btn-secondary w-full sm:w-auto justify-center">← Cancelar</a>
+                <h1 class="text-xl sm:text-2xl font-bold">{{ __('app.create_skill') }}</h1>
+                <a href="{{ route('habilidades.index') }}" class="btn btn-secondary w-full sm:w-auto justify-center">← {{ __('app.cancel') }}</a>
             </div>
 
             @if($errors->any())
@@ -23,21 +23,21 @@
                 @csrf
 
                 <div>
-                    <label for="titulo" class="form-label">Título de la habilidad <span class="text-red-500">*</span></label>
-                    <input type="text" name="titulo" id="titulo" value="{{ old('titulo') }}" required maxlength="100" class="form-input" placeholder="Ej: Clases de guitarra acústica">
+                    <label for="titulo" class="form-label">{{ __('app.skill_title') }} <span class="text-red-500">*</span></label>
+                    <input type="text" name="titulo" id="titulo" value="{{ old('titulo') }}" required maxlength="100" class="form-input" placeholder="{{ __('app.search_example') }}">
                 </div>
 
                 <div>
-                    <label for="descripcion" class="form-label">Descripción <span class="text-red-500">*</span></label>
-                    <textarea name="descripcion" id="descripcion" rows="5" required maxlength="500" class="form-input" placeholder="Describe detalladamente lo que ofreces...">{{ old('descripcion') }}</textarea>
+                    <label for="descripcion" class="form-label">{{ __('app.skill_description') }} <span class="text-red-500">*</span></label>
+                    <textarea name="descripcion" id="descripcion" rows="5" required maxlength="500" class="form-input" placeholder="{{ __('app.description') }}">{{ old('descripcion') }}</textarea>
                     <p class="text-xs text-gray-500 mt-1">Máximo 500 caracteres</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
-                        <label for="categoria_id" class="form-label">Categoría <span class="text-red-500">*</span></label>
+                        <label for="categoria_id" class="form-label">{{ __('app.skill_category') }} <span class="text-red-500">*</span></label>
                         <select name="categoria_id" id="categoria_id" required class="form-input">
-                            <option value="">Selecciona una categoría</option>
+                            <option value="">{{ __('app.select') }}</option>
                             @foreach($categorias as $categoria)
                                 <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>
                                     {{ $categoria->icono }} {{ $categoria->nombre }}
@@ -88,8 +88,8 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <button type="submit" class="btn btn-primary w-full sm:w-auto justify-center">Publicar habilidad</button>
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary w-full sm:w-auto justify-center">Cancelar</a>
+                    <button type="submit" class="btn btn-primary w-full sm:w-auto justify-center">{{ __('app.create') }}</button>
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary w-full sm:w-auto justify-center">{{ __('app.cancel') }}</a>
                 </div>
             </form>
         </div>

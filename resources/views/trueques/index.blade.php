@@ -7,19 +7,19 @@
         <div class="flex gap-3 md:gap-4 flex-wrap">
             <a href="{{ route('trueques.index') }}" 
                class="btn {{ !$filtro_estado ? 'btn-primary' : 'btn-secondary' }}">
-                Todos
+                {{ __('app.view_all') }}
             </a>
             <a href="{{ route('trueques.index', ['estado' => 'pendiente']) }}" 
                class="btn {{ $filtro_estado === 'pendiente' ? 'btn-primary' : 'btn-secondary' }}">
-                Pendientes
+                {{ __('app.pending_trades') }}
             </a>
             <a href="{{ route('trueques.index', ['estado' => 'aceptado']) }}" 
                class="btn {{ $filtro_estado === 'aceptado' ? 'btn-primary' : 'btn-secondary' }}">
-                Aceptados
+                {{ __('app.accepted') }}
             </a>
             <a href="{{ route('trueques.index', ['estado' => 'completado']) }}" 
                class="btn {{ $filtro_estado === 'completado' ? 'btn-primary' : 'btn-secondary' }}">
-                Completados
+                {{ __('app.completed_trades') }}
             </a>
         </div>
     </div>
@@ -30,11 +30,11 @@
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
             </svg>
-            <h3 class="mt-2 text-sm font-medium text-gray-900">No hay trueques</h3>
-            <p class="mt-1 text-sm text-gray-500">Empieza buscando habilidades que te interesen</p>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">{{ __('app.no_trades_found') }}</h3>
+            <p class="mt-1 text-sm text-gray-500">{{ __('app.search_skills') }}</p>
             <div class="mt-6">
                 <a href="{{ route('habilidades.index') }}" class="btn btn-primary">
-                    Explorar Habilidades
+                    {{ __('app.available_skills') }}
                 </a>
             </div>
         </div>
@@ -48,7 +48,7 @@
                             <div class="flex items-center gap-3 md:gap-4 mb-3">
                                 <div class="text-sm">
                                     <span class="font-medium text-gray-900">{{ $trueque->usuarioOfrece->name }}</span>
-                                    <span class="text-gray-500">ofrece</span>
+                                    <span class="text-gray-500">{{ __('app.offer_skill') }}</span>
                                 </div>
                                 <svg class="h-3 w-3 md:h-4 md:w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
@@ -62,11 +62,11 @@
                             <!-- Habilidades -->
                             <div class="grid grid-cols-2 gap-4 mb-3">
                                 <div class="bg-indigo-50 rounded-lg p-3">
-                                    <p class="text-xs text-indigo-600 font-medium mb-1">Ofrece</p>
+                                    <p class="text-xs text-indigo-600 font-medium mb-1">{{ __('app.offer_skill') }}</p>
                                     <p class="font-medium text-gray-900">{{ $trueque->habilidadOfrece->titulo }}</p>
                                 </div>
                                 <div class="bg-purple-50 rounded-lg p-3">
-                                    <p class="text-xs text-purple-600 font-medium mb-1">Recibe</p>
+                                    <p class="text-xs text-purple-600 font-medium mb-1">{{ __('app.request_skill') }}</p>
                                     <p class="font-medium text-gray-900">{{ $trueque->habilidadRecibe->titulo }}</p>
                                 </div>
                             </div>
@@ -104,10 +104,10 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
                                     </svg>
-                                    <span>Chat</span>
+                                    <span>{{ __('app.chat') }}</span>
                                 </a>
                                 <a href="{{ route('trueques.show', $trueque) }}" class="btn btn-secondary btn-sm">
-                                    Detalles
+                                    {{ __('app.details') }}
                                 </a>
                             </div>
                         </div>

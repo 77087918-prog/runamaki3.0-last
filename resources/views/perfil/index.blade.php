@@ -51,7 +51,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
-                    Editar perfil
+                    {{ __('app.edit_profile') }}
                 </a>
             </div>
         </div>
@@ -63,7 +63,7 @@
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    <h3 class="font-semibold text-gray-900">Sobre mí</h3>
+                    <h3 class="font-semibold text-gray-900">{{ __('app.bio') }}</h3>
                 </div>
                 <p class="text-gray-700 leading-relaxed">{{ $user->bio }}</p>
             </div>
@@ -75,7 +75,7 @@
         <div class="card fade-in bg-gradient-to-br from-blue-50 to-indigo-50 border-indigo-100">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs uppercase tracking-wide font-semibold text-indigo-600 mb-1">Miembro desde</p>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-indigo-600 mb-1">{{ __('app.member_since') }}</p>
                     <p class="text-2xl font-bold text-indigo-900">{{ $user->created_at->format('M Y') }}</p>
                 </div>
                 <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
@@ -89,7 +89,7 @@
         <div class="card fade-in bg-gradient-to-br from-green-50 to-emerald-50 border-green-100">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs uppercase tracking-wide font-semibold text-green-600 mb-1">Habilidades</p>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-green-600 mb-1">{{ __('app.my_skills') }}</p>
                     <p class="text-2xl font-bold text-green-900">{{ $user->habilidades()->count() }}</p>
                 </div>
                 <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
@@ -103,7 +103,7 @@
         <div class="card fade-in bg-gradient-to-br from-purple-50 to-pink-50 border-purple-100">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs uppercase tracking-wide font-semibold text-purple-600 mb-1">Trueques</p>
+                    <p class="text-xs uppercase tracking-wide font-semibold text-purple-600 mb-1">{{ __('app.my_trades') }}</p>
                     <p class="text-2xl font-bold text-purple-900">{{ $truequesCompletados }}</p>
                 </div>
                 <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
@@ -125,15 +125,15 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-xl font-bold text-gray-900">Mis Habilidades</h2>
-                    <p class="text-sm text-gray-600">Gestiona tus conocimientos compartidos</p>
+                    <h2 class="text-xl font-bold text-gray-900">{{ __('app.my_skills') }}</h2>
+                    <p class="text-sm text-gray-600">{{ __('app.skills_offered') }}</p>
                 </div>
             </div>
             <a href="{{ route('habilidades.create') }}" class="btn btn-primary">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Nueva
+                {{ __('app.new_skill') }}
             </a>
         </div>
 
@@ -142,8 +142,8 @@
                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                 </svg>
-                <p class="text-gray-600 mb-4">No tienes habilidades publicadas aún</p>
-                <a href="{{ route('habilidades.create') }}" class="btn btn-primary">Publicar mi primera habilidad</a>
+                <p class="text-gray-600 mb-4">{{ __('app.no_skills_found') }}</p>
+                <a href="{{ route('habilidades.create') }}" class="btn btn-primary">{{ __('app.create_skill') }}</a>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

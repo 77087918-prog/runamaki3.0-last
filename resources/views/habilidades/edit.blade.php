@@ -5,7 +5,7 @@
     <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
         <div class="card fade-in">
             <div class="flex items-center justify-between mb-6">
-                <h1 class="text-2xl font-bold">Editar habilidad</h1>
+                <h1 class="text-2xl font-bold">{{ __('app.edit') }} {{ __('app.my_skills') }}</h1>
                 <a href="{{ route('habilidades.show', $habilidad) }}" class="btn btn-secondary">← Cancelar</a>
             </div>
 
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="flex gap-3">
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    <button type="submit" class="btn btn-primary">{{ __('app.save_changes') }}</button>
                     <a href="{{ route('habilidades.show', $habilidad) }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
@@ -107,13 +107,13 @@
 
             <div>
                 <h2 class="text-xl font-bold text-red-600 mb-4">Zona de peligro</h2>
-                <form action="{{ route('habilidades.destroy', $habilidad) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta habilidad? Esta acción no se puede deshacer.')">
+                <form action="{{ route('habilidades.destroy', $habilidad) }}" method="POST" onsubmit="return confirm('{{ __('app.confirm_delete') }}')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-                        Eliminar habilidad
+                        {{ __('app.delete') }}
                     </button>
-                    <p class="text-sm text-gray-600 mt-2">Esta acción eliminará permanentemente esta habilidad.</p>
+                    <p class="text-sm text-gray-600 mt-2">{{ __('app.confirm') }}</p>
                 </form>
             </div>
         </div>
