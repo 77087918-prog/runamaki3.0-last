@@ -24,3 +24,4 @@ Homestead.yaml
 Thumbs.db
 /runamaki3
 /php-runamaki
+/bootstrap/cache/*.php
