@@ -405,10 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initCharts() {
-        return;
-    }
-    console.log('✅ Chart.js cargado correctamente');
-    
     // Configuración común
     const commonOptions = {
         responsive: true,
