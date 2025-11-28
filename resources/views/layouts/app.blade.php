@@ -7,11 +7,11 @@
     
     <!-- Security headers para development -->
     @if(app()->environment('local'))
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: *; font-src 'self' data:; connect-src 'self' ws: wss:; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; img-src 'self' data: blob: *; font-src 'self' data: https://fonts.bunny.net; connect-src 'self' ws: wss:; form-action 'self';">
     <meta name="referrer" content="no-referrer-when-downgrade">
     @else
     <!-- Headers seguros para Railway production -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; img-src 'self' data: blob: *; font-src 'self' https://fonts.bunny.net; connect-src 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; img-src 'self' data: blob: *; font-src 'self' https://fonts.bunny.net; connect-src 'self'; form-action 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     @endif
     
