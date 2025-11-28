@@ -59,13 +59,13 @@ class HabilidadController extends Controller
         }
 
         $validated['usuario_id'] = Auth::id();
-        $validated['estado'] = 'aprobado'; // Auto-aprobar por ahora
+        $validated['estado'] = 'pendiente'; // Requiere aprobación del admin
 
         $habilidad = Habilidad::create($validated);
 
         return redirect()
             ->route('habilidades.show', $habilidad)
-            ->with('success', '¡Habilidad creada exitosamente!');
+            ->with('success', '¡Habilidad creada! Está pendiente de aprobación por un administrador.');
     }
 
     /**

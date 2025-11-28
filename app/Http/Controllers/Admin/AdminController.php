@@ -196,8 +196,8 @@ class AdminController extends Controller
         
         // Verificar que no tenga trueques activos
         $truequesActivos = Trueque::where(function($query) use ($id) {
-            $query->where('habilidad_solicitada_id', $id)
-                  ->orWhere('habilidad_ofrecida_id', $id);
+            $query->where('habilidad_ofrece_id', $id)
+                  ->orWhere('habilidad_recibe_id', $id);
         })->whereIn('estado', ['pendiente', 'aceptado', 'en_proceso'])->count();
 
         if ($truequesActivos > 0) {
