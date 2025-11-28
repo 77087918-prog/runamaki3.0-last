@@ -33,6 +33,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        /* Alpine.js x-cloak directive */
+        [x-cloak] { display: none !important; }
+        
         /* Fallback to ensure banner hides on small screens if Tailwind isn't applied immediately */
         @media (max-width: 767px) {
             .desktop-banner { display: none !important; }

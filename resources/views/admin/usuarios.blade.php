@@ -164,15 +164,15 @@
                                         </a>
                                         
                                         <!-- Cambiar Estado -->
-                                        <div class="relative inline-block text-left" x-data="{ open: false }">
+                                        <div class="relative inline-block text-left" x-data="{ open: false }" @click.away="open = false">
                                             <button @click="open = !open" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" title="Cambiar estado">
                                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
                                                 </svg>
                                             </button>
-                                            <div x-show="open" 
-                                                 @click.away="open = false" 
+                                            <div x-show="open" x-cloak 
                                                  x-transition
+                                                 style="display: none;"
                                                  class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-20 divide-y divide-gray-100 dark:divide-gray-700">
                                                 <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
                                                     @csrf

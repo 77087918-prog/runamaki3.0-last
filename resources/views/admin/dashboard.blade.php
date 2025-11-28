@@ -86,24 +86,24 @@
             <!-- Gráfica de Usuarios -->
             <div class="card">
                 <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Registro de Usuarios (Últimos 6 meses)</h2>
-                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg" style="height: 300px;">
-                    <canvas id="usuariosChart"></canvas>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg" style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="usuariosChart" style="max-height: 100%;"></canvas>
                 </div>
             </div>
 
             <!-- Gráfica de Trueques -->
             <div class="card">
                 <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Trueques Realizados (Últimos 6 meses)</h2>
-                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg" style="height: 300px;">
-                    <canvas id="truequesChart"></canvas>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg" style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="truequesChart" style="max-height: 100%;"></canvas>
                 </div>
             </div>
 
             <!-- Gráfica de Distribución -->
             <div class="card">
                 <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Estado de Usuarios</h2>
-                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg" style="height: 300px;">
-                    <canvas id="distribucionChart"></canvas>
+                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg" style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="distribucionChart" style="max-height: 100%;"></canvas>
                 </div>
             </div>
         </div>
@@ -383,6 +383,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('📊 Iniciando carga de gráficos...');
+    
+    // Verificar que Chart.js esté cargado
+    if (typeof Chart === 'undefined') {
+        console.error('❌ Chart.js no está cargado');
+        return;
+    }
+    console.log('✅ Chart.js cargado correctamente');
+    
     // Configuración común
     const commonOptions = {
         responsive: true,
@@ -417,85 +426,106 @@ document.addEventListener('DOMContentLoaded', function() {
     // Datos desde el backend
     const statsData = @json($statsGraficas);
     const distribucionData = @json($distribucionUsuarios);
+    
+    console.log('📈 Datos de estadísticas:', statsData);
+    console.log('📊 Datos de distribución:', distribucionData);
 
     // Gráfica de Usuarios
     const usuariosCtx = document.getElementById('usuariosChart');
     if (usuariosCtx) {
-        new Chart(usuariosCtx, {
-            type: 'line',
-            data: {
-                labels: statsData.meses,
-                datasets: [{
-                    label: 'Nuevos Usuarios',
-                    data: statsData.usuarios,
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    pointBackgroundColor: 'rgb(59, 130, 246)',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }]
-            },
-            options: {
-                ...commonOptions,
-                plugins: {
-                    ...commonOptions.plugins,
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return 'Usuarios: ' + context.parsed.y;
+        console.log('🎨 Creando gráfico de usuarios...');
+        try {
+            new Chart(usuariosCtx, {
+                type: 'line',
+                data: {
+                    labels: statsData.meses,
+                    datasets: [{
+                        label: 'Nuevos Usuarios',
+                        data: statsData.usuarios,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: 'rgb(59, 130, 246)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Usuarios: ' + context.parsed.y;
+                                }
                             }
                         }
                     }
                 }
-            }
-        });
+            });
+            console.log('✅ Gráfico de usuarios creado');
+        } catch(e) {
+            console.error('❌ Error creando gráfico de usuarios:', e);
+        }
+    } else {
+        console.error('❌ Canvas usuariosChart no encontrado');
     }
 
     // Gráfica de Trueques
     const truequesCtx = document.getElementById('truequesChart');
     if (truequesCtx) {
-        new Chart(truequesCtx, {
-            type: 'bar',
-            data: {
-                labels: statsData.meses,
-                datasets: [{
-                    label: 'Trueques',
-                    data: statsData.trueques,
-                    backgroundColor: 'rgba(147, 51, 234, 0.8)',
-                    borderColor: 'rgb(147, 51, 234)',
-                    borderWidth: 1,
-                    borderRadius: 8,
-                    hoverBackgroundColor: 'rgba(147, 51, 234, 1)'
-                }]
-            },
-            options: {
-                ...commonOptions,
-                plugins: {
-                    ...commonOptions.plugins,
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return 'Trueques: ' + context.parsed.y;
+        console.log('🎨 Creando gráfico de trueques...');
+        try {
+            new Chart(truequesCtx, {
+                type: 'bar',
+                data: {
+                    labels: statsData.meses,
+                    datasets: [{
+                        label: 'Trueques',
+                        data: statsData.trueques,
+                        backgroundColor: 'rgba(147, 51, 234, 0.8)',
+                        borderColor: 'rgb(147, 51, 234)',
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        hoverBackgroundColor: 'rgba(147, 51, 234, 1)'
+                    }]
+                },
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Trueques: ' + context.parsed.y;
+                                }
                             }
                         }
                     }
                 }
-            }
-        });
+            });
+            console.log('✅ Gráfico de trueques creado');
+        } catch(e) {
+            console.error('❌ Error creando gráfico de trueques:', e);
+        }
+    } else {
+        console.error('❌ Canvas truequesChart no encontrado');
     }
 
     // Gráfica de Distribución de Usuarios (Dona)
     const distribucionCtx = document.getElementById('distribucionChart');
     if (distribucionCtx) {
-        new Chart(distribucionCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Activos', 'Suspendidos', 'Baneados'],
-                datasets: [{
+        console.log('🎨 Creando gráfico de distribución...');
+        try {
+            new Chart(distribucionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Activos', 'Suspendidos', 'Baneados'],
+                    datasets: [{
                     data: [
                         distribucionData.activos,
                         distribucionData.suspendidos,
@@ -544,7 +574,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+        console.log('✅ Gráfico de distribución creado');
+        } catch(e) {
+            console.error('❌ Error creando gráfico de distribución:', e);
+        }
+    } else {
+        console.error('❌ Canvas distribucionChart no encontrado');
     }
+    
+    console.log('🎉 Proceso de carga de gráficos completado');
 });
 </script>
 @endsection
