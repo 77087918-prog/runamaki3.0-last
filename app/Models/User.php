@@ -31,6 +31,7 @@ class User extends Authenticatable
         'rol',
         'ubicacion',
         'ultima_conexion',
+        'locale',
     ];
 
     /**

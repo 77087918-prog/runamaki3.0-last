@@ -143,6 +143,9 @@
 
             <!-- Actions -->
             <div class="p-4 border-t border-slate-300 dark:border-gray-700 space-y-2">
+                <!-- Language Selector -->
+                <x-language-selector />
+                
                 <!-- Dark Mode Toggle -->
                 <button id="dark-mode-toggle" class="flex items-center justify-center gap-2 w-full px-4 py-2 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                     <svg id="dark-mode-icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">

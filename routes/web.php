@@ -9,6 +9,7 @@ use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\ValoracionController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Admin\AdminController;
 
 // Rutas de autenticación
@@ -25,6 +26,10 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+
+// Rutas de cambio de idioma
+Route::post('/language/change', [LanguageController::class, 'change'])->name('language.change');
+Route::get('/language/current', [LanguageController::class, 'current'])->name('language.current');
 
 // Rutas públicas de habilidades (index y buscar)
 Route::get('/habilidades', [HabilidadController::class, 'index'])->name('habilidades.index');
