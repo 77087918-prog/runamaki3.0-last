@@ -25,19 +25,19 @@
                             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $otherUser->name }}</h2>
                             <p class="text-sm text-green-600 dark:text-green-400 flex items-center">
                                 <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                                En línea
+                                {{ __('app.online') }}
                             </p>
                         </div>
                     </div>
                 @else
-                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Chat</h2>
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('app.chat') }}</h2>
                 @endif
             </div>
             
             <!-- Indicador de conexión WebSocket -->
             <div id="connectionStatus" class="flex items-center space-x-2">
                 <div class="w-3 h-3 bg-gray-400 rounded-full" id="wsIndicator"></div>
-                <span class="text-sm text-gray-500" id="wsStatus">Conectando...</span>
+                <span class="text-sm text-gray-500" id="wsStatus">{{ __('app.loading') }}</span>
             </div>
         </div>
     </div>
@@ -56,8 +56,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">¡Inicia la conversación!</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Envía un mensaje para comenzar a chatear en tiempo real</p>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ __('app.start_conversation') }}</h3>
+                    <p class="text-gray-500 dark:text-gray-400">{{ __('app.send_message') }}</p>
                 </div>
             @else
                 @foreach($messages as $message)
@@ -108,7 +108,7 @@
                 <input 
                     type="text" 
                     id="messageInput" 
-                    placeholder="Escribe tu mensaje..." 
+                    placeholder="{{ __('app.type_message') }}" 
                     class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200"
                     maxlength="1000"
                     required>

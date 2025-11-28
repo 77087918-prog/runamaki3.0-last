@@ -9,8 +9,8 @@
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-8">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">💬 Chat</h1>
-                        <p class="text-gray-600 dark:text-gray-400 mt-1">Mensajes en tiempo real</p>
+                        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">💬 {{ __('app.chat') }}</h1>
+                        <p class="text-gray-600 dark:text-gray-400 mt-1">{{ __('app.conversations') }}</p>
                     </div>
                     
                     <!-- Botón nuevo chat -->
@@ -20,7 +20,7 @@
                         <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
-                        Nuevo Chat
+                        {{ __('app.new_message') }}
                     </button>
                 </div>
 
@@ -32,12 +32,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.965 8.965 0 01-4.57-1.22L3 21l2.22-5.43A8.965 8.965 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No hay conversaciones</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-6">Inicia un nuevo chat para comenzar a conversar</p>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ __('app.no_messages') }}</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mb-6">{{ __('app.start_conversation') }}</p>
                         <button 
                             onclick="openNewChatModal()"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
-                            Iniciar primer chat
+                            {{ __('app.start_conversation') }}
                         </button>
                     </div>
                 @else
@@ -83,7 +83,7 @@
                                             <!-- Indicador en línea -->
                                             <div class="ml-auto flex items-center">
                                                 <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                                <span class="ml-1 text-xs text-green-600 dark:text-green-400">En línea</span>
+                                                <span class="ml-1 text-xs text-green-600 dark:text-green-400">{{ __('app.online') }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md">
         <div class="p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">💬 Nuevo Chat</h3>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">💬 {{ __('app.new_message') }}</h3>
                 <button 
                     onclick="closeNewChatModal()" 
                     class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
@@ -115,7 +115,7 @@
             <form onsubmit="createNewChat(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Email del destinatario
+                        {{ __('app.email') }}
                     </label>
                     <input 
                         type="email" 
@@ -130,13 +130,13 @@
                         type="button" 
                         onclick="closeNewChatModal()" 
                         class="flex-1 px-4 py-3 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200 font-medium">
-                        Cancelar
+                        {{ __('app.cancel') }}
                     </button>
                     <button 
                         type="submit" 
                         id="createChatBtn"
                         class="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-lg transition-all duration-200 font-medium transform hover:scale-105 disabled:opacity-50 disabled:transform-none">
-                        Iniciar Chat
+                        {{ __('app.start_conversation') }}
                     </button>
                 </div>
             </form>
