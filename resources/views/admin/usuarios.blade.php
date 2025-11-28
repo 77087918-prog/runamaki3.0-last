@@ -165,15 +165,20 @@
                                         
                                         <!-- Cambiar Estado -->
                                         <div class="relative inline-block text-left" x-data="{ open: false }" @click.away="open = false">
-                                            <button @click="open = !open" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" title="Cambiar estado">
+                                            <button @click="open = !open" type="button" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" title="Cambiar estado">
                                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
                                                 </svg>
                                             </button>
-                                            <div x-show="open" x-cloak 
-                                                 x-transition
-                                                 style="display: none;"
-                                                 class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-20 divide-y divide-gray-100 dark:divide-gray-700">
+                                            <div x-show="open" 
+                                                 x-cloak
+                                                 x-transition:enter="transition ease-out duration-100"
+                                                 x-transition:enter-start="transform opacity-0 scale-95"
+                                                 x-transition:enter-end="transform opacity-100 scale-100"
+                                                 x-transition:leave="transition ease-in duration-75"
+                                                 x-transition:leave-start="transform opacity-100 scale-100"
+                                                 x-transition:leave-end="transform opacity-0 scale-95"
+                                                 class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 divide-y divide-gray-100 dark:divide-gray-700">
                                                 <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="estado" value="activo">
@@ -289,32 +294,68 @@
                                 Ver Perfil
                             </a>
                             
-                            <div class="relative" x-data="{ open: false }">
-                                <button @click="open = !open" class="btn btn-secondary btn-sm">
+                            <div class="relative" x-data="{ open: false }" @click.away="open = false">
+                                <button @click="open = !open" type="button" class="btn btn-secondary btn-sm">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                                     </svg>
                                 </button>
-                                <div x-show="open" @click.away="open = false" 
-                                     class="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 border border-gray-200 dark:border-gray-700">
-                                    <!-- Estado -->
-                                    <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST" class="block">
-                                        @csrf
-                                        <select name="estado" onchange="this.form.submit()" class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
-                                            <option value="activo" {{ $usuario->estado === 'activo' ? 'selected' : '' }}>✓ Activo</option>
-                                            <option value="suspendido" {{ $usuario->estado === 'suspendido' ? 'selected' : '' }}>⏸ Suspendido</option>
-                                            <option value="baneado" {{ $usuario->estado === 'baneado' ? 'selected' : '' }}>🚫 Baneado</option>
-                                        </select>
-                                    </form>
-                                    <!-- Rol -->
-                                    @if($usuario->id !== auth()->id())
-                                        <form action="{{ route('admin.usuarios.cambiar-rol', $usuario->id) }}" method="POST" class="block">
+                                <div x-show="open" 
+                                     x-cloak
+                                     x-transition:enter="transition ease-out duration-100"
+                                     x-transition:enter-start="transform opacity-0 scale-95"
+                                     x-transition:enter-end="transform opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-75"
+                                     x-transition:leave-start="transform opacity-100 scale-100"
+                                     x-transition:leave-end="transform opacity-0 scale-95"
+                                     class="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+                                    <!-- Cambiar Estado -->
+                                    <div class="py-1">
+                                        <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="rol" value="{{ $usuario->rol === 'admin' ? 'usuario' : 'admin' }}">
-                                            <button type="submit" class="block w-full px-4 py-2 text-sm text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                                {{ $usuario->rol === 'admin' ? '👤 Quitar Admin' : '⭐ Hacer Admin' }}
+                                            <input type="hidden" name="estado" value="activo">
+                                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 flex items-center gap-2">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Activar
                                             </button>
                                         </form>
+                                        <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="estado" value="suspendido">
+                                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-yellow-700 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 flex items-center gap-2">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Suspender
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="estado" value="baneado">
+                                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Banear
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <!-- Cambiar Rol -->
+                                    @if($usuario->id !== auth()->id())
+                                        <div class="py-1">
+                                            <form action="{{ route('admin.usuarios.cambiar-rol', $usuario->id) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="rol" value="{{ $usuario->rol === 'admin' ? 'usuario' : 'admin' }}">
+                                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 flex items-center gap-2">
+                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M9.504 1.132a1 1 0 01.992 0l1.75 1a1 1 0 11-.992 1.736L10 3.152l-1.254.716a1 1 0 11-.992-1.736l1.75-1zM5.618 4.504a1 1 0 01-.372 1.364L5.016 6l.23.132a1 1 0 11-.992 1.736L4 7.723V8a1 1 0 01-2 0V6a.996.996 0 01.52-.878l1.734-.99a1 1 0 011.364.372zm8.764 0a1 1 0 011.364-.372l1.733.99A1.002 1.002 0 0118 6v2a1 1 0 11-2 0v-.277l-.254.145a1 1 0 11-.992-1.736l.23-.132-.23-.132a1 1 0 01-.372-1.364zm-7 4a1 1 0 011.364-.372L10 8.848l1.254-.716a1 1 0 11.992 1.736L11 10.58V12a1 1 0 11-2 0v-1.42l-1.246-.712a1 1 0 01-.372-1.364zM3 11a1 1 0 011 1v1.42l1.246.712a1 1 0 11-.992 1.736l-1.75-1A1 1 0 012 14v-2a1 1 0 011-1zm14 0a1 1 0 011 1v2a1 1 0 01-.504.868l-1.75 1a1 1 0 11-.992-1.736L16 13.42V12a1 1 0 011-1zm-9.618 5.504a1 1 0 011.364-.372l.254.145V16a1 1 0 112 0v.277l.254-.145a1 1 0 11.992 1.736l-1.735.992a.995.995 0 01-1.022 0l-1.735-.992a1 1 0 01-.372-1.364z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    {{ $usuario->rol === 'admin' ? 'Quitar Admin' : 'Hacer Admin' }}
+                                                </button>
+                                            </form>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
