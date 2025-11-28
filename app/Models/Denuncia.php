@@ -16,14 +16,29 @@ class Denuncia extends Model
         'tipo',
         'referencia_id',
         'motivo',
+        'descripcion',
         'estado',
         'fecha_resolucion',
         'admin_comentario',
+        'comentario_admin',
+        'procesada_por',
+        'procesada_at',
     ];
 
     protected $casts = [
         'fecha_resolucion' => 'datetime',
+        'procesada_at' => 'datetime',
     ];
+
+    protected $appends = ['descripcion'];
+
+    /**
+     * Accessor para descripcion (alias de motivo)
+     */
+    public function getDescripcionAttribute()
+    {
+        return $this->motivo;
+    }
 
     /**
      * Usuario que hace la denuncia
@@ -39,6 +54,14 @@ class Denuncia extends Model
     public function denunciado(): BelongsTo
     {
         return $this->belongsTo(User::class, 'denunciado_id');
+    }
+
+    /**
+     * Admin que procesó la denuncia
+     */
+    public function procesadoPor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'procesada_por');
     }
 
     /**
