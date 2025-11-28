@@ -50,28 +50,28 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Solicitante</th>
-                <th>Proveedor</th>
-                <th>Habilidad Solicitada</th>
-                <th>Habilidad Ofrecida</th>
+                <th>Usuario Ofrece</th>
+                <th>Usuario Recibe</th>
+                <th>Habilidad Ofrece</th>
+                <th>Habilidad Recibe</th>
                 <th>Estado</th>
-                <th>Créditos</th>
+                <th>Puntos</th>
                 <th>Creación</th>
-                <th>Finalización</th>
+                <th>Completado</th>
             </tr>
         </thead>
         <tbody>
             @foreach($trueques as $trueque)
             <tr>
                 <td>{{ $trueque->id }}</td>
-                <td>{{ $trueque->solicitante->name }}</td>
-                <td>{{ $trueque->proveedor->name }}</td>
-                <td>{{ $trueque->habilidadSolicitada->titulo ?? 'N/A' }}</td>
-                <td>{{ $trueque->habilidadOfrecida->titulo ?? 'N/A' }}</td>
+                <td>{{ $trueque->usuarioOfrece->name ?? 'N/A' }}</td>
+                <td>{{ $trueque->usuarioRecibe->name ?? 'N/A' }}</td>
+                <td>{{ $trueque->habilidadOfrece->titulo ?? 'N/A' }}</td>
+                <td>{{ $trueque->habilidadRecibe->titulo ?? 'N/A' }}</td>
                 <td>{{ ucfirst($trueque->estado) }}</td>
-                <td>{{ $trueque->creditos }}</td>
+                <td>{{ $trueque->puntos_intercambio ?? 0 }}</td>
                 <td>{{ $trueque->created_at->format('d/m/Y') }}</td>
-                <td>{{ $trueque->fecha_finalizacion ? $trueque->fecha_finalizacion->format('d/m/Y') : 'Pendiente' }}</td>
+                <td>{{ $trueque->fecha_completado ? $trueque->fecha_completado->format('d/m/Y') : 'Pendiente' }}</td>
             </tr>
             @endforeach
         </tbody>

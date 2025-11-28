@@ -299,7 +299,7 @@ class AdminController extends Controller
     {
         $filtros = $request->only(['buscar', 'estado', 'rol']);
         
-        $query = User::query()->with(['habilidadesOfrecidas', 'valoracionesRecibidas']);
+        $query = User::query()->withCount('habilidades');
 
         if (!empty($filtros['buscar'])) {
             $query->where(function($q) use ($filtros) {
@@ -341,8 +341,8 @@ class AdminController extends Controller
                     ucfirst($usuario->estado),
                     ucfirst($usuario->rol),
                     $usuario->puntos,
-                    $usuario->habilidadesOfrecidas->count(),
-                    number_format($usuario->valoracionesRecibidas->avg('puntuacion') ?? 0, 1),
+                    $usuario->habilidades_count ?? 0,
+                    number_format(0, 1),
                     $usuario->created_at->format('d/m/Y H:i'),
                 ], ';');
             }
@@ -360,7 +360,7 @@ class AdminController extends Controller
     {
         $filtros = $request->only(['buscar', 'estado', 'rol']);
         
-        $query = User::query()->with(['habilidadesOfrecidas', 'valoracionesRecibidas']);
+        $query = User::query()->withCount('habilidades');
 
         if (!empty($filtros['buscar'])) {
             $query->where(function($q) use ($filtros) {
@@ -471,7 +471,7 @@ class AdminController extends Controller
     {
         $filtros = $request->only(['estado', 'desde', 'hasta']);
         
-        $query = Trueque::query()->with(['solicitante', 'proveedor', 'habilidadSolicitada', 'habilidadOfrecida']);
+        $query = Trueque::query()->with(['usuarioOfrece', 'usuarioRecibe', 'habilidadOfrece', 'habilidadRecibe']);
 
         if (!empty($filtros['estado'])) {
             $query->where('estado', $filtros['estado']);
@@ -499,20 +499,20 @@ class AdminController extends Controller
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF)); // UTF-8 BOM
             
             // Encabezados
-            fputcsv($file, ['ID', 'Solicitante', 'Proveedor', 'Habilidad Solicitada', 'Habilidad Ofrecida', 'Estado', 'Créditos', 'Fecha Creación', 'Fecha Finalización'], ';');
+            fputcsv($file, ['ID', 'Usuario Ofrece', 'Usuario Recibe', 'Habilidad Ofrece', 'Habilidad Recibe', 'Estado', 'Puntos', 'Fecha Creación', 'Fecha Completado'], ';');
             
             // Datos
             foreach ($trueques as $trueque) {
                 fputcsv($file, [
                     $trueque->id,
-                    $trueque->solicitante->name . ' (' . $trueque->solicitante->email . ')',
-                    $trueque->proveedor->name . ' (' . $trueque->proveedor->email . ')',
-                    $trueque->habilidadSolicitada->titulo ?? 'N/A',
-                    $trueque->habilidadOfrecida->titulo ?? 'N/A',
+                    ($trueque->usuarioOfrece->name ?? 'N/A') . ' (' . ($trueque->usuarioOfrece->email ?? 'N/A') . ')',
+                    ($trueque->usuarioRecibe->name ?? 'N/A') . ' (' . ($trueque->usuarioRecibe->email ?? 'N/A') . ')',
+                    $trueque->habilidadOfrece->titulo ?? 'N/A',
+                    $trueque->habilidadRecibe->titulo ?? 'N/A',
                     ucfirst($trueque->estado),
-                    $trueque->creditos,
+                    $trueque->puntos_intercambio ?? 0,
                     $trueque->created_at->format('d/m/Y H:i'),
-                    $trueque->fecha_finalizacion ? $trueque->fecha_finalizacion->format('d/m/Y H:i') : 'Pendiente',
+                    $trueque->fecha_completado ? $trueque->fecha_completado->format('d/m/Y H:i') : 'Pendiente',
                 ], ';');
             }
             
@@ -529,7 +529,7 @@ class AdminController extends Controller
     {
         $filtros = $request->only(['estado', 'desde', 'hasta']);
         
-        $query = Trueque::query()->with(['solicitante', 'proveedor', 'habilidadSolicitada', 'habilidadOfrecida']);
+        $query = Trueque::query()->with(['usuarioOfrece', 'usuarioRecibe', 'habilidadOfrece', 'habilidadRecibe']);
 
         if (!empty($filtros['estado'])) {
             $query->where('estado', $filtros['estado']);

@@ -165,35 +165,45 @@
                                         
                                         <!-- Cambiar Estado -->
                                         <div class="relative inline-block text-left" x-data="{ open: false }">
-                                            <button @click="open = !open" class="text-gray-600 hover:text-gray-900" title="Cambiar estado">
+                                            <button @click="open = !open" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200" title="Cambiar estado">
                                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
                                                 </svg>
                                             </button>
-                                            <div x-show="open" @click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                                                <div class="py-1">
-                                                    <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="estado" value="activo">
-                                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-green-700 hover:bg-green-50">
-                                                            ✓ Activar
-                                                        </button>
-                                                    </form>
-                                                    <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="estado" value="suspendido">
-                                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-yellow-700 hover:bg-yellow-50">
-                                                            ⏸ Suspender
-                                                        </button>
-                                                    </form>
-                                                    <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="estado" value="baneado">
-                                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50">
-                                                            ✕ Banear
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                            <div x-show="open" 
+                                                 @click.away="open = false" 
+                                                 x-transition
+                                                 class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-20 divide-y divide-gray-100 dark:divide-gray-700">
+                                                <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="estado" value="activo">
+                                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 flex items-center gap-2">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        Activar
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="estado" value="suspendido">
+                                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-yellow-700 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 flex items-center gap-2">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        Suspender
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.usuarios.cambiar-estado', $usuario->id) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="estado" value="baneado">
+                                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        Banear
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
 

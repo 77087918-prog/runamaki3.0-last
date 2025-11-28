@@ -69,8 +69,8 @@
                 <td>{{ ucfirst($usuario->estado) }}</td>
                 <td>{{ ucfirst($usuario->rol) }}</td>
                 <td>{{ $usuario->puntos }}</td>
-                <td>{{ $usuario->habilidadesOfrecidas->count() }}</td>
-                <td>{{ number_format($usuario->valoracionesRecibidas->avg('puntuacion') ?? 0, 1) }}</td>
+                <td>{{ $usuario->habilidades_count ?? 0 }}</td>
+                <td>N/A</td>
                 <td>{{ $usuario->created_at->format('d/m/Y') }}</td>
             </tr>
             @endforeach
