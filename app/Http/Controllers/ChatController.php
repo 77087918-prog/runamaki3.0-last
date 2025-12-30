@@ -6,6 +6,7 @@ use App\Events\MessageSent;
 use App\Http\Controllers\Controller;
 use App\Models\ChatMensaje;
 use App\Models\User;
+
 use App\Models\Trueque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
